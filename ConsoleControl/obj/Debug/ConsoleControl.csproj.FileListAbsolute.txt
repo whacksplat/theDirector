@@ -1,0 +1,45 @@
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\bin\Debug\ConsoleControl.dll
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\bin\Debug\ConsoleControl.pdb
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\bin\Debug\ProcessInterface.dll
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\bin\Debug\ProcessInterface.pdb
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.csprojResolveAssemblyReference.cache
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.ConsoleControl.resources
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.csproj.GenerateResource.Cache
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.dll
+C:\Users\Daddy\Documents\Visual Studio 2012\Projects\ConsoleControlSource\ConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.ConsoleControl.resources
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.csproj.GenerateResource.Cache
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.dll
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\obj\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\bin\Debug\ConsoleControl.dll
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\bin\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\bin\Debug\ProcessInterface.dll
+D:\Dropbox\Source\TestingConsoleControl\ConsoleControl\bin\Debug\ProcessInterface.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ConsoleControl.dll
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ConsoleControl.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ProcessInterface.dll
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ProcessInterface.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.csprojResolveAssemblyReference.cache
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.ConsoleControl.resources
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.csproj.GenerateResource.Cache
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.dll
+C:\Users\rmageau\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ConsoleControl.dll
+D:\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ProcessInterface.dll
+D:\Dropbox\Source\theDirector\ConsoleControl\bin\Debug\ProcessInterface.pdb
+D:\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.ConsoleControl.resources
+D:\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.csproj.GenerateResource.Cache
+D:\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.dll
+D:\Dropbox\Source\theDirector\ConsoleControl\obj\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\bin\Debug\ConsoleControl.dll
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\bin\Debug\ConsoleControl.pdb
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\bin\Debug\ProcessInterface.dll
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\bin\Debug\ProcessInterface.pdb
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\obj\Debug\ConsoleControl.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\obj\Debug\ConsoleControl.ConsoleControl.resources
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\obj\Debug\ConsoleControl.csproj.GenerateResource.Cache
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\obj\Debug\ConsoleControl.dll
+D:\Dropbox\Source\theDirector New Class\ConsoleControl\obj\Debug\ConsoleControl.pdb

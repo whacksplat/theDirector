@@ -1,0 +1,38 @@
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\obj\Debug\ConsoleConnect.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\bin\Debug\ConsoleConnect.dll
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\bin\Debug\ConsoleConnect.pdb
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\bin\Debug\ProcessInterface.dll
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\bin\Debug\ProcessInterface.pdb
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\obj\Debug\ConsoleConnect.dll
+D:\Dropbox\Source\TestingProcessInterface\UI\ConsoleConnect\obj\Debug\ConsoleConnect.pdb
+D:\Dropbox\Source\TestingProcessInterface2\UI\ConsoleConnect\obj\Debug\ConsoleConnect.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ConsoleConnect.dll
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ConsoleConnect.pdb
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ProcessInterface.dll
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ProcessInterface.pdb
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\obj\Debug\ConsoleConnect.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\obj\Debug\ConsoleConnect.dll
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\obj\Debug\ConsoleConnect.pdb
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ConsoleConnect.dll.CodeAnalysisLog.xml
+D:\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ConsoleConnect.dll.lastcodeanalysissucceeded
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ConsoleConnect.dll
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ConsoleConnect.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ProcessInterface.dll
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\bin\Debug\ProcessInterface.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\obj\Debug\ConsoleConnect.csprojResolveAssemblyReference.cache
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\obj\Debug\ConsoleConnect.dll
+C:\Users\rmageau\Dropbox\Source\theDirector New Class\ConsoleConnect\obj\Debug\ConsoleConnect.pdb
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ConsoleConnect.dll
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ConsoleConnect.pdb
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ProcessInterface.dll
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ProcessInterface.pdb
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\obj\Debug\ConsoleConnect.csprojResolveAssemblyReference.cache
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\obj\Debug\ConsoleConnect.dll
+D:\Dropbox\Source\theDirector Rewrite\ConsoleConnect\obj\Debug\ConsoleConnect.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ConsoleConnect.dll
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ConsoleConnect.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ProcessInterface.dll
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\bin\Debug\ProcessInterface.pdb
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\obj\Debug\ConsoleConnect.csprojResolveAssemblyReference.cache
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\obj\Debug\ConsoleConnect.dll
+C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\ConsoleConnect\obj\Debug\ConsoleConnect.pdb

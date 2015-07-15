@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "theDirector", "theDirector\theDirector.csproj", "{8121E04F-56BE-455E-9EAA-782A63477DD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorAPI", "DirectorAPI\DirectorAPI.csproj", "{BF72F0F0-D729-4757-ADFA-C66C2F26454D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8121E04F-56BE-455E-9EAA-782A63477DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8121E04F-56BE-455E-9EAA-782A63477DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8121E04F-56BE-455E-9EAA-782A63477DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8121E04F-56BE-455E-9EAA-782A63477DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF72F0F0-D729-4757-ADFA-C66C2F26454D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF72F0F0-D729-4757-ADFA-C66C2F26454D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF72F0F0-D729-4757-ADFA-C66C2F26454D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF72F0F0-D729-4757-ADFA-C66C2F26454D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
