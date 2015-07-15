@@ -50,3 +50,8 @@ C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\DirectorAPI\bin\Debug
 C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\DirectorAPI\obj\Debug\DirectorAPI.dll
 C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\DirectorAPI\obj\Debug\DirectorAPI.pdb
 C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\DirectorAPI\obj\Debug\DirectorAPI.csprojResolveAssemblyReference.cache
+C:\theDirector\DirectorAPI\bin\Debug\DirectorAPI.dll
+C:\theDirector\DirectorAPI\bin\Debug\DirectorAPI.pdb
+C:\theDirector\DirectorAPI\obj\Debug\DirectorAPI.csprojResolveAssemblyReference.cache
+C:\theDirector\DirectorAPI\obj\Debug\DirectorAPI.dll
+C:\theDirector\DirectorAPI\obj\Debug\DirectorAPI.pdb
