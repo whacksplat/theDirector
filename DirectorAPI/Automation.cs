@@ -36,8 +36,8 @@ namespace DirectorAPI
             Run
         }
 
-        private readonly Connection _connection; //= new Connection();
-        private readonly DataSource _datasource;// = new DataSource();
+        private readonly Connection _connection = new Connection();  //there will be only one of these at any point in time.
+        private readonly DataSource _datasource = new DataSource();  //same thing with datasource, only 1 per automation
         private readonly Guid _id;
         private readonly List<Scene> _scenes = new List<Scene>();
 

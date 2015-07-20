@@ -180,12 +180,19 @@ namespace DirectorAPI
                     //Actions.Add(ed);
                     return ed;
                 case Action.ActionType.ConnectToCmd:
-                    ConnectToCmd ctc = new ConnectToCmd();
+                    ConnectToCmd ctc = new ConnectToCmd(ConditionId);
+                    ctc.CommandLine = "";
+
+                    serializer = new XmlSerializer(typeof(ConnectToCmd));
+                    serializer.Serialize(writer,ctc);
+                    DBHelper.AddAction(writer.ToString(), ctc);
+                    Actions.Add(ctc);
+                    return ctc;
                     //ctc.NewConnectToCmd(ID, _automation);
                     //ctc.NewAction(ID,_automation);
                     //Actions.Add(ctc);
                     //_automation.Connection.StartProcess(ctc.CommandLine,"");
-                    return ctc;
+                    //return ctc;
 
                 default:
                     return null;
@@ -257,11 +264,13 @@ namespace DirectorAPI
             
             while (reader.Read())
             {
+                XmlSerializer serializer;
+                
                 switch (reader.GetInt32(2))
                 {
                     case 0:     //messagebox
                         //Actions.Add(new MessageBox(reader.GetGuid(1)));
-                        XmlSerializer serializer = new XmlSerializer(typeof(MessageBox));
+                        serializer = new XmlSerializer(typeof(MessageBox));
                         MessageBox msgbox = (MessageBox)serializer.Deserialize(reader.GetXmlReader(3));
                         Actions.Add(msgbox);
                         break;
@@ -279,7 +288,10 @@ namespace DirectorAPI
                         break;
 
                     case 4: //ConnectToCmd
-                        Actions.Add(new ConnectToCmd());
+                        //Actions.Add(new ConnectToCmd());
+                        serializer = new XmlSerializer(typeof(ConnectToCmd));
+                        ConnectToCmd ctc = (ConnectToCmd)serializer.Deserialize(reader.GetXmlReader(3));
+                        Actions.Add(ctc);
                         break;
 
                     default:

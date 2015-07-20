@@ -259,6 +259,8 @@ namespace DirectorAPI
 
         public void StartProcess(string fileName, string parameters)
         {
+            //todo if there is an instance of this running, terminate and restart
+            
             if (_processInterace.IsProcessRunning)
             {
                 _processInterace.WriteInput("exit");

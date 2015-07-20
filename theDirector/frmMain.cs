@@ -436,7 +436,27 @@ namespace theDirector
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("Connect to CMD");
             actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.ConnectToCmd);
             tvwConditions.SelectedNode = actionnode;
+            AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
             
+        }
+
+        private void ConnectionOnBufferRefresh(object sender)
+        {
+            rtf.Clear();
+            Connection conn = (Connection) sender;
+            for (int line = 0; line < conn.ScreenData.Count; line++)
+            {
+                if (line == conn.ScreenData.Count-1)
+                {
+                    rtf.Text += conn.ScreenData[line];
+                }
+                else
+                {
+                    rtf.Text += conn.ScreenData[line] + Environment.NewLine;    
+                }
+            }
+
+
         }
 
         private void connectionToolStripMenuItem_Click(object sender, EventArgs e)

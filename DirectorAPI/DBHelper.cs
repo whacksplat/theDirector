@@ -66,7 +66,7 @@ namespace DirectorAPI
         {
             if (_conn == null)
             {
-                _conn = new SqlConnection("Data Source=(local);Initial Catalog=Director;Integrated Security=SSPI;MultipleActiveResultSets=true;");
+                _conn = new SqlConnection("Data Source=LTPRMAGEAU81\\MSSQLSERVER2014;Initial Catalog=Director;Integrated Security=SSPI;MultipleActiveResultSets=true;");
                 _conn.Open();
                 return _conn;
             }
