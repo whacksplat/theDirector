@@ -67,7 +67,19 @@ namespace DirectorAPI.Actions.Connection
 
         public override string Execute(Automation automation)
         {
-            throw new NotImplementedException();
+            object[] obj = new object[] { automation };
+            object myclass = _compilerResults.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
+
+            if (myclass == null)
+            {
+                throw new Exception("Unable to find function or assembly in Execute.");
+            }
+
+            Type t = myclass.GetType();
+            MethodInfo mi = t.GetMethod("Execute");
+            mi.Invoke(myclass, obj);
+            return NextScene;
+
         }
     }
 }

@@ -127,13 +127,13 @@ namespace DirectorAPI
         void processInterace_OnProcessExit(object sender, ProcessEventArgs args)
         {
             //do we need to bubble this up?
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         void processInterace_OnProcessError(object sender, ProcessEventArgs args)
         {
             //why is this firing?
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
 
@@ -261,9 +261,10 @@ namespace DirectorAPI
         {
             //todo if there is an instance of this running, terminate and restart
             
+
             if (_processInterace.IsProcessRunning)
             {
-                _processInterace.WriteInput("exit");
+                //_processInterace.WriteInput("exit");
                 System.Threading.Thread.Sleep(1000);
                 _processInterace.StopProcess();
                 while (_processInterace.IsProcessRunning)
@@ -272,6 +273,7 @@ namespace DirectorAPI
                 }
             }
             System.Threading.Thread.Sleep(200);
+            _screendata.Clear();
             _processInterace.StartProcess("cmd.exe", null);
         }
 

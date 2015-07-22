@@ -181,7 +181,7 @@ namespace DirectorAPI
                     return ed;
                 case Action.ActionType.ConnectToCmd:
                     ConnectToCmd ctc = new ConnectToCmd(ConditionId);
-                    ctc.CommandLine = "";
+                    //ctc.CommandLine = "";
 
                     serializer = new XmlSerializer(typeof(ConnectToCmd));
                     serializer.Serialize(writer,ctc);

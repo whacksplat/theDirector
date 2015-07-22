@@ -184,15 +184,32 @@ namespace DirectorAPI.ConsoleConnection
             //  Run the workers that read output and error.
             outputWorker.CancelAsync();
 
-            //while (outputWorker.CancellationPending)
-            //{
-            //    System.Threading.Thread.Sleep(200);
-            //}
 
-            if(!outputWorker.IsBusy)
+            if (!outputWorker.IsBusy)
             {
                 outputWorker.RunWorkerAsync();
-                errorWorker.RunWorkerAsync();                
+                errorWorker.RunWorkerAsync();
+            }
+            else
+            {
+                //re init workers
+                outputWorker = new BackgroundWorker();
+                errorWorker = new BackgroundWorker();
+
+                outputWorker.WorkerReportsProgress = true;
+                outputWorker.WorkerSupportsCancellation = true;
+                outputWorker.DoWork += new DoWorkEventHandler(outputWorker_DoWork);
+                outputWorker.ProgressChanged += new ProgressChangedEventHandler(outputWorker_ProgressChanged);
+
+                //  Configure the error worker.
+                errorWorker.WorkerReportsProgress = true;
+                errorWorker.WorkerSupportsCancellation = true;
+                errorWorker.DoWork += new DoWorkEventHandler(errorWorker_DoWork);
+                errorWorker.ProgressChanged += new ProgressChangedEventHandler(errorWorker_ProgressChanged);
+
+                outputWorker.RunWorkerAsync();
+                errorWorker.RunWorkerAsync();
+
             }
 
 

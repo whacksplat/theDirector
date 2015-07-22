@@ -134,9 +134,6 @@ namespace theDirector
             {
                 DBHelper.UpdateAction(propGrid.SelectedObject as AAction);
             }
-
-
-
         }
 
         private void runToolStripButton_Click(object sender, EventArgs e)
@@ -160,7 +157,9 @@ namespace theDirector
 
                 //reset the data source and connection objects in the automation
                 Scene scene = _automation.Scenes[0];
-                
+                AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
+                rtf.Clear();
+
                 while (scene != null)
                 {
                     switch (scene.Type)

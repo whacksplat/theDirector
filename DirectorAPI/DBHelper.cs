@@ -99,10 +99,14 @@ namespace DirectorAPI
                     XmlSerializer serializer = new XmlSerializer(typeof(MessageBox));
                     MessageBox messagebox = (MessageBox) action;
                     serializer.Serialize(writer,messagebox);
-
-
-
                     break;
+
+                case Action.ActionType.ConnectToCmd:
+                    XmlSerializer ctcSerializer = new XmlSerializer(typeof(ConnectToCmd));
+                    ConnectToCmd ctc = (ConnectToCmd)action;
+                    ctcSerializer.Serialize(writer, ctc);
+                    break;
+
                 default:
                     break;
             }
