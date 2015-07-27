@@ -1,11 +1,24 @@
-﻿using System;
+﻿/*
+    theDirector - an open source automation solution
+    Copyright (C) 2015 Richard Mageau
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Reflection;
-using System.Runtime.Serialization;
-
 
 namespace DirectorAPI.Actions.Connection
 {
@@ -18,15 +31,7 @@ namespace DirectorAPI.Actions.Connection
 
         public ConnectToCmd()
         {
-            //create the connection object and store in the singleton automation
-            //AutomationHelper.automation.Connection.StartProcess("cmd.exe", "");
         }
-
-
-        //public ConnectToCmd(Automation automation)
-        //{
-        //    _automation = automation;
-        //}
 
         public ConnectToCmd(Guid conditionId)
         {
@@ -59,27 +64,24 @@ namespace DirectorAPI.Actions.Connection
 
         public override void BuildCode(Automation automation)
         {
-            //string src = "System.Windows.Forms.MessageBox.Show(" + "\"" + Message + "\" , \"" + Title + "\");";
-            //_compilerResults = CodeHelper.CreateActionCode(automation, src);
-            string src = @"automation.Connection.StartProcess(""cmd.exe"", """" );";
+            var src = @"automation.Connection.StartProcess(""cmd.exe"", """" );";
             _compilerResults = CodeHelper.CreateActionCode(automation, src);
         }
 
         public override string Execute(Automation automation)
         {
-            object[] obj = new object[] { automation };
-            object myclass = _compilerResults.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
+            object[] obj = { automation };
+            var myclass = _compilerResults.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
 
             if (myclass == null)
             {
                 throw new Exception("Unable to find function or assembly in Execute.");
             }
 
-            Type t = myclass.GetType();
-            MethodInfo mi = t.GetMethod("Execute");
+            var t = myclass.GetType();
+            var mi = t.GetMethod("Execute");
             mi.Invoke(myclass, obj);
             return NextScene;
-
-        }
+       }
     }
 }

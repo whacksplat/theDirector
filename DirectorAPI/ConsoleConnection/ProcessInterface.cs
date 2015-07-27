@@ -1,8 +1,27 @@
-﻿using System;
+﻿/*
+    theDirector - an open source automation solution
+    Copyright (C) 2015 Richard Mageau
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace DirectorAPI.ConsoleConnection
 {
@@ -26,14 +45,14 @@ namespace DirectorAPI.ConsoleConnection
             //  Configure the output worker.
             outputWorker.WorkerReportsProgress = true;
             outputWorker.WorkerSupportsCancellation = true;
-            outputWorker.DoWork += new DoWorkEventHandler(outputWorker_DoWork);
-            outputWorker.ProgressChanged += new ProgressChangedEventHandler(outputWorker_ProgressChanged);
+            outputWorker.DoWork += outputWorker_DoWork;
+            outputWorker.ProgressChanged += outputWorker_ProgressChanged;
 
             //  Configure the error worker.
             errorWorker.WorkerReportsProgress = true;
             errorWorker.WorkerSupportsCancellation = true;
-            errorWorker.DoWork += new DoWorkEventHandler(errorWorker_DoWork);
-            errorWorker.ProgressChanged += new ProgressChangedEventHandler(errorWorker_ProgressChanged);
+            errorWorker.DoWork += errorWorker_DoWork;
+            errorWorker.ProgressChanged += errorWorker_ProgressChanged;
         }
 
         /// <summary>
@@ -43,7 +62,7 @@ namespace DirectorAPI.ConsoleConnection
         /// <param name="e">The <see cref="System.ComponentModel.ProgressChangedEventArgs"/> instance containing the event data.</param>
         void outputWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            int change = e.ProgressPercentage;
+            var change = e.ProgressPercentage;
             if (change != 0)
             {
                 Console.WriteLine(change.ToString());
@@ -66,13 +85,13 @@ namespace DirectorAPI.ConsoleConnection
             while (outputWorker.CancellationPending == false)
             {
                 //  Any lines to read?
-                int count = 0;
-                char[] buffer = new char[1024];
+                var count = 0;
+                var buffer = new char[1024];
                 do
                 {
                     try
                     {
-                        StringBuilder builder = new StringBuilder();
+                        var builder = new StringBuilder();
                         count = outputReader.Read(buffer, 0, 1024);
                         builder.Append(buffer, 0, count);
                         outputWorker.ReportProgress(0, builder.ToString());
@@ -88,7 +107,7 @@ namespace DirectorAPI.ConsoleConnection
                     }
                 } while (count > 0);
 
-                System.Threading.Thread.Sleep(50);
+                Thread.Sleep(50);
                 
             }
             e.Cancel = true;
@@ -119,17 +138,17 @@ namespace DirectorAPI.ConsoleConnection
             while (errorWorker.CancellationPending == false)
             {
                 //  Any lines to read?
-                int count = 0;
-                char[] buffer = new char[1024];
+                var count = 0;
+                var buffer = new char[1024];
                 do
                 {
-                    StringBuilder builder = new StringBuilder();
+                    var builder = new StringBuilder();
                     count = errorReader.Read(buffer, 0, 1024);
                     builder.Append(buffer, 0, count);
                     errorWorker.ReportProgress(0, builder.ToString());
                 } while (count > 0);
 
-                System.Threading.Thread.Sleep(50);
+                Thread.Sleep(50);
             }
         }
 
@@ -157,12 +176,13 @@ namespace DirectorAPI.ConsoleConnection
             process = new Process();
             process.EnableRaisingEvents = true;
             process.StartInfo = processStartInfo;
-            process.Exited += new EventHandler(currentProcess_Exited);
+            process.Exited += currentProcess_Exited;
 
             //  Start the process.
             try
             {
-                bool processStarted = process.Start();
+                var processStarted = process.Start();
+                
             }
             catch (Exception e)
             {
@@ -183,7 +203,7 @@ namespace DirectorAPI.ConsoleConnection
 
             //  Run the workers that read output and error.
             outputWorker.CancelAsync();
-
+            
 
             if (!outputWorker.IsBusy)
             {
@@ -198,14 +218,14 @@ namespace DirectorAPI.ConsoleConnection
 
                 outputWorker.WorkerReportsProgress = true;
                 outputWorker.WorkerSupportsCancellation = true;
-                outputWorker.DoWork += new DoWorkEventHandler(outputWorker_DoWork);
-                outputWorker.ProgressChanged += new ProgressChangedEventHandler(outputWorker_ProgressChanged);
+                outputWorker.DoWork += outputWorker_DoWork;
+                outputWorker.ProgressChanged += outputWorker_ProgressChanged;
 
                 //  Configure the error worker.
                 errorWorker.WorkerReportsProgress = true;
                 errorWorker.WorkerSupportsCancellation = true;
-                errorWorker.DoWork += new DoWorkEventHandler(errorWorker_DoWork);
-                errorWorker.ProgressChanged += new ProgressChangedEventHandler(errorWorker_ProgressChanged);
+                errorWorker.DoWork += errorWorker_DoWork;
+                errorWorker.ProgressChanged += errorWorker_ProgressChanged;
 
                 outputWorker.RunWorkerAsync();
                 errorWorker.RunWorkerAsync();

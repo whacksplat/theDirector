@@ -18,20 +18,13 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml.Serialization;
 using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
-using DirectorAPI.Actions.Datasource;
 using DirectorAPI.Actions.Notifications;
 
 namespace DirectorAPI
@@ -43,22 +36,19 @@ namespace DirectorAPI
 
         public static bool IsAutomationNameUnique(string name)
         {
-            string sql = "select count(Name) from Automations where Name = '" + name + "';";
-            SqlCommand comm = new SqlCommand(sql);
+            var sql = "select count(Name) from Automations where Name = '" + name + "';";
+            var comm = new SqlCommand(sql);
             comm.Connection = Connection();
             comm.CommandType= CommandType.Text;
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             reader.Read();
             if (reader.GetInt32(0) == 0)
             {
                 reader.Close();
                 return true;
             }
-            else
-            {
-                reader.Close();
-                return false;
-            }
+            reader.Close();
+            return false;
         }
 
 
@@ -89,21 +79,21 @@ namespace DirectorAPI
 
         public static void UpdateAction(object action)
         {
-            AAction _action = action as AAction;
-            StringWriter writer = new StringWriter(CultureInfo.InvariantCulture);
+            var _action = action as AAction;
+            var writer = new StringWriter(CultureInfo.InvariantCulture);
 
             //create the xml
             switch (_action.ActionType)
             {
                 case Action.ActionType.MessageBox:
-                    XmlSerializer serializer = new XmlSerializer(typeof(MessageBox));
-                    MessageBox messagebox = (MessageBox) action;
+                    var serializer = new XmlSerializer(typeof(MessageBox));
+                    var messagebox = (MessageBox) action;
                     serializer.Serialize(writer,messagebox);
                     break;
 
                 case Action.ActionType.ConnectToCmd:
-                    XmlSerializer ctcSerializer = new XmlSerializer(typeof(ConnectToCmd));
-                    ConnectToCmd ctc = (ConnectToCmd)action;
+                    var ctcSerializer = new XmlSerializer(typeof(ConnectToCmd));
+                    var ctc = (ConnectToCmd)action;
                     ctcSerializer.Serialize(writer, ctc);
                     break;
 
@@ -111,19 +101,19 @@ namespace DirectorAPI
                     break;
             }
 
-            SqlCommand comm = new SqlCommand("UpdateAction");
+            var comm = new SqlCommand("UpdateAction");
             comm.Connection = Connection();
             comm.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
+            var conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
             conditionID.Direction = ParameterDirection.Input;
             conditionID.Value = _action.ConditionId;
 
-            SqlParameter actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
+            var actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
             actionID.Direction = ParameterDirection.Input;
             actionID.Value = _action.ActionId;
 
-            SqlParameter objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
+            var objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
             objectxml.Direction = ParameterDirection.Input;
             objectxml.Value = writer.ToString();
 
@@ -131,31 +121,31 @@ namespace DirectorAPI
             comm.Parameters.Add(actionID);
             comm.Parameters.Add(objectxml);
 
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
         }
 
         
         public static Guid AddAction(string xml,AAction action)
         {
             //Guid conditionId,Action.ActionType type,
-            SqlCommand comm2 = new SqlCommand("AddAction");
+            var comm2 = new SqlCommand("AddAction");
             comm2.Connection = Connection();
             comm2.CommandType = CommandType.StoredProcedure;
 
 
-            SqlParameter conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
+            var conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
             conditionID.Direction = ParameterDirection.Input;
             conditionID.Value = action.ConditionId;
 
-            SqlParameter actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
+            var actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
             actionID.Direction = ParameterDirection.Input;
             actionID.Value = action.ActionId;
 
-            SqlParameter actiontype = new SqlParameter("@actiontype", SqlDbType.Int);
+            var actiontype = new SqlParameter("@actiontype", SqlDbType.Int);
             actiontype.Direction = ParameterDirection.Input;
             actiontype.Value = action.ActionType;
 
-            SqlParameter objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
+            var objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
             objectxml.Direction = ParameterDirection.Input;
             objectxml.Value = xml;
 
@@ -164,12 +154,12 @@ namespace DirectorAPI
             comm2.Parameters.Add(actiontype);
             comm2.Parameters.Add(objectxml);
 
-            SqlDataReader reader = comm2.ExecuteReader();
+            var reader = comm2.ExecuteReader();
             if (reader.HasRows)
             {
                 if (reader.Read())
                 {
-                    Guid retval = reader.GetGuid(0);
+                    var retval = reader.GetGuid(0);
                     reader.Close();
                     reader = null;
                     return retval;

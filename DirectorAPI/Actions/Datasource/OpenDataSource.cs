@@ -1,10 +1,27 @@
-﻿using System;
+﻿/*
+    theDirector - an open source automation solution
+    Copyright (C) 2015 Richard Mageau
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace DirectorAPI.Actions.Datasource
 {
@@ -66,8 +83,8 @@ namespace DirectorAPI.Actions.Datasource
 
         public void LoadFromDb(Guid actionid)
         {
-            SqlCommand comm = new SqlCommand("Select FileName,Sheetname,NextStep from DataSource where ActionID = '" + actionid + "'", DBHelper.Connection());
-            SqlDataReader reader = comm.ExecuteReader();
+            var comm = new SqlCommand("Select FileName,Sheetname,NextStep from DataSource where ActionID = '" + actionid + "'", DBHelper.Connection());
+            var reader = comm.ExecuteReader();
             if (reader.Read())
             {
                 _filename = reader.GetString(0);
@@ -89,30 +106,30 @@ namespace DirectorAPI.Actions.Datasource
 
         public void Update()
         {
-            SqlCommand comm = new SqlCommand("UpdateOpenDataSource", DBHelper.Connection())
+            var comm = new SqlCommand("UpdateOpenDataSource", DBHelper.Connection())
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            SqlParameter actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
+            var actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
             {
                 Direction = ParameterDirection.Input,
                 Value = _id
             };
 
-            SqlParameter filename = new SqlParameter("@filename", SqlDbType.VarChar, 255)
+            var filename = new SqlParameter("@filename", SqlDbType.VarChar, 255)
             {
                 Direction = ParameterDirection.Input,
                 Value = FileName
             };
 
-            SqlParameter sheetname = new SqlParameter("@sheetname", SqlDbType.VarChar, 255)
+            var sheetname = new SqlParameter("@sheetname", SqlDbType.VarChar, 255)
             {
                 Direction = ParameterDirection.Input,
                 Value = SheetName
             };
 
-            SqlParameter nextstep = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
+            var nextstep = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
             {
                 Direction = ParameterDirection.Input,
                 Value = _nextScene

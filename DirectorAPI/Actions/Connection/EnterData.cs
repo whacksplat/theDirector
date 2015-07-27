@@ -1,10 +1,26 @@
-﻿using System;
+﻿/*
+    theDirector - an open source automation solution
+    Copyright (C) 2015 Richard Mageau
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace DirectorAPI.Actions.Connection
 {
@@ -31,24 +47,24 @@ namespace DirectorAPI.Actions.Connection
 
         public void Update()
         {
-            SqlCommand comm = new SqlCommand("UpdateEnterData", DBHelper.Connection())
+            var comm = new SqlCommand("UpdateEnterData", DBHelper.Connection())
             {
-                CommandType = System.Data.CommandType.StoredProcedure
+                CommandType = CommandType.StoredProcedure
             };
 
-            SqlParameter actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
+            var actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
             {
-                Direction = System.Data.ParameterDirection.Input,
+                Direction = ParameterDirection.Input,
                 Value = _id
             };
 
-            SqlParameter data = new SqlParameter("@data", SqlDbType.VarChar, 255)
+            var data = new SqlParameter("@data", SqlDbType.VarChar, 255)
             {
-                Direction = System.Data.ParameterDirection.Input,
+                Direction = ParameterDirection.Input,
                 Value = _data
             };
 
-            SqlParameter nextscene = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
+            var nextscene = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
             {
                 Direction = ParameterDirection.Input,
                 Value = _nextScene
@@ -75,9 +91,9 @@ namespace DirectorAPI.Actions.Connection
 
         public void LoadFromDb(Guid actionid)
         {
-            SqlCommand comm = new SqlCommand("Select Data,NextStep from EnterData where ActionID = '" + actionid + "'",
+            var comm = new SqlCommand("Select Data,NextStep from EnterData where ActionID = '" + actionid + "'",
                 DBHelper.Connection());
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             if (reader.Read())
             {
                 if (!reader.IsDBNull(0))

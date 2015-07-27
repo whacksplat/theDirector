@@ -160,6 +160,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(896, 27);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // newToolStripButton
             // 
@@ -262,7 +263,7 @@
             this.tabPage3.Controls.Add(this.rtf);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(423, 271);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Console";
@@ -378,7 +379,7 @@
             this.tabPage1.Controls.Add(this.toolStrip3);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(886, 125);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conditions";
@@ -595,7 +596,7 @@
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(887, 132);
+            this.tabPage2.Size = new System.Drawing.Size(886, 125);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;

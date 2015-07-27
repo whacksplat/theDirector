@@ -1,10 +1,26 @@
-﻿using System;
+﻿/*
+    theDirector - an open source automation solution
+    Copyright (C) 2015 Richard Mageau
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace DirectorAPI.Actions.Datasource
 {
@@ -19,18 +35,18 @@ namespace DirectorAPI.Actions.Datasource
 
         public void Update()
         {
-            SqlCommand comm = new SqlCommand("UpdateNextRecord", DBHelper.Connection())
+            var comm = new SqlCommand("UpdateNextRecord", DBHelper.Connection())
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            SqlParameter actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
+            var actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
             {
                 Direction = ParameterDirection.Input,
                 Value = _id
             };
 
-            SqlParameter nextscene = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
+            var nextscene = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
             {
                 Direction = ParameterDirection.Input,
                 Value = _nextScene
@@ -44,8 +60,8 @@ namespace DirectorAPI.Actions.Datasource
 
         public void LoadFromDb(Guid actionId)
         {
-            SqlCommand comm = new SqlCommand("Select NextStep from NextRecord where ActionID = '" + actionId + "'", DBHelper.Connection());
-            SqlDataReader reader = comm.ExecuteReader();
+            var comm = new SqlCommand("Select NextStep from NextRecord where ActionID = '" + actionId + "'", DBHelper.Connection());
+            var reader = comm.ExecuteReader();
             if (reader.Read())
             {
                 _id = ActionId;

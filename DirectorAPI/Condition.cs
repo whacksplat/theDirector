@@ -16,27 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CSharp;
 using System.CodeDom.Compiler;
-using System.Reflection;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading;
+using System.Xml.Serialization;
 using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Datasource;
-using MessageBox = DirectorAPI.Actions.Notifications.MessageBox;
-using System.Xml.Serialization;
+using DirectorAPI.Actions.Notifications;
 
 namespace DirectorAPI
 {
@@ -50,7 +43,7 @@ namespace DirectorAPI
         private string _displayCode;
         readonly Automation _automation;
 
-        [BrowsableAttribute(false)]
+        [Browsable(false)]
         public Automation automation
         {
             get
@@ -59,14 +52,14 @@ namespace DirectorAPI
             }
         }
 
-        [ReadOnlyAttribute(true)]
+        [ReadOnly(true)]
         public string DisplayCode
         {
             get { return _displayCode; }
             set { _displayCode = value; }
         }
 
-        [ReadOnlyAttribute(true)]
+        [ReadOnly(true)]
         public string Code
         {
             get
@@ -77,13 +70,12 @@ namespace DirectorAPI
             {
                 _code = value;
             }
-
         }
         
-        [BrowsableAttribute(false)]
+        [Browsable(false)]
         public Guid SceneID { get; private set; }
 
-        [BrowsableAttribute(false)]
+        [Browsable(false)]
         public Guid ConditionId { get; private set; }
 
         public Condition(Guid sceneid, string code, string displaycode,Automation automation)
@@ -91,16 +83,16 @@ namespace DirectorAPI
             _automation = automation;
 
             //fire off a query
-            SqlCommand comm = new SqlCommand("AddCondition");
+            var comm = new SqlCommand("AddCondition");
             comm.CommandType = CommandType.StoredProcedure;
 
-            SqlParameter stepguid = new SqlParameter("@sceneid", SqlDbType.UniqueIdentifier);
+            var stepguid = new SqlParameter("@sceneid", SqlDbType.UniqueIdentifier);
             stepguid.Value = sceneid;
 
-            SqlParameter condition = new SqlParameter("@condition", SqlDbType.Text);
+            var condition = new SqlParameter("@condition", SqlDbType.Text);
             condition.Value = code;
 
-            SqlParameter dcode = new SqlParameter("@displaycode", SqlDbType.Text);
+            var dcode = new SqlParameter("@displaycode", SqlDbType.Text);
             dcode.Value = displaycode;
 
             comm.Parameters.Add(stepguid);
@@ -109,7 +101,7 @@ namespace DirectorAPI
 
             comm.Connection = DBHelper.Connection();
 
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             if (reader.Read())
             {
                 ConditionId = reader.GetSqlGuid(0).Value;
@@ -143,12 +135,12 @@ namespace DirectorAPI
         {
             //DBHelper.AddAction()
             XmlSerializer serializer;
-            StringWriter writer = new StringWriter(CultureInfo.InvariantCulture);
+            var writer = new StringWriter(CultureInfo.InvariantCulture);
 
             switch (type)
             {
                 case Action.ActionType.MessageBox:
-                    MessageBox msgbox = new MessageBox(ConditionId);
+                    var msgbox = new MessageBox(ConditionId);
                     msgbox.Message = "";
                     msgbox.Title = "";
 
@@ -162,37 +154,24 @@ namespace DirectorAPI
                     return msgbox;
                 
                 case Action.ActionType.OpenDatasource:
-                    OpenDataSource ds = new OpenDataSource();
-                    //ds.NewOpenDataSource(ID,_automation);
-                    //ds.NewAction(ID, _automation);
-                    //Actions.Add(ds);
+                    var ds = new OpenDataSource();
                     return ds;
 
                 case Action.ActionType.NextRecord:
-                    NextRecord nr = new NextRecord();
-                    //nr.NewNextRecord(ID, _automation);
-                    //Actions.Add(nr);
+                    var nr = new NextRecord();
                     return nr;
-                case Action.ActionType.EnterData:
-                    EnterData ed = new EnterData();
-                    //ed.NewEnterData(ID, _automation);
-                    //ed.NewAction(ID, _automation);
-                    //Actions.Add(ed);
-                    return ed;
-                case Action.ActionType.ConnectToCmd:
-                    ConnectToCmd ctc = new ConnectToCmd(ConditionId);
-                    //ctc.CommandLine = "";
 
+                case Action.ActionType.EnterData:
+                    var ed = new EnterData();
+                    return ed;
+
+                case Action.ActionType.ConnectToCmd:
+                    var ctc = new ConnectToCmd(ConditionId);
                     serializer = new XmlSerializer(typeof(ConnectToCmd));
                     serializer.Serialize(writer,ctc);
                     DBHelper.AddAction(writer.ToString(), ctc);
                     Actions.Add(ctc);
                     return ctc;
-                    //ctc.NewConnectToCmd(ID, _automation);
-                    //ctc.NewAction(ID,_automation);
-                    //Actions.Add(ctc);
-                    //_automation.Connection.StartProcess(ctc.CommandLine,"");
-                    //return ctc;
 
                 default:
                     return null;
@@ -224,9 +203,9 @@ namespace DirectorAPI
         {
             //BuildCode(automation);
             var myclass = results.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
-            Type t = myclass.GetType();
-            MethodInfo mi = t.GetMethod("TestValue");
-            object[] obj = new object[] { automation };
+            var t = myclass.GetType();
+            var mi = t.GetMethod("TestValue");
+            object[] obj = { automation };
             var res = mi.Invoke(myclass, obj);
             return (bool)res;
         }
@@ -242,7 +221,7 @@ namespace DirectorAPI
             {
                 action.Execute(automation);
                 
-                System.Threading.Thread.Sleep(50);
+                Thread.Sleep(50);
                 if (!string.IsNullOrEmpty(action.NextScene))
                 {
                     return action.NextScene;
@@ -257,10 +236,10 @@ namespace DirectorAPI
 
             Actions.Clear();
 
-            SqlCommand comm = new SqlCommand("select ConditionID,ActionID,ActionType,ObjectXML from Actions where ConditionID = '" + ConditionId + "'");
+            var comm = new SqlCommand("select ConditionID,ActionID,ActionType,ObjectXML from Actions where ConditionID = '" + ConditionId + "'");
             comm.Connection = DBHelper.Connection();
             comm.CommandType = CommandType.Text;
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             
             while (reader.Read())
             {
@@ -271,7 +250,7 @@ namespace DirectorAPI
                     case 0:     //messagebox
                         //Actions.Add(new MessageBox(reader.GetGuid(1)));
                         serializer = new XmlSerializer(typeof(MessageBox));
-                        MessageBox msgbox = (MessageBox)serializer.Deserialize(reader.GetXmlReader(3));
+                        var msgbox = (MessageBox)serializer.Deserialize(reader.GetXmlReader(3));
                         Actions.Add(msgbox);
                         break;
                     
@@ -290,7 +269,7 @@ namespace DirectorAPI
                     case 4: //ConnectToCmd
                         //Actions.Add(new ConnectToCmd());
                         serializer = new XmlSerializer(typeof(ConnectToCmd));
-                        ConnectToCmd ctc = (ConnectToCmd)serializer.Deserialize(reader.GetXmlReader(3));
+                        var ctc = (ConnectToCmd)serializer.Deserialize(reader.GetXmlReader(3));
                         Actions.Add(ctc);
                         break;
 

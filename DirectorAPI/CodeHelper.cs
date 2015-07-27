@@ -16,18 +16,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
-using System.Windows.Forms;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace DirectorAPI
 {
@@ -35,7 +26,7 @@ namespace DirectorAPI
     {
         public static CompilerResults CreateConditionCode(Automation automation, string code)
         {
-            string src = "using System;";
+            var src = "using System;";
             src += Environment.NewLine + "using System.Windows.Forms;";
             src += Environment.NewLine + "using DirectorAPI;";
             src += Environment.NewLine + "namespace ConsoleApplication1";
@@ -49,8 +40,8 @@ namespace DirectorAPI
             src += Environment.NewLine + "    }";
             src += Environment.NewLine + "}";
 
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-            var prms = new System.CodeDom.Compiler.CompilerParameters();
+            var provider = CodeDomProvider.CreateProvider("CSharp");
+            var prms = new CompilerParameters();
             prms.GenerateExecutable = false;
             prms.GenerateInMemory = true;
 
@@ -64,7 +55,7 @@ namespace DirectorAPI
         public static CompilerResults CreateActionCode(Automation automation, string code)
         {
             //TODO must remove ref statement, maybe a singleton class?
-            string src = "using System;";
+            var src = "using System;";
             src += Environment.NewLine + "using System.Windows.Forms;";
             src += Environment.NewLine + "using DirectorAPI;";
             src += Environment.NewLine + "namespace ConsoleApplication1";
@@ -78,8 +69,8 @@ namespace DirectorAPI
             src += Environment.NewLine + "    }";
             src += Environment.NewLine + "}";
 
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-            var prms = new System.CodeDom.Compiler.CompilerParameters();
+            var provider = CodeDomProvider.CreateProvider("CSharp");
+            var prms = new CompilerParameters();
             prms.GenerateExecutable = false;
             prms.GenerateInMemory = true;
             prms.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location);

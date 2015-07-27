@@ -16,18 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DirectorAPI
 {
@@ -51,7 +44,7 @@ namespace DirectorAPI
             EndAutomation
         }
 
-        [BrowsableAttribute(false)] 
+        [Browsable(false)] 
         public Automation automation
         {
             get
@@ -60,8 +53,8 @@ namespace DirectorAPI
             }
         }
         
-        [CategoryAttribute("Scene Properties"),
-        DescriptionAttribute("The unique name of the scene. All scene names must be unique in an Automation.")]
+        [Category("Scene Properties"),
+        Description("The unique name of the scene. All scene names must be unique in an Automation.")]
         public string Name
         {
             get 
@@ -72,10 +65,10 @@ namespace DirectorAPI
             set
             {
                 //make sure no duplicate
-                SqlCommand comm = new SqlCommand("select count(AutomationID) from Scenes where AutomationID = '" + AutomationId + "' and Name = '" + value + "'");
+                var comm = new SqlCommand("select count(AutomationID) from Scenes where AutomationID = '" + AutomationId + "' and Name = '" + value + "'");
                 comm.Connection = DBHelper.Connection();
                 comm.CommandType = CommandType.Text;
-                SqlDataReader reccount = comm.ExecuteReader();
+                var reccount = comm.ExecuteReader();
 
                 if (reccount.Read())
                 {
@@ -98,25 +91,25 @@ namespace DirectorAPI
             }
         }
 
-        [BrowsableAttribute(false)] 
+        [Browsable(false)] 
         public Guid AutomationId { get; private set; }
         
-        [BrowsableAttribute(false)] 
+        [Browsable(false)] 
         public Guid SceneId { get; private set; }
 
-        [BrowsableAttribute(false)] 
+        [Browsable(false)] 
         public int SortId { get; private set; }
 
-        [CategoryAttribute("Scene Properties"),
-        DescriptionAttribute("The name of the Checkpoint that needs to be checked against when a Scene begins.")]
+        [Category("Scene Properties"),
+        Description("The name of the Checkpoint that needs to be checked against when a Scene begins.")]
         public string CheckPoint { get; set; }
 
-        [TypeConverter(typeof(DirectorAPI.TypeConverters.SceneNameConverter)), CategoryAttribute("Scene Properties"),
-        DescriptionAttribute("The name of the Scene that control will be passed to if the CheckPoint fails.")]
+        [TypeConverter(typeof(TypeConverters.SceneNameConverter)), Category("Scene Properties"),
+        Description("The name of the Scene that control will be passed to if the CheckPoint fails.")]
         public string CheckPointFailureScene {get;set;}
 
-        [CategoryAttribute("Scene Properties"),
-        DescriptionAttribute("The amount of time in milliseconds for a timeout. If no condition is fulfilled within this time, control will be passed to the TimeOutScene")]
+        [Category("Scene Properties"),
+        Description("The amount of time in milliseconds for a timeout. If no condition is fulfilled within this time, control will be passed to the TimeOutScene")]
         public int TimeOutInterval { 
             get
             {
@@ -126,15 +119,15 @@ namespace DirectorAPI
             {
                 _timeOutInterval = value;
 
-                SqlCommand comm = new SqlCommand("Update Scenes set TimeOutInterval = " + value + " where ID = '" + SceneId.ToString() + "'");
+                var comm = new SqlCommand("Update Scenes set TimeOutInterval = " + value + " where ID = '" + SceneId + "'");
                 comm.Connection = DBHelper.Connection();
                 comm.ExecuteNonQuery();
             }
         }
 
-        [TypeConverter(typeof(DirectorAPI.TypeConverters.SceneNameConverter)),
-        CategoryAttribute("Scene Properties"),
-        DescriptionAttribute("The name of the Scene controll will be passed to when a TimeOut has been generated.")]
+        [TypeConverter(typeof(TypeConverters.SceneNameConverter)),
+        Category("Scene Properties"),
+        Description("The name of the Scene controll will be passed to when a TimeOut has been generated.")]
         public string TimeOutScene 
         {
             get
@@ -145,15 +138,15 @@ namespace DirectorAPI
             {
                 _timeOutScene = value;
 
-                SqlCommand comm = new SqlCommand("Update Scenes set TimeOutStep = '" + _timeOutScene + "' where id = '" + SceneId.ToString() + "'");
+                var comm = new SqlCommand("Update Scenes set TimeOutStep = '" + _timeOutScene + "' where id = '" + SceneId + "'");
                 comm.Connection = DBHelper.Connection();
                 comm.ExecuteNonQuery();
 
             }
         }
 
-        [CategoryAttribute("Scene Properties"),
-        DescriptionAttribute("The Type of the Scene.")]
+        [Category("Scene Properties"),
+        Description("The Type of the Scene.")]
         public SceneType Type
         {
             get
@@ -164,7 +157,7 @@ namespace DirectorAPI
             set
             {
                 _type = value;
-                int typevalue = 0;
+                var typevalue = 0;
 
                 switch(value.ToString())
                 {
@@ -189,13 +182,11 @@ namespace DirectorAPI
 
                     default:
                         break;
-
                 }
 
-                SqlCommand comm = new SqlCommand("Update Scenes set SceneType = " + typevalue + " where SceneID = '" + SceneId + "'");
+                var comm = new SqlCommand("Update Scenes set SceneType = " + typevalue + " where SceneID = '" + SceneId + "'");
                 comm.Connection = DBHelper.Connection();
                 comm.ExecuteNonQuery();
-
             }
         }
 
@@ -233,16 +224,14 @@ namespace DirectorAPI
             _timeOutInterval = timeoutinterval;
             _timeOutScene = timeoutscene;
             _type = GetSceneType(type);
-//            GetConditions();
         }
-
-
+        
         public void GetConditions()
         {
-            SqlCommand comm = new SqlCommand("select SceneID,ConditionID,Condition,DisplayCode from Conditions where SceneID = '" + SceneId + "'");
+            var comm = new SqlCommand("select SceneID,ConditionID,Condition,DisplayCode from Conditions where SceneID = '" + SceneId + "'");
             comm.Connection = DBHelper.Connection();
             comm.CommandType = CommandType.Text;
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             while (reader.Read())
             {
                 Conditions.Add(new Condition(reader.GetGuid(0),reader.GetGuid(1),reader.GetString(2),reader.GetString(3),_automation));
@@ -250,11 +239,10 @@ namespace DirectorAPI
             }
 
             reader.Close();
-            foreach (Condition condition in Conditions)
+            foreach (var condition in Conditions)
             {
                 condition.GetActions();
             }
-
         }
 
         public Scene(Guid automationid,Automation automation)
@@ -274,20 +262,20 @@ namespace DirectorAPI
 
         private void AddSceneToDB()
         {
-            SqlCommand comm = new SqlCommand();
+            var comm = new SqlCommand();
             comm.Connection = DBHelper.Connection();
             comm.CommandText = "AddScene";
             comm.CommandType=CommandType.StoredProcedure;
 
-            SqlParameter name = new SqlParameter("@name",SqlDbType.VarChar,50);
+            var name = new SqlParameter("@name",SqlDbType.VarChar,50);
             name.Direction = ParameterDirection.Input;
             name.Value = Name;
 
-            SqlParameter automationid = new SqlParameter("@automationid",SqlDbType.UniqueIdentifier);
+            var automationid = new SqlParameter("@automationid",SqlDbType.UniqueIdentifier);
             automationid.Direction = ParameterDirection.Input;
             automationid.Value = AutomationId;
 
-            SqlParameter sortid = new SqlParameter("@sortid",SqlDbType.Int);
+            var sortid = new SqlParameter("@sortid",SqlDbType.Int);
             sortid.Direction = ParameterDirection.Input;
             sortid.Value = SortId;
 
@@ -295,7 +283,7 @@ namespace DirectorAPI
             comm.Parameters.Add(automationid);
             comm.Parameters.Add(sortid);
 
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             if (reader.HasRows)
             {
                 if (reader.Read())
@@ -312,10 +300,10 @@ namespace DirectorAPI
         private int GetNextSortID()
         {
             int result;
-            SqlCommand comm = new SqlCommand("select MAX(SortID) from Scenes where AutomationID = '" + AutomationId + "'");
+            var comm = new SqlCommand("select MAX(SortID) from Scenes where AutomationID = '" + AutomationId + "'");
             comm.Connection = DBHelper.Connection();
             comm.CommandType=CommandType.Text;
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             if (reader.HasRows)
             {
                 reader.Read();
@@ -328,20 +316,16 @@ namespace DirectorAPI
                 reader.Close();
                 return result;
             }
-            else
-            {
-                reader.Close();
-                return 0;
-            }
-
+            reader.Close();
+            return 0;
         }
 
         private string GetNextSceneName(Guid automationid)
         {
-            int count = 0;
-            bool found = false;
+            var count = 0;
+            var found = false;
             SqlDataReader reader;
-            SqlCommand comm = new SqlCommand();
+            var comm = new SqlCommand();
             comm.CommandType = CommandType.Text;
             
             while (!found)
@@ -363,18 +347,14 @@ namespace DirectorAPI
                     {
                         found = true;
                     }
-                    
                 }
                 reader.Close();
-                
-
             }
             return "NewScene" + Convert.ToString(count);
-
         }
         public Condition AddCondition(string code, string displayCode)
         {
-            Condition cond = new Condition(SceneId, code, displayCode, _automation);
+            var cond = new Condition(SceneId, code, displayCode, _automation);
             Conditions.Add(cond);
             return cond;
         }

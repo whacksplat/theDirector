@@ -18,13 +18,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DirectorAPI;
 
@@ -46,21 +39,21 @@ namespace theDirector
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (this.listBox1.SelectedItem == null)
+            if (listBox1.SelectedItem == null)
             {
-                _id = System.Guid.Empty;
+                _id = Guid.Empty;
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            _id = System.Guid.Empty;
+            _id = Guid.Empty;
         }
 
         private void frmOpenAutomation_Load(object sender, EventArgs e)
         {
             //Director.ListAutomations();
-            foreach (Automation obj in Director.ListAutomations())
+            foreach (var obj in Director.ListAutomations())
             {
                 listBox1.Items.Add(obj.Name);
             }

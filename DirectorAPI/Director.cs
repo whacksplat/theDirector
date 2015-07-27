@@ -17,14 +17,9 @@
  */
 
 
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
-
 
 namespace DirectorAPI
 {
@@ -37,12 +32,12 @@ namespace DirectorAPI
 
         public static List<Automation> ListAutomations()
         {
-            List<Automation> obj = new List<Automation>();
-            SqlCommand comm = new SqlCommand("GetAutomations");
+            var obj = new List<Automation>();
+            var comm = new SqlCommand("GetAutomations");
             comm.CommandType = CommandType.StoredProcedure;
             comm.Connection = DBHelper.Connection();
             
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
 
             while (reader.Read())
             {

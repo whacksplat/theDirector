@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DirectorAPI.Actions;
@@ -135,7 +134,7 @@ namespace DirectorAPI
         /// <returns>Returns false if there is a missing redirect.</returns>
         private bool CheckForRedirects()
         {
-            foreach (Scene scene in _scenes)
+            foreach (var scene in _scenes)
             {
                 if (scene.Type != Scene.SceneType.EndAutomation)
                 {
@@ -150,7 +149,7 @@ namespace DirectorAPI
 
         private bool CheckScene(Scene scene)
         {
-            foreach (Condition condition in scene.Conditions)
+            foreach (var condition in scene.Conditions)
             {
                 foreach (AAction action in condition.Actions)
                 {
@@ -178,26 +177,26 @@ namespace DirectorAPI
             //_id = new Guid();
 
 
-            SqlParameter autname = new SqlParameter("@autname", SqlDbType.VarChar)
+            var autname = new SqlParameter("@autname", SqlDbType.VarChar)
             {
                 Size = 50,
                 Direction = ParameterDirection.Input,
                 Value = Name
             };
 
-            SqlParameter descr = new SqlParameter("@desc", SqlDbType.VarChar)
+            var descr = new SqlParameter("@desc", SqlDbType.VarChar)
             {
                 Size = 255,
                 Direction = ParameterDirection.Input,
                 Value = Description
             };
 
-            SqlCommand comm = new SqlCommand("AddAutomation") {CommandType = CommandType.StoredProcedure};
+            var comm = new SqlCommand("AddAutomation") {CommandType = CommandType.StoredProcedure};
             comm.Parameters.Add(autname);
             comm.Parameters.Add(descr);
             comm.Connection = DBHelper.Connection();
 
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             if (reader.Read())
             {
                 Console.WriteLine(reader.GetSqlGuid(0).ToString());
@@ -214,9 +213,9 @@ namespace DirectorAPI
         /// <param name="id"></param>
         public Automation(Guid id)
         {
-            SqlCommand comm = new SqlCommand("GetAutomationByGUID") {CommandType = CommandType.StoredProcedure};
+            var comm = new SqlCommand("GetAutomationByGUID") {CommandType = CommandType.StoredProcedure};
 
-            SqlParameter paramid = new SqlParameter("@automationid", SqlDbType.UniqueIdentifier)
+            var paramid = new SqlParameter("@automationid", SqlDbType.UniqueIdentifier)
             {
                 Direction = ParameterDirection.Input,
                 Value = id
@@ -225,7 +224,7 @@ namespace DirectorAPI
             comm.Parameters.Add(paramid);
             comm.Connection = DBHelper.Connection();
 
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             if (reader.Read())
             {
                 Name = reader.GetString(1);
@@ -239,9 +238,9 @@ namespace DirectorAPI
 
  private void GetScenes()
         {
-            SqlCommand comm = new SqlCommand("GetScenes") { CommandType = CommandType.StoredProcedure };
+            var comm = new SqlCommand("GetScenes") { CommandType = CommandType.StoredProcedure };
 
-            SqlParameter autoid = new SqlParameter("@automationid", SqlDbType.UniqueIdentifier)
+            var autoid = new SqlParameter("@automationid", SqlDbType.UniqueIdentifier)
             {
                 Direction = ParameterDirection.Input,
                 Value = _id
@@ -250,7 +249,7 @@ namespace DirectorAPI
             comm.Parameters.Add(autoid);
             comm.Connection = DBHelper.Connection();
 
-            SqlDataReader reader = comm.ExecuteReader();
+            var reader = comm.ExecuteReader();
             while (reader.Read())
             {
                 //SELECT AutomationID, SortID, Name, SceneType, TimeOutInterval, TimeOutStep from Scenes where AutomationID = @automationid order by SortID
@@ -280,7 +279,7 @@ namespace DirectorAPI
 
             reader.Close();
 
-            foreach (Scene scene in _scenes)
+            foreach (var scene in _scenes)
             {
                 scene.GetConditions();
             }
@@ -288,7 +287,7 @@ namespace DirectorAPI
 
         public Scene AddScene()
         {
-            Scene scene = new Scene(_id, this);
+            var scene = new Scene(_id, this);
             _scenes.Add(scene);
             return scene;
         }
@@ -300,7 +299,7 @@ namespace DirectorAPI
                 string sql;
                 sql = "UPDATE Scenes set SortId = SortId - 1 " +
                       "where SortId > " + moveFrom.SortId + " and SortId <= " + moveTo.SortId + " and AutomationId = '" + _id + "'";
-                SqlCommand comm = new SqlCommand(sql);
+                var comm = new SqlCommand(sql);
                 comm.CommandType = CommandType.Text;
                 comm.Connection = DBHelper.Connection();
                 comm.ExecuteNonQuery();
@@ -314,7 +313,7 @@ namespace DirectorAPI
                 string sql;
                 sql = "UPDATE Scenes set SortId = SortId + 1 " +
                       "where SortId < " + moveFrom.SortId + " and SortId >= " + moveTo.SortId + " and AutomationId = '" + _id + "'";
-                SqlCommand comm = new SqlCommand(sql);
+                var comm = new SqlCommand(sql);
                 comm.CommandType = CommandType.Text;
                 comm.Connection = DBHelper.Connection();
                 comm.ExecuteNonQuery();
@@ -336,9 +335,9 @@ namespace DirectorAPI
  
         public void BuildAssemblies()
         {
-            foreach (Scene scene in _scenes)
+            foreach (var scene in _scenes)
             {
-                foreach (Condition condition in scene.Conditions)
+                foreach (var condition in scene.Conditions)
                 {
                     condition.BuildCode(this);
                 }

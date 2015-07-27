@@ -17,15 +17,7 @@
  */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using DirectorAPI.Actions;
 
 namespace DirectorAPI
 {
@@ -40,8 +32,8 @@ namespace DirectorAPI
 
             public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
             {
-                string[] names = new string[AutomationHelper.automation.Scenes.Count];
-                for (int i = 0; i < AutomationHelper.automation.Scenes.Count; i++)
+                var names = new string[AutomationHelper.automation.Scenes.Count];
+                for (var i = 0; i < AutomationHelper.automation.Scenes.Count; i++)
                 {
                     names[i] = AutomationHelper.automation.Scenes[i].Name;
                 }

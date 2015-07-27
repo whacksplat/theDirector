@@ -18,14 +18,11 @@
 
 
 using System;
-using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Threading;
 using DirectorAPI.ConsoleConnection;
+
 //using DirectorAPI.ConsoleConnection;
 
 //using ConsoleControl;
@@ -85,15 +82,15 @@ namespace DirectorAPI
                 {
                     return;
                 }
-                string[] data = args.Content.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                var data = args.Content.Split(new[] { "\r\n" }, StringSplitOptions.None);
                 _buffer += args.Content;
                 if (_buffer.Substring(_buffer.Length - 1).Equals(">"))
                 {
                     //we've hit output termination marker. parse it
-                    data = _buffer.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                    data = _buffer.Split(new[] { "\r\n" }, StringSplitOptions.None);
                     _buffer = "";
                     //add it to the list
-                    for (int i = 0; i < data.Length; i++)
+                    for (var i = 0; i < data.Length; i++)
                     {
                         _screendata.Add(data[i]);
                     }
@@ -108,15 +105,6 @@ namespace DirectorAPI
                     }
                 }
             }
-
-            //if (screendata.Count == 0)
-            //{
-            //    CurrentLocation.Column = 0;
-            //}
-            //else
-            //{
-            //    CurrentLocation.Column = screendata[screendata.Count - 1].ToString().Length;
-            //}
         }
 
         void processInterace_OnProcessInput(object sender, ProcessEventArgs args)
@@ -127,7 +115,7 @@ namespace DirectorAPI
         void processInterace_OnProcessExit(object sender, ProcessEventArgs args)
         {
             //do we need to bubble this up?
-            //throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         void processInterace_OnProcessError(object sender, ProcessEventArgs args)
@@ -145,9 +133,9 @@ namespace DirectorAPI
 
         public void EvalConditions()
         {
-            foreach (ScreenCondition condition in Conditions)
+            foreach (var condition in Conditions)
             {
-                string data = _screendata[condition.Row].Substring(condition.Column, condition.Text.Length);
+                var data = _screendata[condition.Row].Substring(condition.Column, condition.Text.Length);
                 if (data.Equals(condition.Text))
                 {
                     //make sure the caret is where it's supposed to be
@@ -158,21 +146,20 @@ namespace DirectorAPI
                         return;
                     }
                 }
-
             }
         }
         public void LoadScreenBuffer()
         {
-            List<string> temp = new List<string>();
-            Int32 length = 80;
+            var temp = new List<string>();
+            var length = 80;
 
             //check to make sure length <80
-            foreach (string loop in _screendata)
+            foreach (var loop in _screendata)
             {
                 if (loop.Length > 80)
                 {
                     //need to split this up
-                    for (int i = 0; i < loop.Length; i += 80)
+                    for (var i = 0; i < loop.Length; i += 80)
                     {
                         if ((loop.Length - i) < 80)
                         {
@@ -200,10 +187,10 @@ namespace DirectorAPI
             //reset the screenbuffer to repopulate
             _screenbuffer = new char[25, 80];
 
-            for (int screendatarow = 0; screendatarow < temp.Count(); screendatarow++)
+            for (var screendatarow = 0; screendatarow < temp.Count(); screendatarow++)
             {
-                char[] rowchar = temp[screendatarow].ToCharArray();
-                for (int screendatacol = 0; screendatacol < 80; screendatacol++)
+                var rowchar = temp[screendatarow].ToCharArray();
+                for (var screendatacol = 0; screendatacol < 80; screendatacol++)
                 {
                     if (rowchar.Length != 0)
                     {
@@ -243,9 +230,10 @@ namespace DirectorAPI
             var caretRow = _screendata.Count-1;
             var caretCol = _screendata[caretRow].Length-1;
 
-            CaretLocation caret = new CaretLocation {Row = caretRow, Column = caretCol};
+            var caret = new CaretLocation {Row = caretRow, Column = caretCol};
 
-            return new ScreenCondition(){ CaretLocation = caret,
+            return new ScreenCondition
+            { CaretLocation = caret,
                 Column = 0,
                 Row = caretRow,
                 Text = _screendata[_screendata.Count -1]};
@@ -265,22 +253,17 @@ namespace DirectorAPI
             if (_processInterace.IsProcessRunning)
             {
                 //_processInterace.WriteInput("exit");
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 _processInterace.StopProcess();
                 while (_processInterace.IsProcessRunning)
                 {
-                    System.Threading.Thread.Sleep(1000);
+                    Thread.Sleep(1000);
                 }
             }
-            System.Threading.Thread.Sleep(200);
+            Thread.Sleep(200);
             _screendata.Clear();
             _processInterace.StartProcess("cmd.exe", null);
         }
-
-        //void Connection_BufferRefresh(object sender)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public void StopProcess()
         {
