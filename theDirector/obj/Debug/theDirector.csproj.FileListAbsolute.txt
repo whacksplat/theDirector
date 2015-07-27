@@ -113,8 +113,6 @@ C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug
 C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.Properties.Resources.resources
 C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
 C:\theDirector\theDirector\bin\Debug\theDirector.exe.config
-C:\theDirector\theDirector\obj\Debug\theDirector.exe
-C:\theDirector\theDirector\obj\Debug\theDirector.pdb
 C:\theDirector\theDirector\bin\Debug\theDirector.exe
 C:\theDirector\theDirector\bin\Debug\theDirector.pdb
 C:\theDirector\theDirector\bin\Debug\DirectorAPI.dll
@@ -126,3 +124,5 @@ C:\theDirector\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
 C:\theDirector\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
 C:\theDirector\theDirector\obj\Debug\theDirector.Properties.Resources.resources
 C:\theDirector\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
+C:\theDirector\theDirector\obj\Debug\theDirector.exe
+C:\theDirector\theDirector\obj\Debug\theDirector.pdb
