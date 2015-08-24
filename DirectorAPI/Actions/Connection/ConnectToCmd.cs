@@ -65,7 +65,7 @@ namespace DirectorAPI.Actions.Connection
         public override void BuildCode(Automation automation)
         {
             var src = @"automation.Connection.StartProcess(""cmd.exe"", """" );";
-            _compilerResults = CodeHelper.CreateActionCode(automation, src);
+            _compilerResults = CodeHelper.CreateActionCode(null,src);
         }
 
         public override string Execute(Automation automation)

@@ -51,7 +51,8 @@
             this.tvw = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.newToolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.newToolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.AddAlwaysScene = new System.Windows.Forms.ToolStripMenuItem();
             this.propGrid = new System.Windows.Forms.PropertyGrid();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -75,7 +76,7 @@
             this.enterDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.enterButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -111,7 +112,8 @@
             this.fILEToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1201, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1601, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -157,7 +159,7 @@
             this.runToolStripButtonReset});
             this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1201, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1601, 27);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
@@ -215,6 +217,7 @@
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 55);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -226,8 +229,9 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(1201, 655);
-            this.splitContainer1.SplitterDistance = 409;
+            this.splitContainer1.Size = new System.Drawing.Size(1601, 819);
+            this.splitContainer1.SplitterDistance = 510;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
             // splitContainer2
@@ -235,6 +239,7 @@
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -244,8 +249,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1201, 409);
-            this.splitContainer2.SplitterDistance = 942;
+            this.splitContainer2.Size = new System.Drawing.Size(1601, 510);
+            this.splitContainer2.SplitterDistance = 877;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
             // tabControl2
@@ -253,18 +259,20 @@
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(940, 407);
+            this.tabControl2.Size = new System.Drawing.Size(875, 508);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.rtf);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(932, 381);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Size = new System.Drawing.Size(867, 479);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Console";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -275,9 +283,10 @@
             this.rtf.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtf.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtf.ForeColor = System.Drawing.Color.White;
-            this.rtf.Location = new System.Drawing.Point(3, 3);
+            this.rtf.Location = new System.Drawing.Point(4, 4);
+            this.rtf.Margin = new System.Windows.Forms.Padding(4);
             this.rtf.Name = "rtf";
-            this.rtf.Size = new System.Drawing.Size(926, 375);
+            this.rtf.Size = new System.Drawing.Size(859, 471);
             this.rtf.TabIndex = 1;
             this.rtf.Text = "";
             this.rtf.WordWrap = false;
@@ -288,6 +297,7 @@
             this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -299,20 +309,24 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.propGrid);
-            this.splitContainer3.Size = new System.Drawing.Size(255, 409);
-            this.splitContainer3.SplitterDistance = 209;
+            this.splitContainer3.Size = new System.Drawing.Size(719, 510);
+            this.splitContainer3.SplitterDistance = 260;
+            this.splitContainer3.SplitterWidth = 5;
             this.splitContainer3.TabIndex = 0;
             // 
             // tvw
             // 
             this.tvw.AllowDrop = true;
             this.tvw.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvw.FullRowSelect = true;
+            this.tvw.HideSelection = false;
             this.tvw.ImageIndex = 0;
             this.tvw.ImageList = this.imageList1;
             this.tvw.Location = new System.Drawing.Point(0, 27);
+            this.tvw.Margin = new System.Windows.Forms.Padding(4);
             this.tvw.Name = "tvw";
             this.tvw.SelectedImageIndex = 0;
-            this.tvw.Size = new System.Drawing.Size(253, 180);
+            this.tvw.Size = new System.Drawing.Size(717, 231);
             this.tvw.TabIndex = 1;
             this.tvw.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvw_ItemDrag);
             this.tvw.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvw_AfterSelect);
@@ -338,27 +352,37 @@
             this.newToolStripButton1});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(253, 27);
+            this.toolStrip2.Size = new System.Drawing.Size(717, 27);
             this.toolStrip2.TabIndex = 0;
             this.toolStrip2.Text = "toolStrip2";
             // 
             // newToolStripButton1
             // 
             this.newToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.newToolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddAlwaysScene});
             this.newToolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton1.Image")));
             this.newToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton1.Name = "newToolStripButton1";
-            this.newToolStripButton1.Size = new System.Drawing.Size(24, 24);
+            this.newToolStripButton1.Size = new System.Drawing.Size(34, 24);
             this.newToolStripButton1.Text = "&New Step";
             this.newToolStripButton1.ToolTipText = "New Scene";
             this.newToolStripButton1.Click += new System.EventHandler(this.newToolStripButton1_Click);
+            // 
+            // AddAlwaysScene
+            // 
+            this.AddAlwaysScene.Name = "AddAlwaysScene";
+            this.AddAlwaysScene.Size = new System.Drawing.Size(175, 24);
+            this.AddAlwaysScene.Text = "Always";
+            this.AddAlwaysScene.Click += new System.EventHandler(this.AddAlwaysScene_Click);
             // 
             // propGrid
             // 
             this.propGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propGrid.Location = new System.Drawing.Point(0, 0);
+            this.propGrid.Margin = new System.Windows.Forms.Padding(4);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(253, 194);
+            this.propGrid.Size = new System.Drawing.Size(717, 243);
             this.propGrid.TabIndex = 0;
             this.propGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propGrid_PropertyValueChanged);
             this.propGrid.Click += new System.EventHandler(this.propGrid_Click);
@@ -369,19 +393,21 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1199, 218);
+            this.tabControl1.Size = new System.Drawing.Size(1599, 280);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tvwConditions);
             this.tabPage1.Controls.Add(this.toolStrip3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1191, 192);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1591, 251);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conditions";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -389,9 +415,10 @@
             // tvwConditions
             // 
             this.tvwConditions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvwConditions.Location = new System.Drawing.Point(3, 31);
+            this.tvwConditions.Location = new System.Drawing.Point(4, 32);
+            this.tvwConditions.Margin = new System.Windows.Forms.Padding(4);
             this.tvwConditions.Name = "tvwConditions";
-            this.tvwConditions.Size = new System.Drawing.Size(1185, 158);
+            this.tvwConditions.Size = new System.Drawing.Size(1583, 215);
             this.tvwConditions.TabIndex = 1;
             this.tvwConditions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwConditions_AfterSelect);
             // 
@@ -403,14 +430,14 @@
             this.toolStripDropDownButton1,
             this.toolStripComboBox1,
             this.toolStripButton1,
-            this.toolStripButton2,
+            this.enterButton,
             this.toolStripSplitButton1,
             this.toolStripButton3,
             this.toolStripSeparator3,
             this.toolStripButton4});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip3.Location = new System.Drawing.Point(4, 4);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(1185, 28);
+            this.toolStrip3.Size = new System.Drawing.Size(1583, 28);
             this.toolStrip3.TabIndex = 0;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -554,16 +581,17 @@
             // toolStripButton1
             // 
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(301, 28);
+            this.toolStripButton1.Size = new System.Drawing.Size(400, 28);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
-            // toolStripButton2
+            // enterButton
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(47, 25);
-            this.toolStripButton2.Text = "Enter";
+            this.enterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.enterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.enterButton.Name = "enterButton";
+            this.enterButton.Size = new System.Drawing.Size(47, 25);
+            this.enterButton.Text = "Enter";
+            this.enterButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripSplitButton1
             // 
@@ -595,9 +623,10 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(886, 125);
+            this.tabPage2.Size = new System.Drawing.Size(1591, 251);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -605,20 +634,22 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 218);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 280);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1199, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(1599, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 710);
+            this.ClientSize = new System.Drawing.Size(1601, 874);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "theDirector";
@@ -674,7 +705,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TreeView tvw;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton newToolStripButton1;
         private System.Windows.Forms.PropertyGrid propGrid;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.ImageList imageList1;
@@ -703,11 +733,13 @@
         private System.Windows.Forms.ToolStripMenuItem enterDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripComboBox1;
         private System.Windows.Forms.ToolStripComboBox toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton enterButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSplitButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripDropDownButton newToolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem AddAlwaysScene;
 
     }
 }

@@ -18,13 +18,18 @@
 
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using DirectorAPI;
 using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Datasource;
+using DirectorAPI.Interfaces;
+using DirectorAPI.Scenes;
 
 
 namespace theDirector
@@ -34,7 +39,7 @@ namespace theDirector
     public partial class frmMain : Form
     {
         private Automation _automation;
-        private Scene _scene;
+        private IScene _scene;
 
         public frmMain()
         {
@@ -96,7 +101,7 @@ namespace theDirector
             var references = new TreeNode("References",2,2);
                 
             //steps
-            foreach (Scene scene in _automation.Scenes)
+            foreach (IScene scene in _automation.Scenes)
             {
                 var nodeIndex = nodeScenes.Nodes.Add(new TreeNode(scene.Name, 3, 3));
                 nodeScenes.Nodes[nodeIndex].Tag = scene;
@@ -116,11 +121,12 @@ namespace theDirector
 
         private void newToolStripButton1_Click(object sender, EventArgs e)
         {
-            if (_automation != null)
-            {
-                _automation.AddScene();
-                RefreshScreen();
-            }
+            //if (_automation != null)
+            //{
+            //    //_automation.AddScene();
+            //    throw new NotImplementedException();
+            //    //RefreshScreen();
+            //}
         }
 
         private void propGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -129,10 +135,14 @@ namespace theDirector
             {
                 tvw.SelectedNode.Text = e.ChangedItem.Value.ToString();
             }
-            //propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
+            
             if (propGrid.SelectedObject is AAction)
             {
                 DBHelper.UpdateAction(propGrid.SelectedObject as AAction);
+            }
+            if (propGrid.SelectedObject is AlwaysScene)
+            {
+                DBHelper.SaveScene((IScene)propGrid.SelectedObject);
             }
         }
 
@@ -156,7 +166,7 @@ namespace theDirector
                 string retval;
 
                 //reset the data source and connection objects in the automation
-                Scene scene = _automation.Scenes[0];
+                IScene scene = _automation.Scenes[0];
                 AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
                 rtf.Clear();
 
@@ -164,9 +174,10 @@ namespace theDirector
                 {
                     switch (scene.Type)
                     {
-                        case Scene.SceneType.Always:
+                        case SceneEnums.SceneType.Always:
                             //an always type scene will only have 1 condition, an always.
-                            retval = scene.Conditions[0].Execute(_automation);
+                            //retval = scene.Conditions[0].Execute(_automation);
+                            throw new NotImplementedException();
                             if (!string.IsNullOrEmpty(retval))
                             {
                                 scene = _automation.Scenes.Find(x => x.Name == retval);
@@ -174,41 +185,42 @@ namespace theDirector
                             }
                             break;
 
-                        case Scene.SceneType.Connection:
-                            _scene = scene;
+                        case SceneEnums.SceneType.Connection:
+                            //_scene = scene;
+                            throw new NotImplementedException();
                             break;
 
-                        case Scene.SceneType.EndAutomation:
+                        case SceneEnums.SceneType.EndAutomation:
                             return;
 
-                        case Scene.SceneType.Datasource:
-                            foreach (Condition condition in scene.Conditions)
-                            {
-                                if (condition.Eval(_automation))
-                                {
-                                    retval = condition.Execute(_automation);
-                                    if (!string.IsNullOrEmpty(retval))
-                                    {
-                                        scene = _automation.Scenes.Find(x => x.Name == retval);
-                                    }
-                                }
-                            }
-
+                        case SceneEnums.SceneType.Datasource:
+                            //foreach (Condition condition in scene.Conditions)
+                            //{
+                            //    if (condition.Eval(_automation))
+                            //    {
+                            //        retval = condition.Execute(_automation);
+                            //        if (!string.IsNullOrEmpty(retval))
+                            //        {
+                            //            scene = _automation.Scenes.Find(x => x.Name == retval);
+                            //        }
+                            //    }
+                            //}
+                            throw new NotImplementedException();
                             break;
 
-                        case Scene.SceneType.Variable:
-                            foreach (Condition condition in scene.Conditions)
-                            {
-                                if (condition.Eval(_automation))
-                                {
-                                    retval = condition.Execute(_automation);
-                                    if (!string.IsNullOrEmpty(retval))
-                                    {
-                                        scene = _automation.Scenes.Find(x => x.Name == retval);
-                                    }
-                                }
-                            }
-
+                        case SceneEnums.SceneType.Variable:
+                            //foreach (Condition condition in scene.Conditions)
+                            //{
+                            //    if (condition.Eval(_automation))
+                            //    {
+                            //        retval = condition.Execute(_automation);
+                            //        if (!string.IsNullOrEmpty(retval))
+                            //        {
+                            //            scene = _automation.Scenes.Find(x => x.Name == retval);
+                            //        }
+                            //    }
+                            //}
+                            throw new NotImplementedException();
                             break;
                     }
                 }
@@ -219,18 +231,21 @@ namespace theDirector
 
         private void alwaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!IsReady()) return;
-            
-            Scene step = (Scene)tvw.SelectedNode.Tag;
-            if (step.Type == Scene.SceneType.EndAutomation)
-            {
-                MessageBox.Show("You cannot add condtions to an End Scene.");
-                return;
-            }
-            Condition condition = step.AddCondition("return true;", "Always");
-            TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            node.Tag = condition;
-            tvwConditions.SelectedNode = node;
+            //if (!IsReady()) return;
+
+            //Scene step = (Scene)tvw.SelectedNode.Tag;
+            //if (step.Type == Scene.SceneType.EndAutomation)
+            //{
+            //    MessageBox.Show("You cannot add condtions to an End Scene.");
+            //    return;
+            //}
+            //Condition condition = step.AddCondition("return true;", "Always");
+            ////step.AddCondition(new AlwaysCon)
+
+            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
+            //node.Tag = condition;
+            //tvwConditions.SelectedNode = node;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -244,7 +259,7 @@ namespace theDirector
                 return false;
             }
 
-            return tvw.SelectedNode.Tag is Scene;
+            return tvw.SelectedNode.Tag is IScene;
         }
 
 
@@ -326,14 +341,15 @@ namespace theDirector
 
         private void dataSourceIsEOFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!IsReady()) return;
+            //if (!IsReady()) return;
 
-            if (!(tvw.SelectedNode.Tag is Scene)) return;
+            //if (!(tvw.SelectedNode.Tag is iScene)) return;
 
-            Scene step = (Scene)tvw.SelectedNode.Tag;
-            Condition condition = step.AddCondition("return automation.datasource.EOF();", "Is EOF");
-            TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            node.Tag = condition;
+            //iScene step = (iScene)tvw.SelectedNode.Tag;
+            //Condition condition = step.AddCondition("return automation.datasource.EOF();", "Is EOF");
+            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
+            //node.Tag = condition;
+            throw new NotImplementedException();
         }
 
         private void nextRecordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -365,45 +381,48 @@ namespace theDirector
         {
             if (!IsReady()) return;
 
-            if (!(tvw.SelectedNode.Tag is Scene)) return;
+            //if (!(tvw.SelectedNode.Tag is Scene)) return;
 
-            Scene step = (Scene)tvw.SelectedNode.Tag;
-            Condition condition = step.AddCondition("return !automation.datasource.EOF();", "Is NOT EOF");
-            TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            node.Tag = condition;
+            //Scene step = (Scene)tvw.SelectedNode.Tag;
+            //Condition condition = step.AddCondition("return !automation.datasource.EOF();", "Is NOT EOF");
+            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
+            //node.Tag = condition;
+            throw new NotImplementedException();
         }
 
         private void screenConditionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!IsReady()) return;
+            //if (!IsReady()) return;
 
-            frmEnterData frm = new frmEnterData();
-            DialogResult result = frm.ShowDialog();
+            //frmEnterData frm = new frmEnterData();
+            //DialogResult result = frm.ShowDialog();
             
-            if (result != DialogResult.OK) return;
+            //if (result != DialogResult.OK) return;
 
-            Scene step = (Scene)tvw.SelectedNode.Tag;
+            //Scene step = (Scene)tvw.SelectedNode.Tag;
 
-            Condition condition = step.AddCondition("return automation.connection.EvalCondition(" + "\"" + rtf.Lines[rtf.Lines.Length - 2].Trim() + "\"" + ");", "Screen Condition");
-            TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            node.Tag = condition;
-            tvwConditions.SelectedNode = node;
+            //Condition condition = step.AddCondition("return automation.connection.EvalCondition(" + "\"" + rtf.Lines[rtf.Lines.Length - 2].Trim() + "\"" + ");", "Screen Condition");
+            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
+            //node.Tag = condition;
+            //tvwConditions.SelectedNode = node;
 
-            //add the action
-            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("EnterData");
-            EnterData ed = (EnterData)condition.AddAction(DirectorAPI.Action.ActionType.EnterData);
-            ed.Data = frm.Data;
-            actionnode.Tag = ed;
-            tvwConditions.SelectedNode = actionnode;
+            ////add the action
+            //TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("EnterData");
+            //EnterData ed = (EnterData)condition.AddAction(DirectorAPI.Action.ActionType.EnterData);
+            //ed.Data = frm.Data;
+            //actionnode.Tag = ed;
+            //tvwConditions.SelectedNode = actionnode;
+            throw new NotImplementedException();
  }
 
         private void tvw_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Delete) return;
-            if (!(tvw.SelectedNode.Tag is Scene)) return;
-            //_script.DeleteScene((Scene)tvw.SelectedNode.Tag);
+            //if (e.KeyCode != Keys.Delete) return;
+            //if (!(tvw.SelectedNode.Tag is Scene)) return;
+            ////_script.DeleteScene((Scene)tvw.SelectedNode.Tag);
             
-            tvw.Nodes.Remove(tvw.SelectedNode);
+            //tvw.Nodes.Remove(tvw.SelectedNode);
+            throw new NotImplementedException();
         }
 
         private void openConnectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -454,7 +473,20 @@ namespace theDirector
                     rtf.Text += conn.ScreenData[line] + Environment.NewLine;    
                 }
             }
+            ScreenCondition cond = conn.GetCurrentScreenCondition();
 
+
+            //highlight with the default
+            string screenLine = rtf.Lines[cond.Row];
+            int totalChar = 0;
+            //add up all the characters previous to the cond.row
+            for (int charCount = 0; charCount < cond.Row;charCount++)
+            {
+                totalChar += rtf.Lines[charCount].Length;
+            }
+            rtf.SelectionStart = totalChar;
+            rtf.SelectionLength = cond.Text.Length + Regex.Matches(cond.Text,@"\\").Count;
+            rtf.SelectionColor = Color.Yellow;
 
         }
 
@@ -467,46 +499,46 @@ namespace theDirector
         {
             propGrid.SelectedObject = e.Node.Tag;
             
-            if (e.Node.Tag is Scene)
+            if (e.Node.Tag is IScene)
             {
-                Scene scene = (Scene)e.Node.Tag;
-                tvwConditions.Nodes.Clear();
-                foreach (Condition condition in scene.Conditions)
-                {
-                    TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayCode);
-                    condnode.Tag = condition;
-                    foreach (object action in condition.Actions)
-                    {
-                        if (action is DirectorAPI.Actions.Notifications.MessageBox)
-                        {
-                            TreeNode actionnode = condnode.Nodes.Add("MessageBox");
-                            actionnode.Tag = action;
-                        }
-                        if (action is OpenDataSource)
-                        {
-                            TreeNode actionnode = condnode.Nodes.Add("OpenDataSource");
-                            actionnode.Tag = action;
-                        }
-                        if (action is NextRecord)
-                        {
-                            TreeNode actionnode = condnode.Nodes.Add("NextRecord");
-                            actionnode.Tag = action;
-                        }
+                //IScene scene = (IScene)e.Node.Tag;
+                //tvwConditions.Nodes.Clear();
+                //foreach (Condition condition in scene.Conditions)
+                //{
+                //    TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayCode);
+                //    condnode.Tag = condition;
+                //    foreach (object action in condition.Actions)
+                //    {
+                //        if (action is DirectorAPI.Actions.Notifications.MessageBox)
+                //        {
+                //            TreeNode actionnode = condnode.Nodes.Add("MessageBox");
+                //            actionnode.Tag = action;
+                //        }
+                //        if (action is OpenDataSource)
+                //        {
+                //            TreeNode actionnode = condnode.Nodes.Add("OpenDataSource");
+                //            actionnode.Tag = action;
+                //        }
+                //        if (action is NextRecord)
+                //        {
+                //            TreeNode actionnode = condnode.Nodes.Add("NextRecord");
+                //            actionnode.Tag = action;
+                //        }
 
-                        if (action is EnterData)
-                        {
-                            TreeNode actionnode = condnode.Nodes.Add("EnterData");
-                            actionnode.Tag = action;
-                        }
-                        if (action is ConnectToCmd)
-                        {
-                            TreeNode actionnode = condnode.Nodes.Add("ConnectToCmd");
-                            actionnode.Tag = action;
-                        }
+                //        if (action is EnterData)
+                //        {
+                //            TreeNode actionnode = condnode.Nodes.Add("EnterData");
+                //            actionnode.Tag = action;
+                //        }
+                //        if (action is ConnectToCmd)
+                //        {
+                //            TreeNode actionnode = condnode.Nodes.Add("ConnectToCmd");
+                //            actionnode.Tag = action;
+                //        }
 
-                    }
-                    tvwConditions.ExpandAll();
-                }
+                //    }
+                //    tvwConditions.ExpandAll();
+                //}
             }
 
         }
@@ -514,18 +546,19 @@ namespace theDirector
         private void enterDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //need the scene
-            if (tvw.SelectedNode.Tag is Scene)
-            {
-                frmEnterData frm = new frmEnterData();
-                DialogResult result = frm.ShowDialog();
-                if (result != DialogResult.OK) return;
+            //if (tvw.SelectedNode.Tag is Scene)
+            //{
+            //    frmEnterData frm = new frmEnterData();
+            //    DialogResult result = frm.ShowDialog();
+            //    if (result != DialogResult.OK) return;
 
-                ScreenCondition cond = _automation.Connection.GetCurrentScreenCondition();
-                (tvw.SelectedNode.Tag as Scene).ScreenConditions.Add(cond);
-                TreeNode node = new TreeNode("ScreenCondition") {Tag = cond};
+            //    ScreenCondition cond = _automation.Connection.GetCurrentScreenCondition();
+            //    (tvw.SelectedNode.Tag as Scene).ScreenConditions.Add(cond);
+            //    TreeNode node = new TreeNode("ScreenCondition") {Tag = cond};
 
-                tvwConditions.Nodes.Add(node);
-            }
+            //    tvwConditions.Nodes.Add(node);
+            //}
+            throw new NotImplementedException();
         }
 
         private void propGrid_Click(object sender, EventArgs e)
@@ -542,12 +575,12 @@ namespace theDirector
         {
             Point point = tvw.PointToClient(new Point(e.X, e.Y));
             TreeViewHitTestInfo info = tvw.HitTest(point.X,point.Y);
-            Scene destinationScene = (Scene) info.Node.Tag;
+            IScene destinationScene = (IScene) info.Node.Tag;
             
             if (destinationScene!=null)
             {
                 TreeNode sourceNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
-                Scene sourceScene = (Scene) sourceNode.Tag;
+                IScene sourceScene = (IScene) sourceNode.Tag;
                 //(draggedNode.Tag as Scene).SortID 
                 //move it
                 _automation.MoveScene(sourceScene, destinationScene);
@@ -561,7 +594,7 @@ namespace theDirector
             TreeViewHitTestInfo info = tvw.HitTest(point.X, point.Y);
             if (info.Node != null)
             {
-                Scene scene = (Scene)info.Node.Tag;
+                IScene scene = (IScene)info.Node.Tag;
                 if (scene != null)
                 {
                     tvw.SelectedNode = info.Node;
@@ -594,6 +627,57 @@ namespace theDirector
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            //IScene scene;
+
+            //if (tvw.SelectedNode == null)
+            //{
+            //    return;
+            //}
+
+            ////grab the current scene
+            //if (tvw.SelectedNode.Tag is IScene)
+            //{
+            //    scene = (Scene) tvw.SelectedNode.Tag;
+            //    if (scene.Type != Scene.SceneType.Connection)
+            //    {
+            //        //cannot continue
+            //        MessageBox.Show("You must select a Connect Type scene to add a Scene condition into.");
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("You must select a scene to place the condition into.");
+            //    return;
+            //}
+            
+            ////grab the current condition
+            //if (_automation.Connection.ScreenData.Count == 0)
+            //{
+            //    //we aren't connected to anything
+            //    MessageBox.Show("You aren't currently connected to anything.");
+            //    return;
+            //}
+            ////ScreenCondition current = _automation.Connection.GetCurrentScreenCondition();
+
+            ////add the condition to the automation
+
+
+            //scene.AddScreenCondition(_automation.Connection.GetCurrentScreenCondition());
+
+            ////add the enter action to the  condition
+            throw new NotImplementedException();
+        }
+
+        private void AddAlwaysScene_Click(object sender, EventArgs e)
+        {
+            if (_automation == null) return;
+            _automation.AddScene(new AlwaysScene());
+            RefreshScreen();
         }
     }
 }

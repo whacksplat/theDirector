@@ -92,7 +92,7 @@ namespace DirectorAPI.Actions.Notifications
         public override void BuildCode(Automation automation)
         {
             var src = "System.Windows.Forms.MessageBox.Show(" + "\"" + Message + "\" , \"" + Title + "\");";
-            _compilerResults = CodeHelper.CreateActionCode(automation, src);
+            _compilerResults = CodeHelper.CreateActionCode(null,src);
         }
 
         public override string Execute(Automation automation)

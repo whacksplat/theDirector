@@ -146,7 +146,7 @@ namespace DirectorAPI
 
                     serializer = new XmlSerializer(typeof(MessageBox));
                     serializer.Serialize(writer,msgbox);
-
+                    
                     //shouldn't I just pass in the above object to make life simpler?
                     DBHelper.AddAction(writer.ToString(),msgbox);
 

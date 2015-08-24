@@ -23,7 +23,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using DirectorAPI.Actions;
+using DirectorAPI.Interfaces;
+using DirectorAPI.Scenes;
 
 namespace DirectorAPI
 {
@@ -35,14 +38,17 @@ namespace DirectorAPI
             Run
         }
 
-        private readonly Connection _connection = new Connection();  //there will be only one of these at any point in time.
-        private readonly DataSource _datasource = new DataSource();  //same thing with datasource, only 1 per automation
+        private readonly Connection _connection;// = new Connection();  //there will be only one of these at any point in time.
+        private readonly DataSource _datasource;// = new DataSource();  //same thing with datasource, only 1 per automation
         private readonly Guid _id;
-        private readonly List<Scene> _scenes = new List<Scene>();
+        private readonly List<IScene> _scenes = new List<IScene>();
 
         public string Name { get; set; }
         public string Description { get; private set; }
 
+        /// <summary>
+        /// This is the AutomationId for this Automation.
+        /// </summary>
         public Guid Id
         {
             get { return _id; }
@@ -60,7 +66,7 @@ namespace DirectorAPI
             get { return _connection; }
         }
 
-        public List<Scene> Scenes
+        public List<IScene> Scenes
         {
             get { return _scenes; }
         }
@@ -84,24 +90,25 @@ namespace DirectorAPI
             //todo make sure at least one action in a scene redirects to another scene, or we will get stuck in a scene
             //todo make sure we have a End Automation scene
             //todo scene must have at least 1 condition
+            throw new NotImplementedException();
 
-            if (!CheckForEndScene())
-            {
-                MessageBox.Show(
-                    "Each Automation must have a scene designated as the End Scene so the Automation will know when it's done.");
-                return false;
-            }
-            if (!CheckForConditions())
-            {
-                MessageBox.Show("Each Scene must have at least one condition.");
-                return false;
-            }
+            //if (!CheckForEndScene())
+            //{
+            //    MessageBox.Show(
+            //        "Each Automation must have a scene designated as the End Scene so the Automation will know when it's done.");
+            //    return false;
+            //}
+            ////if (!CheckForConditions())
+            ////{
+            ////    MessageBox.Show("Each Scene must have at least one condition.");
+            ////    return false;
+            ////}
 
-            if (!CheckForRedirects())
-            {
-                MessageBox.Show("A Scene must have at least one action that redirects to another scene.");
-                return false;
-            }
+            //if (!CheckForRedirects())
+            //{
+            //    MessageBox.Show("A Scene must have at least one action that redirects to another scene.");
+            //    return false;
+            //}
 
             return true;
         }
@@ -111,10 +118,10 @@ namespace DirectorAPI
         /// Checks to make sure each scene has at least 1 condition
         /// </summary>
         /// <returns></returns>
-        private bool CheckForConditions()
-        {
-            return _scenes.All(scene => scene.Conditions.Count != 0 || scene.Type == Scene.SceneType.EndAutomation);
-        }
+        //private bool CheckForConditions()
+        //{
+        //    return _scenes.All(scene => scene.Conditions.Count != 0 || scene.Type == Scene.SceneType.EndAutomation);
+        //}
 
 
         /// <summary>
@@ -123,7 +130,7 @@ namespace DirectorAPI
         /// <returns></returns>
         private bool CheckForEndScene()
         {
-            return _scenes.Any(scene => scene.Type == Scene.SceneType.EndAutomation);
+            return _scenes.Any(scene => scene.Type == SceneEnums.SceneType.EndAutomation);
         }
 
         
@@ -136,7 +143,7 @@ namespace DirectorAPI
         {
             foreach (var scene in _scenes)
             {
-                if (scene.Type != Scene.SceneType.EndAutomation)
+                if (scene.Type != SceneEnums.SceneType.EndAutomation)
                 {
                     if (!CheckScene(scene))
                     {
@@ -147,20 +154,21 @@ namespace DirectorAPI
             return true;
         }
 
-        private bool CheckScene(Scene scene)
+        private bool CheckScene(IScene scene)
         {
-            foreach (var condition in scene.Conditions)
-            {
-                foreach (AAction action in condition.Actions)
-                {
-                    if (!string.IsNullOrEmpty(action.NextScene))
-                    {
-                        //we're good for this scene
-                        return true;
-                    }
-                }
-            }
-            return false;
+            //foreach (var condition in scene.Conditions)
+            //{
+            //    foreach (AAction action in condition.Actions)
+            //    {
+            //        if (!string.IsNullOrEmpty(action.NextScene))
+            //        {
+            //            //we're good for this scene
+            //            return true;
+            //        }
+            //    }
+            //}
+            //return false;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -236,7 +244,8 @@ namespace DirectorAPI
             GetScenes();
         }
 
- private void GetScenes()
+ 
+        private void GetScenes()
         {
             var comm = new SqlCommand("GetScenes") { CommandType = CommandType.StoredProcedure };
 
@@ -253,46 +262,47 @@ namespace DirectorAPI
             while (reader.Read())
             {
                 //SELECT AutomationID, SortID, Name, SceneType, TimeOutInterval, TimeOutStep from Scenes where AutomationID = @automationid order by SortID
-                if (reader.IsDBNull(5))
+
+                //serializer = new XmlSerializer(typeof(MessageBox));
+                //var msgbox = (MessageBox)serializer.Deserialize(reader.GetXmlReader(3));
+
+
+                //SELECT SceneID, SortID, Name, ObjectXML from Scenes where AutomationID = @automationid order by SortID
+                //XmlSerializer serializer = new XmlSerializer(typeof(AlwaysScene));
+                //var scene = (AlwaysScene)serializer.Deserialize(reader.GetXmlReader(3));
+                switch (reader.GetInt32(4))
                 {
-                    _scenes.Add(new Scene(reader.GetString(2), //name
-                        _id, //automationid
-                        reader.GetGuid(0), //sceneid
-                        reader.GetInt32(1), //sortid
-                        reader.GetInt32(4), //timeoutinterval
-                        null, //timeoutstep
-                        reader.GetInt32(3),
-                        this)); //type
-                }
-                else
-                {
-                    _scenes.Add(new Scene(reader.GetString(2), //name
-                        _id, //automationid
-                        reader.GetGuid(0), //id
-                        reader.GetInt32(1), //sortid
-                        reader.GetInt32(4), //timeoutinterval
-                        reader.GetString(5), //timeoutstep
-                        reader.GetInt32(3),
-                        this)); //type
+                    case 0: //AlwaysScene
+                        XmlSerializer serializer = new XmlSerializer(typeof(AlwaysScene));
+                        AlwaysScene scene = (AlwaysScene)serializer.Deserialize(reader.GetXmlReader(3));
+                        _scenes.Add(scene);
+                        break;
+
+                    default:
+                        throw new NullReferenceException();
+
                 }
             }
 
             reader.Close();
 
-            foreach (var scene in _scenes)
-            {
-                scene.GetConditions();
-            }
+            //foreach (var scene in _scenes)
+            //{
+            //    //scene.GetConditions();
+            //}
         }
 
-        public Scene AddScene()
+        public void AddScene(IScene scene)
         {
-            var scene = new Scene(_id, this);
+            scene.AutomationId = Id;
+            scene.SceneId = Guid.NewGuid();
+            scene.Name = DBHelper.GetNextSceneName(Id);
+            scene.SortId = DBHelper.GetNextSortID(Id);
             _scenes.Add(scene);
-            return scene;
+            DBHelper.SaveScene(scene);
         }
 
-        public void MoveScene(Scene moveFrom, Scene moveTo)
+        public void MoveScene(IScene moveFrom, IScene moveTo)
         {
             if (moveFrom.SortId < moveTo.SortId)
             {
@@ -304,7 +314,7 @@ namespace DirectorAPI
                 comm.Connection = DBHelper.Connection();
                 comm.ExecuteNonQuery();
 
-                sql = "Update Scenes set SortId = " + moveTo.SortId + " where ID = '" + moveFrom.SceneId + "'";
+                sql = "Update Scenes set SortId = " + moveTo.SortId + " where SceneId = '" + moveFrom.SceneId + "'";
                 comm.CommandText = sql;
                 comm.ExecuteNonQuery();
             }
@@ -328,20 +338,22 @@ namespace DirectorAPI
         }
 
 
-        public void DeleteScene(Scene scene)
+        public void DeleteScene(IScene scene)
         {
-            
+            throw new NotImplementedException();
         }
  
         public void BuildAssemblies()
         {
-            foreach (var scene in _scenes)
-            {
-                foreach (var condition in scene.Conditions)
-                {
-                    condition.BuildCode(this);
-                }
-            }
+            //foreach (var scene in _scenes)
+            //{
+            //    foreach (var condition in scene.Conditions)
+            //    {
+            //        //condition.BuildCode(this);
+            //        throw new NotImplementedException();
+            //    }
+            //}
+            throw new NotImplementedException();
         }
     }
 }
