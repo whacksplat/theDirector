@@ -18,6 +18,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
@@ -26,6 +27,7 @@ using System.Xml.Serialization;
 using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Notifications;
+using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 using DirectorAPI.Scenes;
 
@@ -56,7 +58,7 @@ namespace DirectorAPI
                     Value = scene.SceneId
                 });
 
-                comm.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar,50)
+                comm.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 50)
                 {
                     Value = scene.Name
                 });
@@ -79,14 +81,6 @@ namespace DirectorAPI
             }
             else
             {
-    //    UPDATE Scenes SET
-    //    Name=@name,
-    //    SortId=@sortid,
-    //    SceneType=@scenetype,
-    //    ObjectXML=@objectxml
-    //WHERE
-    //    SceneID = @sceneid;
-
                 comm.CommandText = "UpdateScene";
                 comm.Parameters.Add(new SqlParameter("@sceneid", SqlDbType.UniqueIdentifier)
                 {
@@ -118,11 +112,53 @@ namespace DirectorAPI
 
         private static string GetSceneObjectXML(IScene scene)
         {
+
             XmlSerializer serializer;
             var writer = new StringWriter(CultureInfo.InvariantCulture);
-            serializer = new XmlSerializer(typeof(AlwaysScene));
-            //var msgbox = new MessageBox(ConditionId);
+            switch (scene.Type)
+            {
+                case SceneEnums.SceneType.Always:
+                    serializer = new XmlSerializer(typeof (AlwaysScene));
+                    break;
+                case SceneEnums.SceneType.Connection:
+                    throw new NotImplementedException("Unknown scene type.");
+                    break;
+                case SceneEnums.SceneType.Datasource:
+                    throw new NotImplementedException("Unknown scene type.");
+                    break;
+                case SceneEnums.SceneType.EndAutomation:
+                    throw new NotImplementedException("Unknown scene type.");
+                    break;
+                case SceneEnums.SceneType.Variable:
+                    throw new NotImplementedException("Unknown scene type.");
+                    break;
+
+                default:
+                    throw new NotImplementedException("Unknown scene type.");
+                    break;
+
+            }
+
             serializer.Serialize(writer, scene);
+            return writer.ToString();
+        }
+
+        private static string GetConditionObjectXML(ICondition condition)
+        {
+            XmlSerializer serializer;
+            var writer = new StringWriter(CultureInfo.InvariantCulture);
+
+            switch (condition.Type)
+            {
+                case ConditionEnums.ConditionTypes.Always:
+                    serializer = new XmlSerializer(typeof (AlwaysCondition));
+                    break;
+                default:
+                    throw new Exception("Unknown condition type.");
+                    break;
+            }
+
+            serializer.Serialize(writer, condition);
             return writer.ToString();
         }
 
@@ -160,7 +196,8 @@ namespace DirectorAPI
             while (!found)
             {
                 count += 1;
-                comm.CommandText = "select count(SceneID) from Scenes where Name = 'NewScene" + Convert.ToString(count) + "' and AutomationID = '" + automationid + "'";
+                comm.CommandText = "select count(SceneID) from Scenes where Name = 'NewScene" + Convert.ToString(count) +
+                                   "' and AutomationID = '" + automationid + "'";
                 comm.Connection = DBHelper.Connection();
                 reader = comm.ExecuteReader();
                 if (reader.HasRows)
@@ -187,7 +224,7 @@ namespace DirectorAPI
             var sql = "select count(Name) from Automations where Name = '" + name + "';";
             var comm = new SqlCommand(sql);
             comm.Connection = Connection();
-            comm.CommandType= CommandType.Text;
+            comm.CommandType = CommandType.Text;
             var reader = comm.ExecuteReader();
             reader.Read();
             if (reader.GetInt32(0) == 0)
@@ -199,12 +236,13 @@ namespace DirectorAPI
             return false;
         }
 
-
         public static SqlConnection Connection()
         {
             if (_conn == null)
             {
-                _conn = new SqlConnection("Data Source=LTPRMAGEAU81\\MSSQLSERVER2014;Initial Catalog=Director;Integrated Security=SSPI;MultipleActiveResultSets=true;");
+                _conn =
+                    new SqlConnection(
+                        "Data Source=LTPRMAGEAU81\\MSSQLSERVER2014;Initial Catalog=Director;Integrated Security=SSPI;MultipleActiveResultSets=true;");
                 _conn.Open();
                 return _conn;
             }
@@ -217,13 +255,12 @@ namespace DirectorAPI
             if (_conn.State != ConnectionState.Open)
             {
                 _conn.Close();
-                _conn.ConnectionString = "Data Source=(local);Initial Catalog=Director;Integrated Security=SSPI;MultipleActiveResultSets=true;";
+                _conn.ConnectionString =
+                    "Data Source=(local);Initial Catalog=Director;Integrated Security=SSPI;MultipleActiveResultSets=true;";
                 _conn.Open();
             }
             return _conn;
         }
-
-
 
         public static void UpdateAction(object action)
         {
@@ -234,14 +271,14 @@ namespace DirectorAPI
             switch (_action.ActionType)
             {
                 case Action.ActionType.MessageBox:
-                    var serializer = new XmlSerializer(typeof(MessageBox));
+                    var serializer = new XmlSerializer(typeof (MessageBox));
                     var messagebox = (MessageBox) action;
-                    serializer.Serialize(writer,messagebox);
+                    serializer.Serialize(writer, messagebox);
                     break;
 
                 case Action.ActionType.ConnectToCmd:
-                    var ctcSerializer = new XmlSerializer(typeof(ConnectToCmd));
-                    var ctc = (ConnectToCmd)action;
+                    var ctcSerializer = new XmlSerializer(typeof (ConnectToCmd));
+                    var ctc = (ConnectToCmd) action;
                     ctcSerializer.Serialize(writer, ctc);
                     break;
 
@@ -272,8 +309,7 @@ namespace DirectorAPI
             var reader = comm.ExecuteReader();
         }
 
-        
-        public static Guid AddAction(string xml,AAction action)
+        public static Guid AddAction(string xml, AAction action)
         {
             //Guid conditionId,Action.ActionType type,
             var comm2 = new SqlCommand("AddAction");
@@ -338,5 +374,130 @@ namespace DirectorAPI
             throw new NullReferenceException("Unable to parse SQL in SceneExists.");
         }
 
+        private static bool ConditionExists(Guid conditionGuid)
+        {
+            var comm =
+                new SqlCommand("select count(ConditionId) from Conditions where ConditionID = '" + conditionGuid + "'");
+            comm.Connection = DBHelper.Connection();
+            comm.CommandType = CommandType.Text;
+            var reccount = comm.ExecuteReader();
+
+            if (reccount.Read())
+            {
+                if (reccount.GetInt32(0) == 0)
+                {
+                    //it's a new Condition
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            throw new NullReferenceException("Unable to parse SQL in SceneExists.");
+
+        }
+
+        public static void SaveCondition(IScene scene, ICondition condition)
+        {
+            var comm = new SqlCommand();
+            comm.Connection = DBHelper.Connection();
+            comm.CommandType = CommandType.StoredProcedure;
+
+            if (!ConditionExists(condition.ConditionId))
+            {
+                //Add
+                comm.CommandText = "AddCondition";
+
+                comm.Parameters.Add(new SqlParameter("@sceneid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = condition.SceneId
+                });
+
+                comm.Parameters.Add(new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = condition.ConditionId
+                });
+
+                comm.Parameters.Add(new SqlParameter("@objectxml", SqlDbType.Xml)
+                {
+                    Value = GetConditionObjectXML(condition)
+                });
+
+                comm.Parameters.Add(new SqlParameter("@conditiontype", SqlDbType.Int)
+                {
+                    Value = condition.Type
+                });
+
+                comm.ExecuteNonQuery();
+            }
+            else
+            {
+                //update
+                comm.CommandText = "UpdateCondition";
+
+                comm.Parameters.Add(new SqlParameter("@sceneid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = condition.SceneId
+                });
+
+                comm.Parameters.Add(new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = condition.ConditionId
+                });
+
+                comm.Parameters.Add(new SqlParameter("@objectxml", SqlDbType.Xml)
+                {
+                    Value = GetSceneObjectXML(scene)
+                });
+
+                comm.Parameters.Add(new SqlParameter("@conditiontype", SqlDbType.Int)
+                {
+                    Value = condition.Type
+                });
+
+                comm.ExecuteNonQuery();
+            }
+        }
+
+        public static List<ICondition> GetConditions(Guid sceneId)
+        {
+            List<ICondition> conditions = new List<ICondition>();
+            SqlCommand comm = new SqlCommand()
+            {
+                CommandText = "GetConditions",
+                Connection = DBHelper.Connection(),
+                CommandType = CommandType.StoredProcedure
+            };
+
+            comm.Parameters.Add(new SqlParameter() { DbType = DbType.Guid, Value = sceneId, ParameterName = "@sceneid"});
+            SqlDataReader reader = comm.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                if (reader.Read())
+                {
+                    conditions.Add(CreateConditionFromDb(sceneId,
+                        reader.GetGuid(0),
+                        reader.GetString(1),
+                        reader.GetInt32(2)));
+                }
+            }
+
+            reader.Close();
+            return conditions;
+        }
+
+        private static ICondition CreateConditionFromDb(Guid sceneId, Guid conditionId, string objectXml, Int32 conditionType)
+        {
+            switch (conditionType)
+            {
+                case 0:
+                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,Type = ConditionEnums.ConditionTypes.Always};
+                default:
+                    throw new Exception("unknown condition type in CrateCondition");
+            }
+                
+        }
     }
 }

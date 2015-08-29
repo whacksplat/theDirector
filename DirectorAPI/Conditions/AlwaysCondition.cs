@@ -1,6 +1,8 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace DirectorAPI.Conditions
         public void BuildCode()
         {
             results = CodeHelper.CreateConditionCode(null,"return true;");
+            //todo need to build the code for actions
         }
 
         public void LoadActions()
@@ -28,21 +31,29 @@ namespace DirectorAPI.Conditions
             throw new NotImplementedException();
         }
 
-        public void EvaluateCondition()
+        public bool EvaluateCondition()
         {
-            throw new NotImplementedException();
+            var myclass = results.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
+            var t = myclass.GetType();
+            var mi = t.GetMethod("TestValue");
+            object[] obj = { AutomationHelper.automation };
+            var res = mi.Invoke(myclass, obj);
+            return (bool)res;
         }
 
         public string DisplayText()
         {
-            throw new NotImplementedException();
+            return "Always";
         }
 
-        public List<IAction> Actions
-        {
-            get { return _actions; }
-        }
 
+        [ReadOnly(true)]
         public Guid SceneId { get; set; }
+
+        [ReadOnly(true)]
+        public Guid ConditionId { get; set; }
+        
+        [ReadOnly(true)]
+        public ConditionEnums.ConditionTypes Type { get; set; }
     }
 }

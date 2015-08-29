@@ -28,6 +28,7 @@ using DirectorAPI;
 using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Datasource;
+using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 using DirectorAPI.Scenes;
 
@@ -127,6 +128,7 @@ namespace theDirector
             //    throw new NotImplementedException();
             //    //RefreshScreen();
             //}
+            //throw new NotImplementedException();
         }
 
         private void propGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -167,7 +169,7 @@ namespace theDirector
 
                 //reset the data source and connection objects in the automation
                 IScene scene = _automation.Scenes[0];
-                AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
+                //AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
                 rtf.Clear();
 
                 while (scene != null)
@@ -177,6 +179,7 @@ namespace theDirector
                         case SceneEnums.SceneType.Always:
                             //an always type scene will only have 1 condition, an always.
                             //retval = scene.Conditions[0].Execute(_automation);
+                            //retval = scene.GetConditions()[0].EvaluateCondition();
                             throw new NotImplementedException();
                             if (!string.IsNullOrEmpty(retval))
                             {
@@ -232,20 +235,20 @@ namespace theDirector
         private void alwaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //if (!IsReady()) return;
-
-            //Scene step = (Scene)tvw.SelectedNode.Tag;
-            //if (step.Type == Scene.SceneType.EndAutomation)
+            
+            //IScene scene = (IScene)tvw.SelectedNode.Tag;
+            //if (scene.Type == SceneEnums.SceneType.EndAutomation)
             //{
             //    MessageBox.Show("You cannot add condtions to an End Scene.");
             //    return;
             //}
-            //Condition condition = step.AddCondition("return true;", "Always");
+            //Condition condition = scene.AddCondition("return true;", "Always");
             ////step.AddCondition(new AlwaysCon)
 
             //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
             //node.Tag = condition;
             //tvwConditions.SelectedNode = node;
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -265,9 +268,9 @@ namespace theDirector
 
         private void tvwConditions_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (tvwConditions.SelectedNode.Tag is Condition)
+            if (tvwConditions.SelectedNode.Tag is ICondition)
             {
-                Condition cond = (Condition)tvwConditions.SelectedNode.Tag;
+                ICondition cond = (ICondition)tvwConditions.SelectedNode.Tag;
                 propGrid.SelectedObject = cond;
                 propGrid.Refresh();
                 return;
@@ -278,11 +281,10 @@ namespace theDirector
                 propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
                 return;
             }
-            if (tvwConditions.SelectedNode.Tag is ScreenCondition)
+            if (tvwConditions.SelectedNode.Tag is ICondition)
             {
                 propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
                 return;
-                
             }
             
             throw new Exception("tvwConditions_AfterSelect not condition or action");
@@ -297,20 +299,20 @@ namespace theDirector
                 return;
             }
 
-            Condition condition;
+            ICondition condition;
 
             if (tvwConditions.SelectedNode.Tag is AAction)
             {
-                condition = (Condition)tvwConditions.SelectedNode.Parent.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
                 tvwConditions.SelectedNode = tvwConditions.SelectedNode.Parent;
             }
             else
             {
-                condition = (Condition)tvwConditions.SelectedNode.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Tag;
             }
 
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("MessageBox");
-            actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.MessageBox);
+            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.MessageBox);
             tvwConditions.SelectedNode = actionnode;
         }
 
@@ -323,19 +325,19 @@ namespace theDirector
                 return;
             }
 
-            Condition condition;
+            ICondition condition;
 
             if (tvwConditions.SelectedNode.Tag is DirectorAPI.Action)
             {
-                condition = (Condition)tvwConditions.SelectedNode.Parent.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
             }
             else
             {
-                condition = (Condition)tvwConditions.SelectedNode.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Tag;
             }
 
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("OpenDatasource");
-            actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.OpenDatasource);
+            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.OpenDatasource);
             tvwConditions.SelectedNode = actionnode;
         }
 
@@ -361,19 +363,19 @@ namespace theDirector
                 return;
             }
 
-            Condition condition;
+            ICondition condition;
 
             if (tvwConditions.SelectedNode.Tag is DirectorAPI.Action)
             {
-                condition = (Condition)tvwConditions.SelectedNode.Parent.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
             }
             else
             {
-                condition = (Condition)tvwConditions.SelectedNode.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Tag;
             }
 
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("NextRecord");
-            actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.NextRecord);
+            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.NextRecord);
             tvwConditions.SelectedNode = actionnode;
         }
 
@@ -433,26 +435,26 @@ namespace theDirector
                 return;
             }
 
-            Condition condition;
+            ICondition condition;
 
             if (tvwConditions.SelectedNode.Tag is DirectorAPI.Action)
             {
-                condition = (Condition)tvwConditions.SelectedNode.Parent.Tag;
+                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
             }
             else
             {
                 if (tvwConditions.SelectedNode.Tag is AAction)
                 {
-                    condition = (Condition)tvwConditions.SelectedNode.Parent.Tag;
+                    condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
                 }
                 else
                 {
-                    condition = (Condition)tvwConditions.SelectedNode.Tag;
+                    condition = (ICondition)tvwConditions.SelectedNode.Tag;
                 }
             }
 
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("Connect to CMD");
-            actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.ConnectToCmd);
+            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.ConnectToCmd);
             tvwConditions.SelectedNode = actionnode;
             AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
             
@@ -498,9 +500,16 @@ namespace theDirector
         private void tvw_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             propGrid.SelectedObject = e.Node.Tag;
-            
+            tvwConditions.Nodes.Clear();
+
             if (e.Node.Tag is IScene)
             {
+                IScene scene = (IScene) e.Node.Tag;
+                foreach (ICondition condition in scene.GetConditions())
+                {
+                    TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayText());
+                    condnode.Tag = condition;
+                }
                 //IScene scene = (IScene)e.Node.Tag;
                 //tvwConditions.Nodes.Clear();
                 //foreach (Condition condition in scene.Conditions)
@@ -678,6 +687,24 @@ namespace theDirector
             if (_automation == null) return;
             _automation.AddScene(new AlwaysScene());
             RefreshScreen();
+        }
+
+        private void addAlwaysCondition_Click(object sender, EventArgs e)
+        {
+            if (!IsReady()) return;
+
+            IScene scene = (IScene)tvw.SelectedNode.Tag;
+            if (scene.Type == SceneEnums.SceneType.EndAutomation)
+            {
+                MessageBox.Show("You cannot add condtions to an End Scene.");
+                return;
+            }
+
+            AlwaysCondition always = (AlwaysCondition)scene.AddCondition(new AlwaysCondition());
+
+            TreeNode node = tvwConditions.Nodes.Add(always.DisplayText());
+            node.Tag = always;
+            tvwConditions.SelectedNode = node;
         }
     }
 }

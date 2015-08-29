@@ -59,12 +59,12 @@
             this.tvwConditions = new System.Windows.Forms.TreeView();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.alwaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.screenConditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataConditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataSourceIsEOFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataSourceIsNOTEOFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.variableValueConditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAlwaysCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.addScreenCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDataCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDataSourceEOFCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.addDataSourceNotEOFCondition = new System.Windows.Forms.ToolStripMenuItem();
+            this.addVariableValueCondition = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.messageboxToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -230,7 +230,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
             this.splitContainer1.Size = new System.Drawing.Size(1601, 819);
-            this.splitContainer1.SplitterDistance = 510;
+            this.splitContainer1.SplitterDistance = 509;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -249,7 +249,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1601, 510);
+            this.splitContainer2.Size = new System.Drawing.Size(1601, 509);
             this.splitContainer2.SplitterDistance = 877;
             this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
@@ -262,7 +262,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(875, 508);
+            this.tabControl2.Size = new System.Drawing.Size(875, 507);
             this.tabControl2.TabIndex = 0;
             // 
             // tabPage3
@@ -272,7 +272,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Size = new System.Drawing.Size(867, 479);
+            this.tabPage3.Size = new System.Drawing.Size(867, 478);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Console";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -286,7 +286,7 @@
             this.rtf.Location = new System.Drawing.Point(4, 4);
             this.rtf.Margin = new System.Windows.Forms.Padding(4);
             this.rtf.Name = "rtf";
-            this.rtf.Size = new System.Drawing.Size(859, 471);
+            this.rtf.Size = new System.Drawing.Size(859, 470);
             this.rtf.TabIndex = 1;
             this.rtf.Text = "";
             this.rtf.WordWrap = false;
@@ -309,8 +309,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.propGrid);
-            this.splitContainer3.Size = new System.Drawing.Size(719, 510);
-            this.splitContainer3.SplitterDistance = 260;
+            this.splitContainer3.Size = new System.Drawing.Size(719, 509);
+            this.splitContainer3.SplitterDistance = 259;
             this.splitContainer3.SplitterWidth = 5;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -326,7 +326,7 @@
             this.tvw.Margin = new System.Windows.Forms.Padding(4);
             this.tvw.Name = "tvw";
             this.tvw.SelectedImageIndex = 0;
-            this.tvw.Size = new System.Drawing.Size(717, 231);
+            this.tvw.Size = new System.Drawing.Size(717, 230);
             this.tvw.TabIndex = 1;
             this.tvw.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvw_ItemDrag);
             this.tvw.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvw_AfterSelect);
@@ -365,8 +365,8 @@
             this.newToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton1.Name = "newToolStripButton1";
             this.newToolStripButton1.Size = new System.Drawing.Size(34, 24);
-            this.newToolStripButton1.Text = "&New Step";
-            this.newToolStripButton1.ToolTipText = "New Scene";
+            this.newToolStripButton1.Text = "&Create New Scene";
+            this.newToolStripButton1.ToolTipText = "Create New Scene";
             this.newToolStripButton1.Click += new System.EventHandler(this.newToolStripButton1_Click);
             // 
             // AddAlwaysScene
@@ -396,7 +396,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1599, 280);
+            this.tabControl1.Size = new System.Drawing.Size(1599, 281);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -407,7 +407,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1591, 251);
+            this.tabPage1.Size = new System.Drawing.Size(1591, 252);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conditions";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -418,7 +418,7 @@
             this.tvwConditions.Location = new System.Drawing.Point(4, 32);
             this.tvwConditions.Margin = new System.Windows.Forms.Padding(4);
             this.tvwConditions.Name = "tvwConditions";
-            this.tvwConditions.Size = new System.Drawing.Size(1583, 215);
+            this.tvwConditions.Size = new System.Drawing.Size(1583, 216);
             this.tvwConditions.TabIndex = 1;
             this.tvwConditions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwConditions_AfterSelect);
             // 
@@ -445,58 +445,58 @@
             // 
             this.newToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.newToolStripButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alwaysToolStripMenuItem,
-            this.screenConditionToolStripMenuItem,
-            this.dataConditionToolStripMenuItem,
-            this.variableValueConditionToolStripMenuItem});
+            this.addAlwaysCondition,
+            this.addScreenCondition,
+            this.addDataCondition,
+            this.addVariableValueCondition});
             this.newToolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton2.Image")));
             this.newToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton2.Name = "newToolStripButton2";
             this.newToolStripButton2.Size = new System.Drawing.Size(34, 25);
             this.newToolStripButton2.Text = "&New";
             // 
-            // alwaysToolStripMenuItem
+            // addAlwaysCondition
             // 
-            this.alwaysToolStripMenuItem.Name = "alwaysToolStripMenuItem";
-            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.alwaysToolStripMenuItem.Text = "Always";
-            this.alwaysToolStripMenuItem.Click += new System.EventHandler(this.alwaysToolStripMenuItem_Click);
+            this.addAlwaysCondition.Name = "addAlwaysCondition";
+            this.addAlwaysCondition.Size = new System.Drawing.Size(243, 24);
+            this.addAlwaysCondition.Text = "Always";
+            this.addAlwaysCondition.Click += new System.EventHandler(this.addAlwaysCondition_Click);
             // 
-            // screenConditionToolStripMenuItem
+            // addScreenCondition
             // 
-            this.screenConditionToolStripMenuItem.Name = "screenConditionToolStripMenuItem";
-            this.screenConditionToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.screenConditionToolStripMenuItem.Text = "Screen Condition";
-            this.screenConditionToolStripMenuItem.Click += new System.EventHandler(this.screenConditionToolStripMenuItem_Click);
+            this.addScreenCondition.Name = "addScreenCondition";
+            this.addScreenCondition.Size = new System.Drawing.Size(243, 24);
+            this.addScreenCondition.Text = "Screen Condition";
+            this.addScreenCondition.Click += new System.EventHandler(this.screenConditionToolStripMenuItem_Click);
             // 
-            // dataConditionToolStripMenuItem
+            // addDataCondition
             // 
-            this.dataConditionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dataSourceIsEOFToolStripMenuItem,
-            this.dataSourceIsNOTEOFToolStripMenuItem});
-            this.dataConditionToolStripMenuItem.Name = "dataConditionToolStripMenuItem";
-            this.dataConditionToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.dataConditionToolStripMenuItem.Text = "Data Condition";
+            this.addDataCondition.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addDataSourceEOFCondition,
+            this.addDataSourceNotEOFCondition});
+            this.addDataCondition.Name = "addDataCondition";
+            this.addDataCondition.Size = new System.Drawing.Size(243, 24);
+            this.addDataCondition.Text = "Data Condition";
             // 
-            // dataSourceIsEOFToolStripMenuItem
+            // addDataSourceEOFCondition
             // 
-            this.dataSourceIsEOFToolStripMenuItem.Name = "dataSourceIsEOFToolStripMenuItem";
-            this.dataSourceIsEOFToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
-            this.dataSourceIsEOFToolStripMenuItem.Text = "Data Source is EOF";
-            this.dataSourceIsEOFToolStripMenuItem.Click += new System.EventHandler(this.dataSourceIsEOFToolStripMenuItem_Click);
+            this.addDataSourceEOFCondition.Name = "addDataSourceEOFCondition";
+            this.addDataSourceEOFCondition.Size = new System.Drawing.Size(237, 24);
+            this.addDataSourceEOFCondition.Text = "Data Source is EOF";
+            this.addDataSourceEOFCondition.Click += new System.EventHandler(this.dataSourceIsEOFToolStripMenuItem_Click);
             // 
-            // dataSourceIsNOTEOFToolStripMenuItem
+            // addDataSourceNotEOFCondition
             // 
-            this.dataSourceIsNOTEOFToolStripMenuItem.Name = "dataSourceIsNOTEOFToolStripMenuItem";
-            this.dataSourceIsNOTEOFToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
-            this.dataSourceIsNOTEOFToolStripMenuItem.Text = "Data Source is NOT EOF";
-            this.dataSourceIsNOTEOFToolStripMenuItem.Click += new System.EventHandler(this.dataSourceIsNOTEOFToolStripMenuItem_Click);
+            this.addDataSourceNotEOFCondition.Name = "addDataSourceNotEOFCondition";
+            this.addDataSourceNotEOFCondition.Size = new System.Drawing.Size(237, 24);
+            this.addDataSourceNotEOFCondition.Text = "Data Source is NOT EOF";
+            this.addDataSourceNotEOFCondition.Click += new System.EventHandler(this.dataSourceIsNOTEOFToolStripMenuItem_Click);
             // 
-            // variableValueConditionToolStripMenuItem
+            // addVariableValueCondition
             // 
-            this.variableValueConditionToolStripMenuItem.Name = "variableValueConditionToolStripMenuItem";
-            this.variableValueConditionToolStripMenuItem.Size = new System.Drawing.Size(243, 24);
-            this.variableValueConditionToolStripMenuItem.Text = "Variable Value Condition";
+            this.addVariableValueCondition.Name = "addVariableValueCondition";
+            this.addVariableValueCondition.Size = new System.Drawing.Size(243, 24);
+            this.addVariableValueCondition.Text = "Variable Value Condition";
             // 
             // toolStripDropDownButton1
             // 
@@ -626,7 +626,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1591, 251);
+            this.tabPage2.Size = new System.Drawing.Size(1591, 253);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -634,7 +634,7 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 280);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 281);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1599, 22);
@@ -712,10 +712,10 @@
         private System.Windows.Forms.TreeView tvwConditions;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripDropDownButton newToolStripButton2;
-        private System.Windows.Forms.ToolStripMenuItem alwaysToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem screenConditionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dataConditionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem variableValueConditionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addAlwaysCondition;
+        private System.Windows.Forms.ToolStripMenuItem addScreenCondition;
+        private System.Windows.Forms.ToolStripMenuItem addDataCondition;
+        private System.Windows.Forms.ToolStripMenuItem addVariableValueCondition;
         private System.Windows.Forms.ToolStripButton runToolStripButtonReset;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -723,8 +723,8 @@
         private System.Windows.Forms.ToolStripMenuItem datasourcesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openDatasourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextRecordToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dataSourceIsEOFToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dataSourceIsNOTEOFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addDataSourceEOFCondition;
+        private System.Windows.Forms.ToolStripMenuItem addDataSourceNotEOFCondition;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RichTextBox rtf;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

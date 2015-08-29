@@ -90,7 +90,7 @@ namespace DirectorAPI
             //todo make sure at least one action in a scene redirects to another scene, or we will get stuck in a scene
             //todo make sure we have a End Automation scene
             //todo scene must have at least 1 condition
-            throw new NotImplementedException();
+            
 
             //if (!CheckForEndScene())
             //{
@@ -353,7 +353,14 @@ namespace DirectorAPI
             //        throw new NotImplementedException();
             //    }
             //}
-            throw new NotImplementedException();
+            foreach (IScene scene in _scenes)
+            {
+                foreach (ICondition condition in scene.GetConditions())
+                {
+                    condition.BuildCode();
+                }
+            }
+
         }
     }
 }

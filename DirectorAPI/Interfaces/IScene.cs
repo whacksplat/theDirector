@@ -8,10 +8,6 @@ namespace DirectorAPI.Interfaces
 {
     public interface IScene
     {
-        //void Save();
-        //void AddCondition();
-        //void AddScreenCondition();
-
         string Name { get; set; }
         Guid AutomationId { get; set; }
         Guid SceneId { get; set; }
@@ -20,11 +16,10 @@ namespace DirectorAPI.Interfaces
         string CheckPointFailureStep { get; set; }
         int Timeout { get; set; }
         string TimeoutScene { get; set; }
-        string GetNextSceneName { get; set; }
+        //string GetNextSceneName { get; set; }
         SceneEnums.SceneType Type { get; set; }
-        //public List<Condition> Conditions = new List<Condition>();
-        //List<ICondition> Conditions { get; set; } 
-
+        ICondition AddCondition(ICondition condition);
+        List<ICondition> GetConditions();
     }
 
     public class SceneEnums

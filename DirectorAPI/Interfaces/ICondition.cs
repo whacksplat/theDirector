@@ -13,10 +13,19 @@ namespace DirectorAPI.Interfaces
         void BuildCode();
         void LoadActions();
         string ExecuteActions();
-        void EvaluateCondition();
+        bool EvaluateCondition();
         string DisplayText();
-        List<IAction> Actions { get;}
-        Guid SceneId { get; set; }
 
+        Guid SceneId { get; set; }
+        Guid ConditionId { get; set; }
+        ConditionEnums.ConditionTypes Type { get; set; }
+    }
+
+    public class ConditionEnums
+    {
+        public enum ConditionTypes
+        {
+            Always = 0
+        }
     }
 }
