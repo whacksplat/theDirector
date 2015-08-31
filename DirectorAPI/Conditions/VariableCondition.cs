@@ -1,8 +1,6 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +8,11 @@ using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Conditions
 {
-    public class AlwaysCondition:ICondition
+    public class VariableCondition : ICondition
     {
-        CompilerResults results;
-        private List<IAction> _actions = new List<IAction>();
-
         public void BuildCode()
         {
-            results = CodeHelper.CreateConditionCode(null,"return true;");
-            //todo need to build the code for actions
+            throw new NotImplementedException();
         }
 
         public void LoadActions()
@@ -33,17 +27,12 @@ namespace DirectorAPI.Conditions
 
         public bool EvaluateCondition()
         {
-            var myclass = results.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
-            var t = myclass.GetType();
-            var mi = t.GetMethod("TestValue");
-            object[] obj = { AutomationHelper.automation };
-            var res = mi.Invoke(myclass, obj);
-            return (bool)res;
+            throw new NotImplementedException();
         }
 
         public string DisplayText()
         {
-            return "Always";
+            throw new NotImplementedException();
         }
 
 
@@ -52,7 +41,7 @@ namespace DirectorAPI.Conditions
 
         [ReadOnly(true)]
         public Guid ConditionId { get; set; }
-        
+
         [ReadOnly(true)]
         public Enumerations.ConditionTypes Type { get; set; }
     }

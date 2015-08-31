@@ -53,6 +53,10 @@
     <Compile Include="CodeHelper.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="Conditions\AlwaysCondition.cs" />
+    <Compile Include="Conditions\ConnectionCondition.cs" />
+    <Compile Include="Conditions\DatasourceCondition.cs" />
+    <Compile Include="Conditions\EndCondition.cs" />
+    <Compile Include="Conditions\VariableCondition.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Actions\Connection\ConnectToCmd.cs" />
     <Compile Include="ConsoleConnection\ProcessEventArgs.cs" />
@@ -65,6 +69,7 @@
     <Compile Include="Director.cs" />
     <Compile Include="Interfaces\AAction.cs" />
     <Compile Include="Actions\Notifications\MessageBox.cs" />
+    <Compile Include="Interfaces\Enumerations.cs" />
     <Compile Include="Interfaces\IAction.cs" />
     <Compile Include="Interfaces\ICondition.cs" />
     <Compile Include="Interfaces\IScene.cs" />

@@ -18,14 +18,14 @@ namespace DirectorAPI.Interfaces
 
         Guid SceneId { get; set; }
         Guid ConditionId { get; set; }
-        ConditionEnums.ConditionTypes Type { get; set; }
+        Enumerations.ConditionTypes Type { get; set; }
     }
 
-    public class ConditionEnums
-    {
-        public enum ConditionTypes
-        {
-            Always = 0
-        }
-    }
+    //public class ConditionEnums
+    //{
+    //    public enum ConditionTypes
+    //    {
+    //        Always = 0
+    //    }
+    //}
 }

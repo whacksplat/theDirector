@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Scenes
@@ -12,19 +14,32 @@ namespace DirectorAPI.Scenes
         private List<ICondition> conditions = new List<ICondition>();
 
         public string Name { get; set; }
+        
+        [ReadOnly(true)]
         public Guid AutomationId { get; set; }
+        
+        [ReadOnly(true)]
         public Guid SceneId { get; set; }
+
+        [ReadOnly(true)]
         public int SortId { get; set; }
         public string CheckPoint { get; set; }
         public string CheckPointFailureStep { get; set; }
         public int Timeout { get; set; }
         public string TimeoutScene { get; set; }
+        
+        [ReadOnly(true)]
         public SceneEnums.SceneType Type { get; set; }
+        
         public ICondition AddCondition(ICondition condition)
         {
-            throw new NotImplementedException();
-
             //only use Connection based conditions!
+
+            if (!(condition is ConnectionCondition))
+            {
+                throw new Exception("Cannot add anything but an ConnectionCondition to an ConnectionScene.");
+            }
+            
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
             condition.Type = condition.Type;
@@ -35,7 +50,8 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            throw new NotImplementedException();
+            conditions = DBHelper.GetConditions(this.SceneId);
+            return conditions;
         }
     }
 }

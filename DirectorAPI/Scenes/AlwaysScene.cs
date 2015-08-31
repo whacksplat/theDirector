@@ -25,8 +25,10 @@ namespace DirectorAPI.Scenes
         
         [ReadOnly(true)]
         public Guid SceneId { get; set; }
+        
         [ReadOnly(true)]
         public int SortId { get; set; }
+
         public string CheckPoint { get; set; }
         public string CheckPointFailureStep { get; set; }
         public int Timeout { get; set; }
@@ -34,6 +36,7 @@ namespace DirectorAPI.Scenes
         
         [ReadOnly(true)]
         public SceneEnums.SceneType Type { get; set; }
+        
         public ICondition AddCondition(ICondition condition)
         {
             //Always scene will only have singular Always condition.
@@ -43,7 +46,7 @@ namespace DirectorAPI.Scenes
             }
             if (!(condition is AlwaysCondition))
             {
-                throw new Exception("Cannot add anything but an AlwaysCondtion to an Always scene.");
+                throw new Exception("Cannot add anything but an AlwaysCondition to an Always scene.");
             }
             
             condition.ConditionId = Guid.NewGuid();
@@ -56,7 +59,7 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            //return DBHelper.GetConditions(this.SceneId);
+            conditions =  DBHelper.GetConditions(this.SceneId);
             return conditions;
         }
     }

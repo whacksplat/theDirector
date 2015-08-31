@@ -150,7 +150,7 @@ namespace DirectorAPI
 
             switch (condition.Type)
             {
-                case ConditionEnums.ConditionTypes.Always:
+                case Enumerations.ConditionTypes.Always:
                     serializer = new XmlSerializer(typeof (AlwaysCondition));
                     break;
                 default:
@@ -493,9 +493,9 @@ namespace DirectorAPI
             switch (conditionType)
             {
                 case 0:
-                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,Type = ConditionEnums.ConditionTypes.Always};
+                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,Type = Enumerations.ConditionTypes.Always};
                 default:
-                    throw new Exception("unknown condition type in CrateCondition");
+                    throw new Exception("unknown condition type in CreateConditionFromDb");
             }
                 
         }
