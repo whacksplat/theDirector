@@ -71,6 +71,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Scenes\AlwaysScene.cs" />
+    <Compile Include="Scenes\ConnectionScene.cs" />
+    <Compile Include="Scenes\DataSourceScene.cs" />
+    <Compile Include="Scenes\EndScene.cs" />
+    <Compile Include="Scenes\VariableScene.cs" />
     <Compile Include="ScrapeLocation.cs" />
     <Compile Include="ScreenCondition.cs" />
     <Compile Include="TypeConverters.cs" />
