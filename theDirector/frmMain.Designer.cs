@@ -83,6 +83,10 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.AddConnectionScene = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddDatasourceScene = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddVariableScene = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddEndScene = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -360,7 +364,11 @@
             // 
             this.newToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.newToolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddAlwaysScene});
+            this.AddAlwaysScene,
+            this.AddConnectionScene,
+            this.AddDatasourceScene,
+            this.AddVariableScene,
+            this.AddEndScene});
             this.newToolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton1.Image")));
             this.newToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton1.Name = "newToolStripButton1";
@@ -641,6 +649,30 @@
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // AddConnectionScene
+            // 
+            this.AddConnectionScene.Name = "AddConnectionScene";
+            this.AddConnectionScene.Size = new System.Drawing.Size(175, 24);
+            this.AddConnectionScene.Text = "Connection";
+            // 
+            // AddDatasourceScene
+            // 
+            this.AddDatasourceScene.Name = "AddDatasourceScene";
+            this.AddDatasourceScene.Size = new System.Drawing.Size(175, 24);
+            this.AddDatasourceScene.Text = "Datasource";
+            // 
+            // AddVariableScene
+            // 
+            this.AddVariableScene.Name = "AddVariableScene";
+            this.AddVariableScene.Size = new System.Drawing.Size(175, 24);
+            this.AddVariableScene.Text = "Variable";
+            // 
+            // AddEndScene
+            // 
+            this.AddEndScene.Name = "AddEndScene";
+            this.AddEndScene.Size = new System.Drawing.Size(175, 24);
+            this.AddEndScene.Text = "End";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -740,6 +772,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripDropDownButton newToolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem AddAlwaysScene;
+        private System.Windows.Forms.ToolStripMenuItem AddConnectionScene;
+        private System.Windows.Forms.ToolStripMenuItem AddDatasourceScene;
+        private System.Windows.Forms.ToolStripMenuItem AddVariableScene;
+        private System.Windows.Forms.ToolStripMenuItem AddEndScene;
 
     }
 }

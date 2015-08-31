@@ -70,7 +70,6 @@ namespace theDirector
             DialogResult result = frm.ShowDialog();
             if (result == DialogResult.OK)
             {
-                //Automation script = new Automation(frm.id);
                 if (frm.id != Guid.Empty)
                 {
                     _automation = new Automation(frm.id);
@@ -116,19 +115,12 @@ namespace theDirector
             tvw.ExpandAll();
 
             propGrid.SelectedObject = null;
-            
 
         }
 
         private void newToolStripButton1_Click(object sender, EventArgs e)
         {
-            //if (_automation != null)
-            //{
-            //    //_automation.AddScene();
-            //    throw new NotImplementedException();
-            //    //RefreshScreen();
-            //}
-            //throw new NotImplementedException();
+
         }
 
         private void propGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -169,7 +161,6 @@ namespace theDirector
 
                 //reset the data source and connection objects in the automation
                 IScene scene = _automation.Scenes[0];
-                //AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
                 rtf.Clear();
 
                 while (scene != null)
@@ -510,63 +501,12 @@ namespace theDirector
                     TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayText());
                     condnode.Tag = condition;
                 }
-                //IScene scene = (IScene)e.Node.Tag;
-                //tvwConditions.Nodes.Clear();
-                //foreach (Condition condition in scene.Conditions)
-                //{
-                //    TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayCode);
-                //    condnode.Tag = condition;
-                //    foreach (object action in condition.Actions)
-                //    {
-                //        if (action is DirectorAPI.Actions.Notifications.MessageBox)
-                //        {
-                //            TreeNode actionnode = condnode.Nodes.Add("MessageBox");
-                //            actionnode.Tag = action;
-                //        }
-                //        if (action is OpenDataSource)
-                //        {
-                //            TreeNode actionnode = condnode.Nodes.Add("OpenDataSource");
-                //            actionnode.Tag = action;
-                //        }
-                //        if (action is NextRecord)
-                //        {
-                //            TreeNode actionnode = condnode.Nodes.Add("NextRecord");
-                //            actionnode.Tag = action;
-                //        }
-
-                //        if (action is EnterData)
-                //        {
-                //            TreeNode actionnode = condnode.Nodes.Add("EnterData");
-                //            actionnode.Tag = action;
-                //        }
-                //        if (action is ConnectToCmd)
-                //        {
-                //            TreeNode actionnode = condnode.Nodes.Add("ConnectToCmd");
-                //            actionnode.Tag = action;
-                //        }
-
-                //    }
-                //    tvwConditions.ExpandAll();
-                //}
             }
 
         }
 
         private void enterDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //need the scene
-            //if (tvw.SelectedNode.Tag is Scene)
-            //{
-            //    frmEnterData frm = new frmEnterData();
-            //    DialogResult result = frm.ShowDialog();
-            //    if (result != DialogResult.OK) return;
-
-            //    ScreenCondition cond = _automation.Connection.GetCurrentScreenCondition();
-            //    (tvw.SelectedNode.Tag as Scene).ScreenConditions.Add(cond);
-            //    TreeNode node = new TreeNode("ScreenCondition") {Tag = cond};
-
-            //    tvwConditions.Nodes.Add(node);
-            //}
             throw new NotImplementedException();
         }
 
@@ -590,7 +530,6 @@ namespace theDirector
             {
                 TreeNode sourceNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
                 IScene sourceScene = (IScene) sourceNode.Tag;
-                //(draggedNode.Tag as Scene).SortID 
                 //move it
                 _automation.MoveScene(sourceScene, destinationScene);
                 RefreshScreen();
@@ -609,8 +548,6 @@ namespace theDirector
                     tvw.SelectedNode = info.Node;
                 }
             }
-
-
         }
 
         private void tvw_ItemDrag(object sender, ItemDragEventArgs e)
@@ -640,45 +577,6 @@ namespace theDirector
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            //IScene scene;
-
-            //if (tvw.SelectedNode == null)
-            //{
-            //    return;
-            //}
-
-            ////grab the current scene
-            //if (tvw.SelectedNode.Tag is IScene)
-            //{
-            //    scene = (Scene) tvw.SelectedNode.Tag;
-            //    if (scene.Type != Scene.SceneType.Connection)
-            //    {
-            //        //cannot continue
-            //        MessageBox.Show("You must select a Connect Type scene to add a Scene condition into.");
-            //        return;
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("You must select a scene to place the condition into.");
-            //    return;
-            //}
-            
-            ////grab the current condition
-            //if (_automation.Connection.ScreenData.Count == 0)
-            //{
-            //    //we aren't connected to anything
-            //    MessageBox.Show("You aren't currently connected to anything.");
-            //    return;
-            //}
-            ////ScreenCondition current = _automation.Connection.GetCurrentScreenCondition();
-
-            ////add the condition to the automation
-
-
-            //scene.AddScreenCondition(_automation.Connection.GetCurrentScreenCondition());
-
-            ////add the enter action to the  condition
             throw new NotImplementedException();
         }
 
