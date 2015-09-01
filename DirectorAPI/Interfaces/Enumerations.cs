@@ -17,5 +17,24 @@ namespace DirectorAPI.Interfaces
             EndCondition
         }
 
+        public enum ActionType
+        {
+            MessageBox = 0,
+            OpenDatasource,
+            NextRecord,
+            EnterData,
+            ConnectToCmd
+        }
+
+        public enum SceneTypes
+        {
+            Always = 0,
+            Connection,
+            Datasource,
+            Variable,
+            EndAutomation
+        }
+
+
     }
 }

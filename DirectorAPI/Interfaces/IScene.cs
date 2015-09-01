@@ -16,22 +16,9 @@ namespace DirectorAPI.Interfaces
         string CheckPointFailureStep { get; set; }
         int Timeout { get; set; }
         string TimeoutScene { get; set; }
-        //string GetNextSceneName { get; set; }
-        SceneEnums.SceneType Type { get; set; }
+
+        Enumerations.SceneTypes Type { get; set; }
         ICondition AddCondition(ICondition condition);
         List<ICondition> GetConditions();
-    }
-
-    public class SceneEnums
-    {
-        public enum SceneType
-        {
-            Always = 0,
-            Connection,
-            Datasource,
-            Variable,
-            EndAutomation
-        }
-
     }
 }

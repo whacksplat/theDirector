@@ -21,113 +21,24 @@ using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Actions.Connection
 {
-    public class EnterData : AAction
+    public class EnterData : IAction
     {
-        private string _data;
-        private string _nextScene;
-        private Automation _automation;
-        private Guid _id;
+        public string NextScene { get; set; }
+        public Guid ConditionID { get; set; }
+        public Guid ActionId { get; set; }
+        public Enumerations.ActionType ActionType { get; set; }
+        public string DisplayText { get; private set; }
 
-        private CompilerResults _results;
-
-        //TODO should replace this with something agnostic. Key/Enter/Tab
-
-        public string Data
-        {
-            get { return _data; }
-            set
-            {
-                _data = value;
-                Update();
-            }
-        }
-
-        public void Update()
-        {
-            var comm = new SqlCommand("UpdateEnterData", DBHelper.Connection())
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-
-            var actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
-            {
-                Direction = ParameterDirection.Input,
-                Value = _id
-            };
-
-            var data = new SqlParameter("@data", SqlDbType.VarChar, 255)
-            {
-                Direction = ParameterDirection.Input,
-                Value = _data
-            };
-
-            var nextscene = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
-            {
-                Direction = ParameterDirection.Input,
-                Value = _nextScene
-            };
-
-            comm.Parameters.Add(actionid);
-            comm.Parameters.Add(data);
-            comm.Parameters.Add(nextscene);
-
-            comm.ExecuteNonQuery();
-        }
-
-
-        public EnterData(Guid id, Automation automation)
-        {
-            _automation = automation;
-            LoadFromDb(id);
-        }
-
-        public EnterData()
+        public void BuildCode()
         {
             throw new NotImplementedException();
         }
 
-        public void LoadFromDb(Guid actionid)
-        {
-            var comm = new SqlCommand("Select Data,NextStep from EnterData where ActionID = '" + actionid + "'",
-                DBHelper.Connection());
-            var reader = comm.ExecuteReader();
-            if (reader.Read())
-            {
-                if (!reader.IsDBNull(0))
-                {
-                    _data = reader.GetString(0);
-                }
-                _id = actionid;
-                if (!reader.IsDBNull(1))
-                {
-                    _nextScene = reader.GetString(1);
-                }
-            }
-            reader.Close();
-        }
-
-        public void Refresh()
-        {
-            LoadFromDb(ActionId);
-        }
-
-        [TypeConverter(typeof(TypeConverters.SceneNameConverter)),
-        Category("Action Properties"),
-        Description("The next Scene to give command to when this action completes successfully.")]
-        public override string NextScene { get; set; }
-        public override Guid ConditionId { get; set; }
-        public override Guid ActionId { get; set; }
-        public override Action.ActionType ActionType { get; set; }
-
-        public override void BuildCode(Automation automation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string Execute(Automation automation)
+        public string Execute()
         {
             throw new NotImplementedException();
         }

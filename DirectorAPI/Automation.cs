@@ -131,7 +131,7 @@ namespace DirectorAPI
         /// <returns></returns>
         private bool CheckForEndScene()
         {
-            return _scenes.Any(scene => scene.Type == SceneEnums.SceneType.EndAutomation);
+            return _scenes.Any(scene => scene.Type == Enumerations.SceneTypes.EndAutomation);
         }
 
         
@@ -144,7 +144,7 @@ namespace DirectorAPI
         {
             foreach (var scene in _scenes)
             {
-                if (scene.Type != SceneEnums.SceneType.EndAutomation)
+                if (scene.Type != Enumerations.SceneTypes.EndAutomation)
                 {
                     if (!CheckScene(scene))
                     {
@@ -157,19 +157,18 @@ namespace DirectorAPI
 
         private bool CheckScene(IScene scene)
         {
-            //foreach (var condition in scene.Conditions)
-            //{
-            //    foreach (AAction action in condition.Actions)
-            //    {
-            //        if (!string.IsNullOrEmpty(action.NextScene))
-            //        {
-            //            //we're good for this scene
-            //            return true;
-            //        }
-            //    }
-            //}
-            //return false;
-            throw new NotImplementedException();
+            foreach (ICondition condition in scene.GetConditions())
+            {
+                foreach (IAction action in condition.GetActions())
+                {
+                    if (!string.IsNullOrEmpty(action.NextScene))
+                    {
+                        //we're good for this scene
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -183,9 +182,7 @@ namespace DirectorAPI
             //_connection.BufferRefresh += _connection_BufferRefresh;
             Name = name;
             Description = description;
-            //_id = new Guid();
-
-
+            
             var autname = new SqlParameter("@autname", SqlDbType.VarChar)
             {
                 Size = 50,
@@ -301,8 +298,6 @@ namespace DirectorAPI
             }
 
             reader.Close();
-
-
         }
 
         public void AddScene(IScene scene)
@@ -358,14 +353,6 @@ namespace DirectorAPI
  
         public void BuildAssemblies()
         {
-            //foreach (var scene in _scenes)
-            //{
-            //    foreach (var condition in scene.Conditions)
-            //    {
-            //        //condition.BuildCode(this);
-            //        throw new NotImplementedException();
-            //    }
-            //}
             foreach (IScene scene in _scenes)
             {
                 foreach (ICondition condition in scene.GetConditions())

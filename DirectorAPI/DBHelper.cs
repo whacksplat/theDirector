@@ -117,19 +117,19 @@ namespace DirectorAPI
             var writer = new StringWriter(CultureInfo.InvariantCulture);
             switch (scene.Type)
             {
-                case SceneEnums.SceneType.Always:
+                case Enumerations.SceneTypes.Always:
                     serializer = new XmlSerializer(typeof (AlwaysScene));
                     break;
-                case SceneEnums.SceneType.Connection:
+                case Enumerations.SceneTypes.Connection:
                     serializer = new XmlSerializer(typeof(ConnectionScene));
                     break;
-                case SceneEnums.SceneType.Datasource:
+                case Enumerations.SceneTypes.Datasource:
                     serializer = new XmlSerializer(typeof(DataSourceScene));
                     break;
-                case SceneEnums.SceneType.EndAutomation:
+                case Enumerations.SceneTypes.EndAutomation:
                     serializer = new XmlSerializer(typeof(EndAutomationScene));
                     break;
-                case SceneEnums.SceneType.Variable:
+                case Enumerations.SceneTypes.Variable:
                     serializer = new XmlSerializer(typeof(VariableScene));
                     break;
 
@@ -148,7 +148,7 @@ namespace DirectorAPI
             XmlSerializer serializer;
             var writer = new StringWriter(CultureInfo.InvariantCulture);
 
-            switch (condition.Type)
+            switch (condition.ConditionType)
             {
                 case Enumerations.ConditionTypes.AlwaysCondition:
                     serializer = new XmlSerializer(typeof (AlwaysCondition));
@@ -262,21 +262,21 @@ namespace DirectorAPI
             return _conn;
         }
 
-        public static void UpdateAction(object action)
+        public static void UpdateAction(IAction action)
         {
-            var _action = action as AAction;
+            var _action = action as IAction;
             var writer = new StringWriter(CultureInfo.InvariantCulture);
 
             //create the xml
-            switch (_action.ActionType)
+            switch (action.ActionType)
             {
-                case Action.ActionType.MessageBox:
+                case Enumerations.ActionType.MessageBox:
                     var serializer = new XmlSerializer(typeof (MessageBox));
                     var messagebox = (MessageBox) action;
                     serializer.Serialize(writer, messagebox);
                     break;
 
-                case Action.ActionType.ConnectToCmd:
+                case Enumerations.ActionType.ConnectToCmd:
                     var ctcSerializer = new XmlSerializer(typeof (ConnectToCmd));
                     var ctc = (ConnectToCmd) action;
                     ctcSerializer.Serialize(writer, ctc);
@@ -292,8 +292,8 @@ namespace DirectorAPI
 
             var conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
             conditionID.Direction = ParameterDirection.Input;
-            conditionID.Value = _action.ConditionId;
-
+            conditionID.Value = _action.ConditionID;
+            
             var actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
             actionID.Direction = ParameterDirection.Input;
             actionID.Value = _action.ActionId;
@@ -309,48 +309,6 @@ namespace DirectorAPI
             var reader = comm.ExecuteReader();
         }
 
-        public static Guid AddAction(string xml, AAction action)
-        {
-            //Guid conditionId,Action.ActionType type,
-            var comm2 = new SqlCommand("AddAction");
-            comm2.Connection = Connection();
-            comm2.CommandType = CommandType.StoredProcedure;
-
-
-            var conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
-            conditionID.Direction = ParameterDirection.Input;
-            conditionID.Value = action.ConditionId;
-
-            var actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
-            actionID.Direction = ParameterDirection.Input;
-            actionID.Value = action.ActionId;
-
-            var actiontype = new SqlParameter("@actiontype", SqlDbType.Int);
-            actiontype.Direction = ParameterDirection.Input;
-            actiontype.Value = action.ActionType;
-
-            var objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
-            objectxml.Direction = ParameterDirection.Input;
-            objectxml.Value = xml;
-
-            comm2.Parameters.Add(conditionID);
-            comm2.Parameters.Add(actionID);
-            comm2.Parameters.Add(actiontype);
-            comm2.Parameters.Add(objectxml);
-
-            var reader = comm2.ExecuteReader();
-            if (reader.HasRows)
-            {
-                if (reader.Read())
-                {
-                    var retval = reader.GetGuid(0);
-                    reader.Close();
-                    reader = null;
-                    return retval;
-                }
-            }
-            throw new Exception("Unable to AddAction");
-        }
 
         private static bool SceneExists(Guid sceneGuid)
         {
@@ -398,6 +356,91 @@ namespace DirectorAPI
 
         }
 
+
+        public static void SaveAction(IAction action)
+        {
+            var comm = new SqlCommand();
+            comm.Connection = DBHelper.Connection();
+            comm.CommandType = CommandType.StoredProcedure;
+            if (!ActionExists(action.ActionId))
+            {
+                //need to add
+                comm.CommandText = "AddAction";
+
+    //            INSERT INTO Actions(ConditionID,ActionID,ActionType,ObjectXML) OUTPUT inserted.ActionID
+    //VALUES (@conditionid,@actionid,@actiontype,@objectxml)
+                comm.Parameters.Add(new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = action.ConditionID
+                });
+
+                comm.Parameters.Add(new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = action.ActionId
+                });
+
+                comm.Parameters.Add(new SqlParameter("@actiontype", SqlDbType.Int)
+                {
+                    Value = action.ActionType
+                });
+
+                comm.Parameters.Add(new SqlParameter("@objectxml", SqlDbType.Xml)
+                {
+                    Value = GetActionObjectXml(action)
+                });
+
+
+                comm.ExecuteNonQuery();
+
+            }
+            else
+            {
+                //update
+            }
+        }
+
+        private static string GetActionObjectXml(IAction action)
+        {
+            XmlSerializer serializer;
+            var writer = new StringWriter(CultureInfo.InvariantCulture);
+
+            switch (action.ActionType)
+            {
+                case Enumerations.ActionType.MessageBox:
+                    serializer = new XmlSerializer(typeof(MessageBox));
+                    break;
+                default:
+                    throw new Exception("Unknown condition type.");
+                    break;
+            }
+
+            serializer.Serialize(writer, action);
+            return writer.ToString();
+
+        }
+
+        private static bool ActionExists(Guid actionId)
+        {
+            var comm = new SqlCommand("select count(ActionId) from Actions where ActionId = '" + actionId + "'");
+            comm.Connection = DBHelper.Connection();
+            comm.CommandType = CommandType.Text;
+            var reccount = comm.ExecuteReader();
+
+            if (reccount.Read())
+            {
+                if (reccount.GetInt32(0) == 0)
+                {
+                    //it's a new Condition
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            throw new NullReferenceException("Unable to parse SQL in SceneExists.");
+        }
+
         public static void SaveCondition(IScene scene, ICondition condition)
         {
             var comm = new SqlCommand();
@@ -426,7 +469,7 @@ namespace DirectorAPI
 
                 comm.Parameters.Add(new SqlParameter("@conditiontype", SqlDbType.Int)
                 {
-                    Value = condition.Type
+                    Value = condition.ConditionType
                 });
 
                 comm.ExecuteNonQuery();
@@ -453,7 +496,7 @@ namespace DirectorAPI
 
                 comm.Parameters.Add(new SqlParameter("@conditiontype", SqlDbType.Int)
                 {
-                    Value = condition.Type
+                    Value = condition.ConditionType
                 });
 
                 comm.ExecuteNonQuery();
@@ -493,7 +536,7 @@ namespace DirectorAPI
             switch (conditionType)
             {
                 case 0:
-                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,Type = Enumerations.ConditionTypes.AlwaysCondition};
+                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,ConditionType = Enumerations.ConditionTypes.AlwaysCondition};
                 default:
                     throw new Exception("unknown condition type in CreateConditionFromDb");
             }

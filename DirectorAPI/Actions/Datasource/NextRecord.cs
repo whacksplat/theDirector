@@ -21,89 +21,24 @@ using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Actions.Datasource
 {
-    public class NextRecord:AAction
+    public class NextRecord:IAction
     {
-        private Automation _automation;
+        public string NextScene { get; set; }
+        public Guid ConditionID { get; set; }
+        public Guid ActionId { get; set; }
+        public Enumerations.ActionType ActionType { get; set; }
+        public string DisplayText { get; private set; }
 
-        private string _nextScene;
-        private Guid _id;
-
-        CompilerResults _results;
-
-        public void Update()
-        {
-            var comm = new SqlCommand("UpdateNextRecord", DBHelper.Connection())
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-
-            var actionid = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
-            {
-                Direction = ParameterDirection.Input,
-                Value = _id
-            };
-
-            var nextscene = new SqlParameter("@nextstep", SqlDbType.VarChar, 255)
-            {
-                Direction = ParameterDirection.Input,
-                Value = _nextScene
-            };
-
-            comm.Parameters.Add(actionid);
-            comm.Parameters.Add(nextscene);
-
-            comm.ExecuteNonQuery();
-        }
-
-        public void LoadFromDb(Guid actionId)
-        {
-            var comm = new SqlCommand("Select NextStep from NextRecord where ActionID = '" + actionId + "'", DBHelper.Connection());
-            var reader = comm.ExecuteReader();
-            if (reader.Read())
-            {
-                _id = ActionId;
-                if (!reader.IsDBNull(0))
-                {
-                    _nextScene = reader.GetString(0);
-                }
-            }
-            reader.Close();
-        }
-
-        public NextRecord(Guid id,Automation automation)
-        {
-            _automation = automation;
-            LoadFromDb(id);
-        }
-
-        public NextRecord()
+        public void BuildCode()
         {
             throw new NotImplementedException();
         }
 
-        public void Refresh()
-        {
-            throw new NotImplementedException();
-        }
-
-        [TypeConverter(typeof(TypeConverters.SceneNameConverter)),
-        Category("Action Properties"),
-        Description("The next Scene to give command to when this action completes successfully.")]
-        public override string NextScene { get; set; }
-
-        public override Guid ConditionId { get; set; }
-        public override Guid ActionId { get; set; }
-        public override Action.ActionType ActionType { get; set; }
-
-        public override void BuildCode(Automation automation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string Execute(Automation automation)
+        public string Execute()
         {
             throw new NotImplementedException();
         }

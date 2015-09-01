@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DirectorAPI.Actions.Notifications;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Conditions
@@ -28,7 +29,16 @@ namespace DirectorAPI.Conditions
 
         public string ExecuteActions()
         {
-            throw new NotImplementedException();
+            string retval="";
+            foreach (IAction action in _actions)
+            {
+                retval = action.Execute();
+                if (!string.IsNullOrEmpty(retval))
+                {
+                    return retval;
+                }
+            }
+            return retval; //will return blank
         }
 
         public bool EvaluateCondition()
@@ -54,6 +64,40 @@ namespace DirectorAPI.Conditions
         public Guid ConditionId { get; set; }
         
         [ReadOnly(true)]
-        public Enumerations.ConditionTypes Type { get; set; }
+        public Enumerations.ConditionTypes ConditionType { get; set; }
+
+        public List<IAction> GetActions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAction AddAction(Enumerations.ActionType type)
+        {
+            IAction retval = null;
+
+            switch (type)
+            {
+                case Enumerations.ActionType.ConnectToCmd:
+                    break;
+                case Enumerations.ActionType.EnterData:
+                    break;
+                case Enumerations.ActionType.MessageBox:
+                    retval = new MessageBox();
+                    break;
+                case Enumerations.ActionType.NextRecord:
+                    break;
+                case Enumerations.ActionType.OpenDatasource:
+                    break;
+                default:
+                    throw new NotImplementedException("unable to addaction");
+            }
+
+            retval.ConditionID = ConditionId;
+            retval.ActionId = Guid.NewGuid();
+            retval.ActionType = type;
+
+            DBHelper.SaveAction(retval);
+            return retval;
+        }
     }
 }

@@ -42,6 +42,16 @@ namespace DirectorAPI.Conditions
         public Guid ConditionId { get; set; }
 
         [ReadOnly(true)]
-        public Enumerations.ConditionTypes Type { get; set; }
+        public Enumerations.ConditionTypes ConditionType { get; set; }
+
+        public List<IAction> GetActions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAction AddAction(Enumerations.ActionType type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

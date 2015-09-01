@@ -130,11 +130,11 @@ namespace theDirector
                 tvw.SelectedNode.Text = e.ChangedItem.Value.ToString();
             }
             
-            if (propGrid.SelectedObject is AAction)
+            if (propGrid.SelectedObject is IAction)
             {
-                DBHelper.UpdateAction(propGrid.SelectedObject as AAction);
+                DBHelper.UpdateAction(propGrid.SelectedObject as IAction);
             }
-            if (propGrid.SelectedObject is AlwaysScene)
+            if (propGrid.SelectedObject is IScene)
             {
                 DBHelper.SaveScene((IScene)propGrid.SelectedObject);
             }
@@ -167,53 +167,45 @@ namespace theDirector
                 {
                     switch (scene.Type)
                     {
-                        case SceneEnums.SceneType.Always:
+                        case Enumerations.SceneTypes.Always:
                             //an always type scene will only have 1 condition, an always.
-                            //retval = scene.Conditions[0].Execute(_automation);
-                            //retval = scene.GetConditions()[0].EvaluateCondition();
-                            throw new NotImplementedException();
+                            retval = scene.GetConditions()[0].ExecuteActions();
+
                             if (!string.IsNullOrEmpty(retval))
                             {
                                 scene = _automation.Scenes.Find(x => x.Name == retval);
                                 break;
                             }
+                            else
+                            {
+                                //this is fatal,must have a scene to move to
+                            }
                             break;
 
-                        case SceneEnums.SceneType.Connection:
-                            //_scene = scene;
+                        case Enumerations.SceneTypes.Connection:
+                            //foreach (Condition condition in scene.Conditions)
+                            //{
+                            //    if (condition.Eval(_automation))
+                            //    {
+                            //        retval = condition.Execute(_automation);
+                            //        if (!string.IsNullOrEmpty(retval))
+                            //        {
+                            //            scene = _automation.Scenes.Find(x => x.Name == retval);
+                            //        }
+                            //    }
+                            //}
+
                             throw new NotImplementedException();
                             break;
 
-                        case SceneEnums.SceneType.EndAutomation:
+                        case Enumerations.SceneTypes.EndAutomation:
                             return;
 
-                        case SceneEnums.SceneType.Datasource:
-                            //foreach (Condition condition in scene.Conditions)
-                            //{
-                            //    if (condition.Eval(_automation))
-                            //    {
-                            //        retval = condition.Execute(_automation);
-                            //        if (!string.IsNullOrEmpty(retval))
-                            //        {
-                            //            scene = _automation.Scenes.Find(x => x.Name == retval);
-                            //        }
-                            //    }
-                            //}
+                        case Enumerations.SceneTypes.Datasource:
                             throw new NotImplementedException();
                             break;
 
-                        case SceneEnums.SceneType.Variable:
-                            //foreach (Condition condition in scene.Conditions)
-                            //{
-                            //    if (condition.Eval(_automation))
-                            //    {
-                            //        retval = condition.Execute(_automation);
-                            //        if (!string.IsNullOrEmpty(retval))
-                            //        {
-                            //            scene = _automation.Scenes.Find(x => x.Name == retval);
-                            //        }
-                            //    }
-                            //}
+                        case Enumerations.SceneTypes.Variable:
                             throw new NotImplementedException();
                             break;
                     }
@@ -240,6 +232,7 @@ namespace theDirector
             //node.Tag = condition;
             //tvwConditions.SelectedNode = node;
             //throw new NotImplementedException();
+            
         }
 
         /// <summary>
@@ -267,7 +260,7 @@ namespace theDirector
                 return;
             }
 
-            if (tvwConditions.SelectedNode.Tag is AAction)
+            if (tvwConditions.SelectedNode.Tag is IAction)
             {
                 propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
                 return;
@@ -292,18 +285,18 @@ namespace theDirector
 
             ICondition condition;
 
-            if (tvwConditions.SelectedNode.Tag is AAction)
+            if (!(tvwConditions.SelectedNode.Tag is ICondition))
             {
-                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
-                tvwConditions.SelectedNode = tvwConditions.SelectedNode.Parent;
+                MessageBox.Show("You must select a condition to add the action to.");
+                return;
             }
-            else
-            {
-                condition = (ICondition)tvwConditions.SelectedNode.Tag;
-            }
+            
+            condition = (ICondition)tvwConditions.SelectedNode.Tag;
 
-            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("MessageBox");
-            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.MessageBox);
+            IAction messagebox = condition.AddAction(Enumerations.ActionType.MessageBox);
+            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add(messagebox.DisplayText);
+            //actionnode.Tag = condition.AddAction(Enumerations.ActionType.MessageBox);
+            actionnode.Tag = messagebox;
             tvwConditions.SelectedNode = actionnode;
         }
 
@@ -318,7 +311,7 @@ namespace theDirector
 
             ICondition condition;
 
-            if (tvwConditions.SelectedNode.Tag is DirectorAPI.Action)
+            if (tvwConditions.SelectedNode.Tag is DirectorAPI.Interfaces.IAction)
             {
                 condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
             }
@@ -328,7 +321,7 @@ namespace theDirector
             }
 
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("OpenDatasource");
-            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.OpenDatasource);
+            //actionnode.Tag = condition.AddAction(DirectorAPI.Enumerations.ActionType.OpenDatasource);
             tvwConditions.SelectedNode = actionnode;
         }
 
@@ -348,26 +341,27 @@ namespace theDirector
         private void nextRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //make sure we have something selected
-            if (tvwConditions.SelectedNode == null)
-            {
-                System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
-                return;
-            }
+            //if (tvwConditions.SelectedNode == null)
+            //{
+            //    System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
+            //    return;
+            //}
 
-            ICondition condition;
+            //ICondition condition;
 
-            if (tvwConditions.SelectedNode.Tag is DirectorAPI.Action)
-            {
-                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
-            }
-            else
-            {
-                condition = (ICondition)tvwConditions.SelectedNode.Tag;
-            }
+            //if (tvwConditions.SelectedNode.Tag is DirectorAPI.Interfaces.ICondition)
+            //{
+            //    condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
+            //}
+            //else
+            //{
+            //    condition = (ICondition)tvwConditions.SelectedNode.Tag;
+            //}
 
-            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("NextRecord");
-            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.NextRecord);
-            tvwConditions.SelectedNode = actionnode;
+            //TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("NextRecord");
+            ////actionnode.Tag = condition.AddAction(DirectorAPI.Enumerations.ActionType.NextRecord);
+            //tvwConditions.SelectedNode = actionnode;
+            throw new NotImplementedException();
         }
 
         private void dataSourceIsNOTEOFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -401,7 +395,7 @@ namespace theDirector
 
             ////add the action
             //TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("EnterData");
-            //EnterData ed = (EnterData)condition.AddAction(DirectorAPI.Action.ActionType.EnterData);
+            //EnterData ed = (EnterData)condition.AddAction(DirectorAPI.Enumerations.ActionType.EnterData);
             //ed.Data = frm.Data;
             //actionnode.Tag = ed;
             //tvwConditions.SelectedNode = actionnode;
@@ -420,35 +414,7 @@ namespace theDirector
 
         private void openConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (tvwConditions.SelectedNode == null)
-            {
-                System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
-                return;
-            }
-
-            ICondition condition;
-
-            if (tvwConditions.SelectedNode.Tag is DirectorAPI.Action)
-            {
-                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
-            }
-            else
-            {
-                if (tvwConditions.SelectedNode.Tag is AAction)
-                {
-                    condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
-                }
-                else
-                {
-                    condition = (ICondition)tvwConditions.SelectedNode.Tag;
-                }
-            }
-
-            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("Connect to CMD");
-            //actionnode.Tag = condition.AddAction(DirectorAPI.Action.ActionType.ConnectToCmd);
-            tvwConditions.SelectedNode = actionnode;
-            AutomationHelper.automation.Connection.BufferRefresh += ConnectionOnBufferRefresh;
-            
+            throw new NotImplementedException();
         }
 
         private void ConnectionOnBufferRefresh(object sender)
@@ -592,17 +558,57 @@ namespace theDirector
             if (!IsReady()) return;
 
             IScene scene = (IScene)tvw.SelectedNode.Tag;
-            if (scene.Type == SceneEnums.SceneType.EndAutomation)
+            if (scene.Type == Enumerations.SceneTypes.EndAutomation)
             {
                 MessageBox.Show("You cannot add condtions to an End Scene.");
                 return;
             }
 
-            AlwaysCondition always = (AlwaysCondition)scene.AddCondition(new AlwaysCondition());
+            try
+            {
+                AlwaysCondition always = (AlwaysCondition)scene.AddCondition(new AlwaysCondition());
+                TreeNode node = tvwConditions.Nodes.Add(always.DisplayText());
+                node.Tag = always;
+                tvwConditions.SelectedNode = node;
+            }
+            catch (Exception err)
+            {
 
-            TreeNode node = tvwConditions.Nodes.Add(always.DisplayText());
-            node.Tag = always;
-            tvwConditions.SelectedNode = node;
+                MessageBox.Show("You cannot add an Always condition to a scene of type " + scene.Type);
+            }
+            
+
+        }
+
+        private void AddConnectionScene_Click(object sender, EventArgs e)
+        {
+            if (_automation == null) return;
+            _automation.AddScene(new ConnectionScene());
+            RefreshScreen();
+        }
+
+        private void AddDatasourceScene_Click(object sender, EventArgs e)
+        {
+            if (_automation == null) return;
+            _automation.AddScene(new DataSourceScene());
+            RefreshScreen();
+
+        }
+
+        private void AddVariableScene_Click(object sender, EventArgs e)
+        {
+            if (_automation == null) return;
+            _automation.AddScene(new VariableScene());
+            RefreshScreen();
+
+        }
+
+        private void AddEndScene_Click(object sender, EventArgs e)
+        {
+            if (_automation == null) return;
+            _automation.AddScene(new EndAutomationScene());
+            RefreshScreen();
+
         }
     }
 }

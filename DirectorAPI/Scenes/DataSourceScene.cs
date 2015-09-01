@@ -16,7 +16,7 @@ namespace DirectorAPI.Scenes
 
         public DataSourceScene()
         {
-            Type = SceneEnums.SceneType.Datasource;
+            Type = Enumerations.SceneTypes.Datasource;
         }
 
         public string Name { get; set; }
@@ -35,7 +35,7 @@ namespace DirectorAPI.Scenes
         public string TimeoutScene { get; set; }
 
         [ReadOnly(true)]
-        public SceneEnums.SceneType Type { get; set; }
+        public Enumerations.SceneTypes Type { get; set; }
         
         public ICondition AddCondition(ICondition condition)
         {
@@ -46,7 +46,7 @@ namespace DirectorAPI.Scenes
 
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
-            condition.Type = condition.Type;
+            condition.ConditionType = condition.ConditionType;
             DBHelper.SaveCondition(this, condition);
             conditions.Add(condition);
             return condition;

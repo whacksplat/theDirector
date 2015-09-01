@@ -12,7 +12,10 @@ namespace DirectorAPI.Interfaces
         string NextScene { get; set; }
         Guid ConditionID { get; set; }
         Guid ActionId { get; set; }
-        Action.ActionType ActionType { get; set; }
+        Enumerations.ActionType ActionType { get; set; }
+
+        string DisplayText { get;}
+
         void BuildCode();
         string Execute();
     }
