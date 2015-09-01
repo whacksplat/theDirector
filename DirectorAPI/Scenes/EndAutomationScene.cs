@@ -9,10 +9,15 @@ using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Scenes
 {
-    public class EndScene : IScene
+    public class EndAutomationScene : IScene
     {
         private List<ICondition> conditions = new List<ICondition>();
-        
+
+        public EndAutomationScene()
+        {
+            Type = SceneEnums.SceneType.EndAutomation;
+        }
+
         public string Name { get; set; }
 
         [ReadOnly(true)]

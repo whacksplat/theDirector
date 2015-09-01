@@ -12,7 +12,12 @@ namespace DirectorAPI.Scenes
     public class VariableScene : IScene
     {
         private List<ICondition> conditions = new List<ICondition>();
-        
+
+        public VariableScene()
+        {
+            Type = SceneEnums.SceneType.Variable;
+        }
+
         public string Name { get; set; }
 
         [ReadOnly(true)]

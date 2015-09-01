@@ -78,7 +78,7 @@
     <Compile Include="Scenes\AlwaysScene.cs" />
     <Compile Include="Scenes\ConnectionScene.cs" />
     <Compile Include="Scenes\DataSourceScene.cs" />
-    <Compile Include="Scenes\EndScene.cs" />
+    <Compile Include="Scenes\EndAutomationScene.cs" />
     <Compile Include="Scenes\VariableScene.cs" />
     <Compile Include="ScrapeLocation.cs" />
     <Compile Include="ScreenCondition.cs" />

@@ -121,16 +121,16 @@ namespace DirectorAPI
                     serializer = new XmlSerializer(typeof (AlwaysScene));
                     break;
                 case SceneEnums.SceneType.Connection:
-                    throw new NotImplementedException("Unknown scene type.");
+                    serializer = new XmlSerializer(typeof(ConnectionScene));
                     break;
                 case SceneEnums.SceneType.Datasource:
-                    throw new NotImplementedException("Unknown scene type.");
+                    serializer = new XmlSerializer(typeof(DataSourceScene));
                     break;
                 case SceneEnums.SceneType.EndAutomation:
-                    throw new NotImplementedException("Unknown scene type.");
+                    serializer = new XmlSerializer(typeof(EndAutomationScene));
                     break;
                 case SceneEnums.SceneType.Variable:
-                    throw new NotImplementedException("Unknown scene type.");
+                    serializer = new XmlSerializer(typeof(VariableScene));
                     break;
 
                 default:
@@ -150,7 +150,7 @@ namespace DirectorAPI
 
             switch (condition.Type)
             {
-                case Enumerations.ConditionTypes.Always:
+                case Enumerations.ConditionTypes.AlwaysCondition:
                     serializer = new XmlSerializer(typeof (AlwaysCondition));
                     break;
                 default:
@@ -493,7 +493,7 @@ namespace DirectorAPI
             switch (conditionType)
             {
                 case 0:
-                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,Type = Enumerations.ConditionTypes.Always};
+                    return new AlwaysCondition(){ConditionId = conditionId,SceneId = sceneId,Type = Enumerations.ConditionTypes.AlwaysCondition};
                 default:
                     throw new Exception("unknown condition type in CreateConditionFromDb");
             }

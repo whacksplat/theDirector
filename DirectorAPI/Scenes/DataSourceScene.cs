@@ -13,7 +13,12 @@ namespace DirectorAPI.Scenes
     {
 
         private List<ICondition> conditions = new List<ICondition>();
-        
+
+        public DataSourceScene()
+        {
+            Type = SceneEnums.SceneType.Datasource;
+        }
+
         public string Name { get; set; }
 
         [ReadOnly(true)]

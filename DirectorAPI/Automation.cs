@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using DirectorAPI.Actions;
+using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 using DirectorAPI.Scenes;
 
@@ -261,21 +262,36 @@ namespace DirectorAPI
             var reader = comm.ExecuteReader();
             while (reader.Read())
             {
-                //SELECT AutomationID, SortID, Name, SceneType, TimeOutInterval, TimeOutStep from Scenes where AutomationID = @automationid order by SortID
-
-                //serializer = new XmlSerializer(typeof(MessageBox));
-                //var msgbox = (MessageBox)serializer.Deserialize(reader.GetXmlReader(3));
-
-
-                //SELECT SceneID, SortID, Name, ObjectXML from Scenes where AutomationID = @automationid order by SortID
-                //XmlSerializer serializer = new XmlSerializer(typeof(AlwaysScene));
-                //var scene = (AlwaysScene)serializer.Deserialize(reader.GetXmlReader(3));
                 switch (reader.GetInt32(4))
                 {
                     case 0: //AlwaysScene
-                        XmlSerializer serializer = new XmlSerializer(typeof(AlwaysScene));
-                        AlwaysScene scene = (AlwaysScene)serializer.Deserialize(reader.GetXmlReader(3));
-                        _scenes.Add(scene);
+                        XmlSerializer AlwaysSerializer = new XmlSerializer(typeof(AlwaysScene));
+                        AlwaysScene alwaysScene = (AlwaysScene)AlwaysSerializer.Deserialize(reader.GetXmlReader(3));
+                        _scenes.Add(alwaysScene);
+                        break;
+
+                    case 1: //ConnectionCondition
+                        XmlSerializer connectionSerializer = new XmlSerializer(typeof(ConnectionScene));
+                        ConnectionScene connectionScene = (ConnectionScene)connectionSerializer.Deserialize(reader.GetXmlReader(3));
+                        _scenes.Add(connectionScene);
+                        break;
+
+                    case 2: //DatasourceCondition
+                        XmlSerializer datasourceSerializer = new XmlSerializer(typeof(DataSourceScene));
+                        DataSourceScene datasourceScene = (DataSourceScene)datasourceSerializer.Deserialize(reader.GetXmlReader(3));
+                        _scenes.Add(datasourceScene);
+                        break;
+
+                    case 3: //VariableCondition
+                        XmlSerializer variableSerializer = new XmlSerializer(typeof(VariableScene));
+                        VariableScene variableScene = (VariableScene)variableSerializer.Deserialize(reader.GetXmlReader(3));
+                        _scenes.Add(variableScene);
+                        break;
+
+                    case 4: //EndCondition
+                        XmlSerializer endautomationSerializer = new XmlSerializer(typeof(EndAutomationScene));
+                        EndAutomationScene endautomationScene = (EndAutomationScene)endautomationSerializer.Deserialize(reader.GetXmlReader(3));
+                        _scenes.Add(endautomationScene);
                         break;
 
                     default:
@@ -286,10 +302,7 @@ namespace DirectorAPI
 
             reader.Close();
 
-            //foreach (var scene in _scenes)
-            //{
-            //    //scene.GetConditions();
-            //}
+
         }
 
         public void AddScene(IScene scene)

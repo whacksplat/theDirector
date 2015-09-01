@@ -13,6 +13,11 @@ namespace DirectorAPI.Scenes
     {
         private List<ICondition> conditions = new List<ICondition>();
 
+        public ConnectionScene()
+        {
+            Type = SceneEnums.SceneType.Connection;
+        }
+
         public string Name { get; set; }
         
         [ReadOnly(true)]

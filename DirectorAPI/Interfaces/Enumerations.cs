@@ -10,7 +10,11 @@ namespace DirectorAPI.Interfaces
     {
         public enum ConditionTypes
         {
-            Always = 0
+            AlwaysCondition = 0,
+            ConnectionCondition,
+            DatasourceCondition,
+            VariableCondition,
+            EndCondition
         }
 
     }
