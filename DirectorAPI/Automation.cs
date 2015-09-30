@@ -91,25 +91,25 @@ namespace DirectorAPI
             //todo make sure at least one action in a scene redirects to another scene, or we will get stuck in a scene
             //todo make sure we have a End Automation scene
             //todo scene must have at least 1 condition
-            
 
-            //if (!CheckForEndScene())
-            //{
-            //    MessageBox.Show(
-            //        "Each Automation must have a scene designated as the End Scene so the Automation will know when it's done.");
-            //    return false;
-            //}
-            ////if (!CheckForConditions())
-            ////{
-            ////    MessageBox.Show("Each Scene must have at least one condition.");
-            ////    return false;
-            ////}
 
-            //if (!CheckForRedirects())
-            //{
-            //    MessageBox.Show("A Scene must have at least one action that redirects to another scene.");
-            //    return false;
-            //}
+            if (!CheckForEndScene())
+            {
+                MessageBox.Show(
+                    "Each Automation must have a scene designated as the End Scene so the Automation will know when it's done.");
+                return false;
+            }
+            if (!CheckForConditions())
+            {
+                MessageBox.Show("Each Scene must have at least one condition.");
+                return false;
+            }
+
+            if (!CheckForRedirects())
+            {
+                MessageBox.Show("A Scene must have at least one action that redirects to another scene.");
+                return false;
+            }
 
             return true;
         }
@@ -119,10 +119,10 @@ namespace DirectorAPI
         /// Checks to make sure each scene has at least 1 condition
         /// </summary>
         /// <returns></returns>
-        //private bool CheckForConditions()
-        //{
-        //    return _scenes.All(scene => scene.Conditions.Count != 0 || scene.Type == Scene.SceneType.EndAutomation);
-        //}
+        private bool CheckForConditions()
+        {
+            return _scenes.All(scene => scene.GetConditions().Count != 0 || scene.Type == Enumerations.SceneTypes.EndAutomation);
+        }
 
 
         /// <summary>
@@ -179,36 +179,16 @@ namespace DirectorAPI
         /// <param name="description">A brief description of the Automation.</param>
         public Automation(string name, string description)
         {
-            //_connection.BufferRefresh += _connection_BufferRefresh;
             Name = name;
             Description = description;
             
-            var autname = new SqlParameter("@autname", SqlDbType.VarChar)
+            Guid? id = DBHelper.AddAutomation(name, description);
+            if (!id.HasValue)
             {
-                Size = 50,
-                Direction = ParameterDirection.Input,
-                Value = Name
-            };
-
-            var descr = new SqlParameter("@desc", SqlDbType.VarChar)
-            {
-                Size = 255,
-                Direction = ParameterDirection.Input,
-                Value = Description
-            };
-
-            var comm = new SqlCommand("AddAutomation") {CommandType = CommandType.StoredProcedure};
-            comm.Parameters.Add(autname);
-            comm.Parameters.Add(descr);
-            comm.Connection = DBHelper.Connection();
-
-            var reader = comm.ExecuteReader();
-            if (reader.Read())
-            {
-                Console.WriteLine(reader.GetSqlGuid(0).ToString());
-                _id = reader.GetSqlGuid(0).Value;
+                throw new Exception("Unable to create automation");
             }
-            reader.Close();
+            _id = (Guid)id;
+
             AutomationHelper.automation = this;
         }
 
@@ -265,35 +245,38 @@ namespace DirectorAPI
                         XmlSerializer AlwaysSerializer = new XmlSerializer(typeof(AlwaysScene));
                         AlwaysScene alwaysScene = (AlwaysScene)AlwaysSerializer.Deserialize(reader.GetXmlReader(3));
                         _scenes.Add(alwaysScene);
+                        alwaysScene.GetConditions();
                         break;
 
                     case 1: //ConnectionCondition
                         XmlSerializer connectionSerializer = new XmlSerializer(typeof(ConnectionScene));
                         ConnectionScene connectionScene = (ConnectionScene)connectionSerializer.Deserialize(reader.GetXmlReader(3));
                         _scenes.Add(connectionScene);
+                        connectionScene.GetConditions();
                         break;
 
                     case 2: //DatasourceCondition
                         XmlSerializer datasourceSerializer = new XmlSerializer(typeof(DataSourceScene));
                         DataSourceScene datasourceScene = (DataSourceScene)datasourceSerializer.Deserialize(reader.GetXmlReader(3));
                         _scenes.Add(datasourceScene);
+                        datasourceScene.GetConditions();
                         break;
 
                     case 3: //VariableCondition
                         XmlSerializer variableSerializer = new XmlSerializer(typeof(VariableScene));
                         VariableScene variableScene = (VariableScene)variableSerializer.Deserialize(reader.GetXmlReader(3));
                         _scenes.Add(variableScene);
+                        variableScene.GetConditions();
                         break;
 
                     case 4: //EndCondition
                         XmlSerializer endautomationSerializer = new XmlSerializer(typeof(EndAutomationScene));
                         EndAutomationScene endautomationScene = (EndAutomationScene)endautomationSerializer.Deserialize(reader.GetXmlReader(3));
-                        _scenes.Add(endautomationScene);
+                        _scenes.Add(endautomationScene);    //EndAutomationScene will NOT have conditions
                         break;
 
                     default:
                         throw new NullReferenceException();
-
                 }
             }
 
@@ -358,9 +341,12 @@ namespace DirectorAPI
                 foreach (ICondition condition in scene.GetConditions())
                 {
                     condition.BuildCode();
+                    foreach (IAction action in condition.GetActions())
+                    {
+                        action.BuildCode();
+                    }
                 }
             }
-
         }
     }
 }

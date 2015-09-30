@@ -70,7 +70,7 @@ namespace DirectorAPI
             }
 
             //screen size is 80 by 25
-            if (args.Content.Equals("\f"))
+            if (args.Content.Equals("\f")) //needs to be a buffer termination character
             {
                 _screendata.Clear();
             }

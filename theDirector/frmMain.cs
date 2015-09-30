@@ -148,7 +148,6 @@ namespace theDirector
 
             if (_automation != null)
             {
-
                 if (!_automation.PreCompile())
                 {
                     return;
@@ -165,52 +164,23 @@ namespace theDirector
 
                 while (scene != null)
                 {
-                    switch (scene.Type)
+                    if (scene is EndAutomationScene)
                     {
-                        case Enumerations.SceneTypes.Always:
-                            //an always type scene will only have 1 condition, an always.
-                            retval = scene.GetConditions()[0].ExecuteActions();
-
+                        //we're done
+                        break;
+                    }
+                    foreach (ICondition condition in scene.GetConditions())
+                    {
+                        if (condition.EvaluateCondition())
+                        {
+                            retval = condition.ExecuteActions();
                             if (!string.IsNullOrEmpty(retval))
                             {
                                 scene = _automation.Scenes.Find(x => x.Name == retval);
-                                break;
                             }
-                            else
-                            {
-                                //this is fatal,must have a scene to move to
-                            }
-                            break;
-
-                        case Enumerations.SceneTypes.Connection:
-                            //foreach (Condition condition in scene.Conditions)
-                            //{
-                            //    if (condition.Eval(_automation))
-                            //    {
-                            //        retval = condition.Execute(_automation);
-                            //        if (!string.IsNullOrEmpty(retval))
-                            //        {
-                            //            scene = _automation.Scenes.Find(x => x.Name == retval);
-                            //        }
-                            //    }
-                            //}
-
-                            throw new NotImplementedException();
-                            break;
-
-                        case Enumerations.SceneTypes.EndAutomation:
-                            return;
-
-                        case Enumerations.SceneTypes.Datasource:
-                            throw new NotImplementedException();
-                            break;
-
-                        case Enumerations.SceneTypes.Variable:
-                            throw new NotImplementedException();
-                            break;
+                        }
                     }
                 }
-
                 _automation.CurrentMode = Automation.Mode.Record;
             }
         }
@@ -295,7 +265,6 @@ namespace theDirector
 
             IAction messagebox = condition.AddAction(Enumerations.ActionType.MessageBox);
             TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add(messagebox.DisplayText);
-            //actionnode.Tag = condition.AddAction(Enumerations.ActionType.MessageBox);
             actionnode.Tag = messagebox;
             tvwConditions.SelectedNode = actionnode;
         }
@@ -466,6 +435,22 @@ namespace theDirector
                 {
                     TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayText());
                     condnode.Tag = condition;
+                    foreach (IAction action in condition.GetActions())
+                    {
+                        switch (action.ActionType)
+                        {
+                            case Enumerations.ActionType.MessageBox:
+                                TreeNode actionnode = condnode.Nodes.Add(action.DisplayText);
+                                //actionnode.Tag = condition.AddAction(Enumerations.ActionType.MessageBox);
+                                actionnode.Tag = action;
+                                tvwConditions.SelectedNode = actionnode;
+                                break;
+
+                            default:
+                                throw new NotImplementedException();
+                        }
+
+                    }
                 }
             }
 

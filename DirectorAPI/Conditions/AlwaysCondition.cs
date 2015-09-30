@@ -43,7 +43,7 @@ namespace DirectorAPI.Conditions
 
         public bool EvaluateCondition()
         {
-            var myclass = results.CompiledAssembly.CreateInstance("ConsoleApplication1.Program");
+            var myclass = results.CompiledAssembly.CreateInstance("ConditionCode.Program");
             var t = myclass.GetType();
             var mi = t.GetMethod("TestValue");
             object[] obj = { AutomationHelper.automation };
@@ -68,7 +68,8 @@ namespace DirectorAPI.Conditions
 
         public List<IAction> GetActions()
         {
-            throw new NotImplementedException();
+            _actions=DBHelper.GetActions(ConditionId);
+            return _actions;
         }
 
         public IAction AddAction(Enumerations.ActionType type)

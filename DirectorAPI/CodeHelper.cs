@@ -29,7 +29,7 @@ namespace DirectorAPI
             var src = "using System;";
             src += Environment.NewLine + "using System.Windows.Forms;";
             src += Environment.NewLine + "using DirectorAPI;";
-            src += Environment.NewLine + "namespace ConsoleApplication1";
+            src += Environment.NewLine + "namespace ConditionCode";
             src += Environment.NewLine + "{";
             src += Environment.NewLine + "    class Program";
             src += Environment.NewLine + "    {";
@@ -52,13 +52,13 @@ namespace DirectorAPI
             return provider.CompileAssemblyFromSource(prms, src);
         }
 
-        public static CompilerResults CreateActionCode(Automation automation, string code)
+        public static CompilerResults CreateActionCode(string code)
         {
             //TODO must remove ref statement, maybe a singleton class?
             var src = "using System;";
             src += Environment.NewLine + "using System.Windows.Forms;";
             src += Environment.NewLine + "using DirectorAPI;";
-            src += Environment.NewLine + "namespace ConsoleApplication1";
+            src += Environment.NewLine + "namespace ActionCode";
             src += Environment.NewLine + "{";
             src += Environment.NewLine + "    class Program";
             src += Environment.NewLine + "    {";

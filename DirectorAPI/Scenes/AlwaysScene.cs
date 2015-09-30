@@ -16,7 +16,7 @@ namespace DirectorAPI.Scenes
 {
     public class AlwaysScene : IScene
     {
-        private List<ICondition> conditions = new List<ICondition>();
+        private List<ICondition> conditions;
 
         public string Name{ get; set; }
         
@@ -59,7 +59,12 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            conditions =  DBHelper.GetConditions(this.SceneId);
+            if (conditions == null)
+            {
+                //fresh load from db
+                conditions = new List<ICondition>();
+                conditions = DBHelper.GetConditions(this.SceneId);
+            }
             return conditions;
         }
     }
