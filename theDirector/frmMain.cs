@@ -595,6 +595,21 @@ namespace theDirector
             RefreshScreen();
 
         }
+
+        private void newToolStripButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void windowsUIAutomationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
