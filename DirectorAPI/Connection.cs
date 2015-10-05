@@ -23,10 +23,6 @@ using System.Linq;
 using System.Threading;
 using DirectorAPI.ConsoleConnection;
 
-//using DirectorAPI.ConsoleConnection;
-
-//using ConsoleControl;
-
 namespace DirectorAPI
 {
     public class Connection

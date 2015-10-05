@@ -57,6 +57,7 @@
     <Compile Include="Conditions\VariableCondition.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Actions\Connection\ConnectToCmd.cs" />
+    <Compile Include="Connections\ConsoleConnectionRedirection.cs" />
     <Compile Include="ConsoleConnection\ProcessEventArgs.cs" />
     <Compile Include="ConsoleConnection\ProcessInterface.cs" />
     <Compile Include="DataSource.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Actions\Notifications\MessageBox.cs" />
     <Compile Include="Interfaces\Enumerations.cs" />
     <Compile Include="Interfaces\IAction.cs" />
+    <Compile Include="Interfaces\ICharacterConnection.cs" />
     <Compile Include="Interfaces\ICondition.cs" />
     <Compile Include="Interfaces\IScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
