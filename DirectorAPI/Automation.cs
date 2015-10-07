@@ -39,13 +39,22 @@ namespace DirectorAPI
             Run
         }
 
-        private readonly Connection _connection;// = new Connection();  //there will be only one of these at any point in time.
+        private ICharacterConnection _connection;// = new Connection();  //there will be only one of these at any point in time.
         private readonly DataSource _datasource;// = new DataSource();  //same thing with datasource, only 1 per automation
         private readonly Guid _id;
         private readonly List<IScene> _scenes = new List<IScene>();
+        
+        public delegate void BufferRefreshed(object sender);
+        public event BufferRefreshed ConnectionBufferRefresh;
+
 
         public string Name { get; set; }
         public string Description { get; private set; }
+
+        public void ResetEventSyncs()
+        {
+            Connection.BufferRefresh += Connection_BufferRefresh;
+        }
 
         /// <summary>
         /// This is the AutomationId for this Automation.
@@ -62,9 +71,10 @@ namespace DirectorAPI
             get { return _datasource; }
         }
 
-        public Connection Connection
+        public ICharacterConnection Connection
         {
             get { return _connection; }
+            set { _connection = value; }
         }
 
         public List<IScene> Scenes
@@ -79,6 +89,11 @@ namespace DirectorAPI
             Description = description;
             _id = id;
             AutomationHelper.automation = this;
+        }
+
+        private void Connection_BufferRefresh(object sender)
+        {
+            if (ConnectionBufferRefresh != null) ConnectionBufferRefresh(sender);
         }
 
 

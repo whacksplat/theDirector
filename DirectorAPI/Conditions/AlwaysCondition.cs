@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Notifications;
 using DirectorAPI.Interfaces;
 
@@ -79,16 +80,22 @@ namespace DirectorAPI.Conditions
             switch (type)
             {
                 case Enumerations.ActionType.ConnectToCmd:
+                    retval = new ConnectToCmd();
                     break;
+
                 case Enumerations.ActionType.EnterData:
                     break;
+
                 case Enumerations.ActionType.MessageBox:
                     retval = new MessageBox();
                     break;
+
                 case Enumerations.ActionType.NextRecord:
                     break;
+
                 case Enumerations.ActionType.OpenDatasource:
                     break;
+
                 default:
                     throw new NotImplementedException("unable to addaction");
             }

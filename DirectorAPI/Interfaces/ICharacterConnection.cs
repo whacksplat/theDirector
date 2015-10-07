@@ -17,6 +17,7 @@
  */
 
 using System.Collections.Generic;
+using DirectorAPI.Connections;
 
 namespace DirectorAPI.Interfaces
 {
@@ -31,6 +32,8 @@ namespace DirectorAPI.Interfaces
         //methods
         void Connect();
         void Send(string input);
-        string Scrape(int Row, int Column, int Length); 
+        string Scrape(int Row, int Column, int Length);
+        ScreenCondition GetCurrentScreenCondition();
+        event ConsoleConnectionRedirection.BufferRefreshed BufferRefresh;
     }
 }

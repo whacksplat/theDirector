@@ -553,6 +553,11 @@ namespace DirectorAPI
                 case Enumerations.ActionType.MessageBox:
                     serializer = new XmlSerializer(typeof(MessageBox));
                     break;
+                
+                case Enumerations.ActionType.ConnectToCmd:
+                    serializer = new XmlSerializer(typeof(ConnectToCmd));
+                    break;
+
                 default:
                     throw new Exception("Unknown condition type.");
                     break;
@@ -571,6 +576,11 @@ namespace DirectorAPI
                     XmlSerializer messageboxSerializer = new XmlSerializer(typeof(MessageBox));
                     MessageBox msgboxAction = (MessageBox)messageboxSerializer.Deserialize(objectXml);
                     return msgboxAction;
+                case 4:
+                    XmlSerializer connectToCmdSerializer = new XmlSerializer(typeof(ConnectToCmd));
+                    ConnectToCmd connectToCmd = (ConnectToCmd)connectToCmdSerializer.Deserialize(objectXml);
+                    return connectToCmd;
+
                 default:
                     throw new NotImplementedException();
             //MessageBox = 0,

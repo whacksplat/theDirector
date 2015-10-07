@@ -91,11 +91,15 @@
             this.logFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.emailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pOPIMAPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iMAPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aDDCONDITIONToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.currentScreenConditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.datasourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.variableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bUILDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assemblyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exectutableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -138,10 +142,6 @@
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.iMAPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bUILDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.assemblyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exectutableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -183,12 +183,12 @@
             // fILEToolStripMenuItem
             // 
             this.fILEToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newRepositoryToolStripMenuItem,
-            this.openRepositoryToolStripMenuItem,
-            this.toolStripSeparator4,
             this.NewAutomationToolStripMenuItem,
             this.OpenAutomationToolStripMenuItem,
             this.toolStripSeparator5,
+            this.newRepositoryToolStripMenuItem,
+            this.openRepositoryToolStripMenuItem,
+            this.toolStripSeparator4,
             this.ExitToolStripMenuItem});
             this.fILEToolStripMenuItem.Name = "fILEToolStripMenuItem";
             this.fILEToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
@@ -271,6 +271,7 @@
             this.stdOutRedirectionToolStripMenuItem.Name = "stdOutRedirectionToolStripMenuItem";
             this.stdOutRedirectionToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.stdOutRedirectionToolStripMenuItem.Text = "Std Out Redirection";
+            this.stdOutRedirectionToolStripMenuItem.Click += new System.EventHandler(this.stdOutRedirectionToolStripMenuItem_Click);
             // 
             // consoleAPIToolStripMenuItem1
             // 
@@ -422,19 +423,19 @@
             // excelToolStripMenuItem1
             // 
             this.excelToolStripMenuItem1.Name = "excelToolStripMenuItem1";
-            this.excelToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.excelToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.excelToolStripMenuItem1.Text = "Excel";
             // 
             // accessToolStripMenuItem1
             // 
             this.accessToolStripMenuItem1.Name = "accessToolStripMenuItem1";
-            this.accessToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.accessToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.accessToolStripMenuItem1.Text = "Access";
             // 
             // sQLServerToolStripMenuItem1
             // 
             this.sQLServerToolStripMenuItem1.Name = "sQLServerToolStripMenuItem1";
-            this.sQLServerToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.sQLServerToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
             this.sQLServerToolStripMenuItem1.Text = "SQL Server";
             // 
             // textFilesToolStripMenuItem
@@ -477,13 +478,13 @@
             // hL7ToolStripMenuItem1
             // 
             this.hL7ToolStripMenuItem1.Name = "hL7ToolStripMenuItem1";
-            this.hL7ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.hL7ToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
             this.hL7ToolStripMenuItem1.Text = "HL7";
             // 
             // x12nToolStripMenuItem1
             // 
             this.x12nToolStripMenuItem1.Name = "x12nToolStripMenuItem1";
-            this.x12nToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.x12nToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
             this.x12nToolStripMenuItem1.Text = "X12n";
             // 
             // markupLanguagesToolStripMenuItem
@@ -567,25 +568,25 @@
             // skypeToolStripMenuItem
             // 
             this.skypeToolStripMenuItem.Name = "skypeToolStripMenuItem";
-            this.skypeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.skypeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.skypeToolStripMenuItem.Text = "Skype";
             // 
             // lyncToolStripMenuItem
             // 
             this.lyncToolStripMenuItem.Name = "lyncToolStripMenuItem";
-            this.lyncToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lyncToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.lyncToolStripMenuItem.Text = "Lync";
             // 
             // iCQToolStripMenuItem
             // 
             this.iCQToolStripMenuItem.Name = "iCQToolStripMenuItem";
-            this.iCQToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iCQToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.iCQToolStripMenuItem.Text = "ICQ";
             // 
             // sMSToolStripMenuItem
             // 
             this.sMSToolStripMenuItem.Name = "sMSToolStripMenuItem";
-            this.sMSToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sMSToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.sMSToolStripMenuItem.Text = "SMS";
             // 
             // windowsEventToolStripMenuItem
@@ -612,8 +613,14 @@
             // pOPIMAPToolStripMenuItem
             // 
             this.pOPIMAPToolStripMenuItem.Name = "pOPIMAPToolStripMenuItem";
-            this.pOPIMAPToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pOPIMAPToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.pOPIMAPToolStripMenuItem.Text = "SMTP";
+            // 
+            // iMAPToolStripMenuItem
+            // 
+            this.iMAPToolStripMenuItem.Name = "iMAPToolStripMenuItem";
+            this.iMAPToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.iMAPToolStripMenuItem.Text = "IMAP";
             // 
             // aDDCONDITIONToolStripMenuItem
             // 
@@ -649,6 +656,27 @@
             this.variableToolStripMenuItem.Name = "variableToolStripMenuItem";
             this.variableToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.variableToolStripMenuItem.Text = "Variable";
+            // 
+            // bUILDToolStripMenuItem
+            // 
+            this.bUILDToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assemblyToolStripMenuItem,
+            this.exectutableToolStripMenuItem});
+            this.bUILDToolStripMenuItem.Name = "bUILDToolStripMenuItem";
+            this.bUILDToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.bUILDToolStripMenuItem.Text = "BUILD";
+            // 
+            // assemblyToolStripMenuItem
+            // 
+            this.assemblyToolStripMenuItem.Name = "assemblyToolStripMenuItem";
+            this.assemblyToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.assemblyToolStripMenuItem.Text = "Assembly";
+            // 
+            // exectutableToolStripMenuItem
+            // 
+            this.exectutableToolStripMenuItem.Name = "exectutableToolStripMenuItem";
+            this.exectutableToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.exectutableToolStripMenuItem.Text = "Exectutable";
             // 
             // toolStrip1
             // 
@@ -1078,33 +1106,6 @@
             this.statusStrip1.Size = new System.Drawing.Size(1199, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
-            // 
-            // iMAPToolStripMenuItem
-            // 
-            this.iMAPToolStripMenuItem.Name = "iMAPToolStripMenuItem";
-            this.iMAPToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iMAPToolStripMenuItem.Text = "IMAP";
-            // 
-            // bUILDToolStripMenuItem
-            // 
-            this.bUILDToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.assemblyToolStripMenuItem,
-            this.exectutableToolStripMenuItem});
-            this.bUILDToolStripMenuItem.Name = "bUILDToolStripMenuItem";
-            this.bUILDToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.bUILDToolStripMenuItem.Text = "BUILD";
-            // 
-            // assemblyToolStripMenuItem
-            // 
-            this.assemblyToolStripMenuItem.Name = "assemblyToolStripMenuItem";
-            this.assemblyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.assemblyToolStripMenuItem.Text = "Assembly";
-            // 
-            // exectutableToolStripMenuItem
-            // 
-            this.exectutableToolStripMenuItem.Name = "exectutableToolStripMenuItem";
-            this.exectutableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exectutableToolStripMenuItem.Text = "Exectutable";
             // 
             // frmMain
             // 

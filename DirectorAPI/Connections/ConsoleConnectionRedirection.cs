@@ -365,6 +365,22 @@ namespace DirectorAPI.Connections
 
             return _screendata[Row].Substring(Column, Length);
         }
+
+        public ScreenCondition GetCurrentScreenCondition()
+        {
+            var caretRow = _screendata.Count - 1;
+            var caretCol = _screendata[caretRow].Length - 1;
+
+            var caret = new CaretLocation { Row = caretRow, Column = caretCol };
+
+            return new ScreenCondition
+            {
+                CaretLocation = caret,
+                Column = 0,
+                Row = caretRow,
+                Text = _screendata[_screendata.Count - 1]
+            };
+        }
     }
 
 }

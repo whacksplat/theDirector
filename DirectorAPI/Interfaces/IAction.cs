@@ -14,7 +14,7 @@ namespace DirectorAPI.Interfaces
         Guid ActionId { get; set; }
         Enumerations.ActionType ActionType { get; set; }
 
-        string DisplayText { get;}
+        string DisplayText { get; }
 
         void BuildCode();
         string Execute();

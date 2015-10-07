@@ -29,6 +29,7 @@ using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Datasource;
 using DirectorAPI.Conditions;
+using DirectorAPI.Connections;
 using DirectorAPI.Interfaces;
 using DirectorAPI.Scenes;
 
@@ -45,6 +46,7 @@ namespace theDirector
         public frmMain()
         {
             InitializeComponent();
+
         }
 
         private void NewAutomationToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -389,7 +391,7 @@ namespace theDirector
         private void ConnectionOnBufferRefresh(object sender)
         {
             rtf.Clear();
-            Connection conn = (Connection) sender;
+            ICharacterConnection conn = (ICharacterConnection)sender;
             for (int line = 0; line < conn.ScreenData.Count; line++)
             {
                 if (line == conn.ScreenData.Count-1)
@@ -441,9 +443,14 @@ namespace theDirector
                         {
                             case Enumerations.ActionType.MessageBox:
                                 TreeNode actionnode = condnode.Nodes.Add(action.DisplayText);
-                                //actionnode.Tag = condition.AddAction(Enumerations.ActionType.MessageBox);
                                 actionnode.Tag = action;
-                                tvwConditions.SelectedNode = actionnode;
+                                //tvwConditions.SelectedNode = actionnode;
+                                break;
+
+                            case Enumerations.ActionType.ConnectToCmd:
+                                TreeNode connNode = condnode.Nodes.Add(action.DisplayText);
+                                connNode.Tag = action;
+                                //tvwConditions.SelectedNode = connNode;
                                 break;
 
                             default:
@@ -609,6 +616,46 @@ namespace theDirector
         private void windowsUIAutomationToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void stdOutRedirectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!IsReady()) return;
+
+            IScene scene = (IScene)tvw.SelectedNode.Tag;
+            if (scene.Type != Enumerations.SceneTypes.Always)
+            {
+                MessageBox.Show("You can only Connect when you are in an Always scene.");
+                return;
+            }
+
+            ICondition condition =  scene.AddCondition(new AlwaysCondition());
+            _automation.ConnectionBufferRefresh += _automation_ConnectionBufferRefresh;
+
+            condition.AddAction(Enumerations.ActionType.ConnectToCmd);
+            
+
+        }
+
+        void _automation_ConnectionBufferRefresh(object sender)
+        {
+            rtf.Invoke(new MethodInvoker(delegate { rtf.Clear(); }));
+            foreach (string looper in (sender as ConsoleConnectionRedirection).ScreenData)
+            {
+                rtf.Invoke(new MethodInvoker(delegate { rtf.Text += looper + Environment.NewLine; }));
+            }
+
+        }
+
+        void Connection_BufferRefresh(object sender)
+        {
+            //rtf.Invoke(new MethodInvoker(delegate { rtf.Clear(); }));
+            //foreach (string looper in (sender as ConsoleConnectionRedirection).ScreenData)
+            //{
+            //    rtf.Invoke(new MethodInvoker(delegate { rtf.Text += looper + Environment.NewLine; }));
+            //}
+
+            rtf.Clear();
         }
     }
 }

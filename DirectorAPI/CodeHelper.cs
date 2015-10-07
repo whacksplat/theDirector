@@ -58,6 +58,8 @@ namespace DirectorAPI
             var src = "using System;";
             src += Environment.NewLine + "using System.Windows.Forms;";
             src += Environment.NewLine + "using DirectorAPI;";
+            src += Environment.NewLine + "using DirectorAPI.Connections;";
+            src += Environment.NewLine + "using DirectorAPI.Interfaces;";
             src += Environment.NewLine + "namespace ActionCode";
             src += Environment.NewLine + "{";
             src += Environment.NewLine + "    class Program";

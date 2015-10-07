@@ -19,26 +19,69 @@
 using System;
 using System.CodeDom.Compiler;
 using System.ComponentModel;
+using System.Reflection;
+using DirectorAPI.Connections;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Actions.Connection
 {
     public class ConnectToCmd : IAction
     {
+        CompilerResults _compilerResults;
+
+        public ConnectToCmd()
+        {
+            //todo check to see if it's already created
+            ResetConnection();
+        }
+
+        public void ResetConnection()
+        {
+            AutomationHelper.automation.Connection = new ConsoleConnectionRedirection();
+            AutomationHelper.automation.ResetEventSyncs();
+            AutomationHelper.automation.Connection.Connect();
+        }
+
+        [TypeConverter(typeof(TypeConverters.SceneNameConverter))]
         public string NextScene { get; set; }
+
+        [ReadOnly(true)]
         public Guid ConditionID { get; set; }
+
+        [ReadOnly(true)]
         public Guid ActionId { get; set; }
+
+        [ReadOnly(true)]
         public Enumerations.ActionType ActionType { get; set; }
-        public string DisplayText { get; private set; }
+
+        public string DisplayText
+        {
+            get { return "Connect to Console (Redirection)"; }
+        }
 
         public void BuildCode()
         {
-            throw new NotImplementedException();
+            string src = "AutomationHelper.automation.Connection = new ConsoleConnectionRedirection();" + Environment.NewLine;
+            src += "AutomationHelper.automation.ResetEventSyncs();" + Environment.NewLine;
+            src += "AutomationHelper.automation.Connection.Connect();";
+
+            _compilerResults = CodeHelper.CreateActionCode(src);
         }
 
         public string Execute()
         {
-            throw new NotImplementedException();
+            object[] obj = new object[] { AutomationHelper.automation };
+            object myclass = _compilerResults.CompiledAssembly.CreateInstance("ActionCode.Program");
+
+            if (myclass == null)
+            {
+                throw new Exception("Unable to find function or assembly in Execute.");
+            }
+
+            Type t = myclass.GetType();
+            MethodInfo mi = t.GetMethod("Execute");
+            mi.Invoke(myclass, obj);
+            return NextScene;
         }
     }
 }
