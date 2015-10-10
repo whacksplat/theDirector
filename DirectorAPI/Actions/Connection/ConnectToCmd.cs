@@ -32,7 +32,10 @@ namespace DirectorAPI.Actions.Connection
         public ConnectToCmd()
         {
             //todo check to see if it's already created
-            ResetConnection();
+            //if (AutomationHelper.automation.CurrentMode != Automation.Mode.Loading)
+            //{
+            //    ResetConnection();
+            //}
         }
 
         public void ResetConnection()

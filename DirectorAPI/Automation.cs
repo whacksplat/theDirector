@@ -36,6 +36,7 @@ namespace DirectorAPI
         public enum Mode
         {
             Record = 0,
+            Loading,
             Run
         }
 
@@ -214,6 +215,7 @@ namespace DirectorAPI
         /// <param name="id"></param>
         public Automation(Guid id)
         {
+            CurrentMode = Mode.Loading;
             var comm = new SqlCommand("GetAutomationByGUID") {CommandType = CommandType.StoredProcedure};
 
             var paramid = new SqlParameter("@automationid", SqlDbType.UniqueIdentifier)

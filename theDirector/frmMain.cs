@@ -18,16 +18,11 @@
 
 
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
 using DirectorAPI;
-using DirectorAPI.Actions;
-using DirectorAPI.Actions.Connection;
-using DirectorAPI.Actions.Datasource;
 using DirectorAPI.Conditions;
 using DirectorAPI.Connections;
 using DirectorAPI.Interfaces;
@@ -163,6 +158,7 @@ namespace theDirector
                 //reset the data source and connection objects in the automation
                 IScene scene = _automation.Scenes[0];
                 rtf.Clear();
+                _automation.ConnectionBufferRefresh += _automation_ConnectionBufferRefresh;
 
                 while (scene != null)
                 {
