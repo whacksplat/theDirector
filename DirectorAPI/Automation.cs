@@ -24,8 +24,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using DirectorAPI.Actions;
-using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 using DirectorAPI.Scenes;
 

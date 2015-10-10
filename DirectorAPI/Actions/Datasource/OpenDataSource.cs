@@ -18,10 +18,6 @@
 
 
 using System;
-using System.CodeDom.Compiler;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Actions.Datasource

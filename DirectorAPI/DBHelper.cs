@@ -25,7 +25,6 @@ using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using DirectorAPI.Actions;
 using DirectorAPI.Actions.Connection;
 using DirectorAPI.Actions.Notifications;
 using DirectorAPI.Conditions;
