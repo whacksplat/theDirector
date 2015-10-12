@@ -531,7 +531,7 @@ namespace theDirector
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         private void AddAlwaysScene_Click(object sender, EventArgs e)
@@ -564,7 +564,6 @@ namespace theDirector
 
                 MessageBox.Show("You cannot add an Always condition to a scene of type " + scene.Type);
             }
-            
 
         }
 
@@ -580,7 +579,6 @@ namespace theDirector
             if (_automation == null) return;
             _automation.AddScene(new DataSourceScene());
             RefreshScreen();
-
         }
 
         private void AddVariableScene_Click(object sender, EventArgs e)
@@ -630,7 +628,7 @@ namespace theDirector
 
             condition.AddAction(Enumerations.ActionType.ConnectToCmd);
             
-
+            RefreshScreen();
         }
 
         void _automation_ConnectionBufferRefresh(object sender)
@@ -643,16 +641,64 @@ namespace theDirector
 
         }
 
-        void Connection_BufferRefresh(object sender)
+        private void messageboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //rtf.Invoke(new MethodInvoker(delegate { rtf.Clear(); }));
-            //foreach (string looper in (sender as ConsoleConnectionRedirection).ScreenData)
-            //{
-            //    rtf.Invoke(new MethodInvoker(delegate { rtf.Text += looper + Environment.NewLine; }));
-            //}
+            if (tvwConditions.SelectedNode == null)
+            {
+                System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
+                return;
+            }
 
-            rtf.Clear();
+            ICondition condition;
+
+            if (!(tvwConditions.SelectedNode.Tag is ICondition))
+            {
+                MessageBox.Show("You must select a condition to add the action to.");
+                return;
+            }
+
+            condition = (ICondition)tvwConditions.SelectedNode.Tag;
+
+            IAction messagebox = condition.AddAction(Enumerations.ActionType.MessageBox);
+            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add(messagebox.DisplayText);
+            actionnode.Tag = messagebox;
+            tvwConditions.SelectedNode = actionnode;
         }
+
+        private void sendData_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    sendData.Text += "{ENTER}";
+                    sendData.SelectionStart = sendData.Text.Length;
+                    return;
+                default:
+                    break;
+            }
+        }
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            if (!IsReady()) return;
+
+            IScene scene = (IScene)tvw.SelectedNode.Tag;
+            if (scene.Type != Enumerations.SceneTypes.Connection)
+            {
+                MessageBox.Show("You can only Send Data when you are in an Connection scene.");
+                return;
+            }
+
+            //todo MUST make sure there will be no conflicting screen conditions on release
+
+            ICondition condition = scene.AddCondition(new ConnectionCondition());
+
+            condition.AddAction(Enumerations.ActionType.ConnectToCmd);
+
+            RefreshScreen();
+
+        }
+
     }
 }
 

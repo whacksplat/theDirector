@@ -77,6 +77,8 @@ namespace DirectorAPI.Conditions
             {
                 case Enumerations.ActionType.ConnectToCmd:
                     retval = new ConnectToCmd();
+                    retval.BuildCode();
+                    retval.Execute();
                     break;
 
                 case Enumerations.ActionType.EnterData:
