@@ -13,7 +13,7 @@ namespace DirectorAPI.Interfaces
 
         Guid SceneId { get; set; }
         Guid ConditionId { get; set; }
-        Enumerations.ConditionTypes ConditionType { get; set; }
+        Enumerations.ConditionTypes ConditionType { get; }
 
         List<IAction> GetActions();
 

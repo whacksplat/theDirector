@@ -6,6 +6,7 @@ namespace DirectorAPI.Interfaces
         public enum ConditionTypes
         {
             AlwaysCondition = 0,
+            ConsoleConnectionRedirectionScreenCondition,
             ConnectionCondition,
             DatasourceCondition,
             VariableCondition,
@@ -17,7 +18,7 @@ namespace DirectorAPI.Interfaces
             MessageBox = 0,
             OpenDatasource,
             NextRecord,
-            EnterData,
+            SendData,
             ConnectToCmd
         }
 

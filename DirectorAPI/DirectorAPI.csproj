@@ -52,6 +52,7 @@
     <Compile Include="CodeHelper.cs" />
     <Compile Include="Conditions\AlwaysCondition.cs" />
     <Compile Include="Conditions\ConnectionCondition.cs" />
+    <Compile Include="Conditions\ConsoleConnectionRedirectionScreenCondition.cs" />
     <Compile Include="Conditions\DatasourceCondition.cs" />
     <Compile Include="Conditions\EndCondition.cs" />
     <Compile Include="Conditions\VariableCondition.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="ConsoleConnection\ProcessEventArgs.cs" />
     <Compile Include="ConsoleConnection\ProcessInterface.cs" />
     <Compile Include="DataSource.cs" />
-    <Compile Include="Actions\Connection\EnterData.cs" />
+    <Compile Include="Actions\Connection\SendData.cs" />
     <Compile Include="Actions\Datasource\NextRecord.cs" />
     <Compile Include="Actions\Datasource\OpenDataSource.cs" />
     <Compile Include="DBHelper.cs" />

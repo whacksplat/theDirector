@@ -37,14 +37,16 @@ namespace DirectorAPI.Scenes
         {
             //only use Connection based conditions!
 
-            if (!(condition is ConnectionCondition))
-            {
-                throw new Exception("Cannot add anything but an ConnectionCondition to an ConnectionScene.");
-            }
+
+            //todo this needs to check if it's a connection type condition
+            //if (!(condition is ConnectionCondition))
+            //{
+            //    throw new Exception("Cannot add anything but an ConnectionCondition to an ConnectionScene.");
+            //}
             
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
-            condition.ConditionType = condition.ConditionType;
+            //condition.ConditionType = condition.ConditionType;
             DBHelper.SaveCondition(this, condition);
             conditions.Add(condition);
             return condition;

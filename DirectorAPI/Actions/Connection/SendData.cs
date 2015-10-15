@@ -17,26 +17,54 @@
  */
 
 using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Reflection;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Actions.Connection
 {
     public class SendData : IAction
     {
+        CompilerResults _compilerResults;
+
+        [TypeConverter(typeof(TypeConverters.SceneNameConverter))]
         public string NextScene { get; set; }
+        [ReadOnly(true)]
         public Guid ConditionID { get; set; }
+        [ReadOnly(true)]
         public Guid ActionId { get; set; }
+        [ReadOnly(true)]
         public Enumerations.ActionType ActionType { get; set; }
-        public string DisplayText { get; private set; }
+
+        public string DisplayText
+        {
+            get { return "SendData(" + DataToSend + ")"; }
+        }
 
         public void BuildCode()
         {
-            throw new NotImplementedException();
+            string src = "AutomationHelper.automation.Connection.Send(" + "\"" + DataToSend + "\"" + ");";
+            _compilerResults = CodeHelper.CreateActionCode(src);
+
         }
 
         public string Execute()
         {
-            throw new NotImplementedException();
+            object[] obj = new object[] { AutomationHelper.automation };
+            object myclass = _compilerResults.CompiledAssembly.CreateInstance("ActionCode.Program");
+
+            if (myclass == null)
+            {
+                throw new Exception("Unable to find function or assembly in Execute.");
+            }
+
+            Type t = myclass.GetType();
+            MethodInfo mi = t.GetMethod("Execute");
+            mi.Invoke(myclass, obj);
+            return NextScene;
         }
+
+        public string DataToSend { get; set; }
     }
 }

@@ -21,8 +21,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Mime;
 using System.Text;
 using System.Threading;
+using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Connections
@@ -364,14 +366,13 @@ namespace DirectorAPI.Connections
             return _screendata[Row].Substring(Column, Length);
         }
 
-        public ScreenCondition GetCurrentScreenCondition()
+        public ICondition GetCurrentScreenCondition()
         {
             var caretRow = _screendata.Count - 1;
             var caretCol = _screendata[caretRow].Length - 1;
 
             var caret = new CaretLocation { Row = caretRow, Column = caretCol };
-
-            return new ScreenCondition
+            return new ConsoleConnectionRedirectionScreenCondition()
             {
                 CaretLocation = caret,
                 Column = 0,

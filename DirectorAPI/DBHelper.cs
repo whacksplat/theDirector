@@ -207,6 +207,10 @@ namespace DirectorAPI
                 case Enumerations.ConditionTypes.AlwaysCondition:
                     serializer = new XmlSerializer(typeof (AlwaysCondition));
                     break;
+                case Enumerations.ConditionTypes.ConsoleConnectionRedirectionScreenCondition:
+                    serializer = new XmlSerializer(typeof (ConsoleConnectionRedirectionScreenCondition));
+                    break;
+
                 default:
                     throw new Exception("Unknown condition type.");
                     break;
@@ -381,6 +385,10 @@ namespace DirectorAPI
                     XmlSerializer AlwaysSerializer = new XmlSerializer(typeof(AlwaysCondition));
                     AlwaysCondition alwaysCondition = (AlwaysCondition)AlwaysSerializer.Deserialize(objectXml);
                     return alwaysCondition;
+                case 1:
+                    XmlSerializer ConsoleConnectionRedirectionScreenConditionSerializer = new XmlSerializer(typeof(ConsoleConnectionRedirectionScreenCondition));
+                    ConsoleConnectionRedirectionScreenCondition ConsoleScreenCondition = (ConsoleConnectionRedirectionScreenCondition)ConsoleConnectionRedirectionScreenConditionSerializer.Deserialize(objectXml);
+                    return ConsoleScreenCondition;
 
                 default:
                     throw new Exception("unknown condition type in CreateConditionFromDb");
@@ -557,6 +565,10 @@ namespace DirectorAPI
                     serializer = new XmlSerializer(typeof(ConnectToCmd));
                     break;
 
+                case Enumerations.ActionType.SendData:
+                    serializer = new XmlSerializer(typeof(SendData));
+                    break;
+
                 default:
                     throw new Exception("Unknown condition type.");
                     break;
@@ -575,6 +587,11 @@ namespace DirectorAPI
                     XmlSerializer messageboxSerializer = new XmlSerializer(typeof(MessageBox));
                     MessageBox msgboxAction = (MessageBox)messageboxSerializer.Deserialize(objectXml);
                     return msgboxAction;
+                case 3:
+                    XmlSerializer sendDataSerializer = new XmlSerializer(typeof(SendData));
+                    SendData sendDataAction = (SendData)sendDataSerializer.Deserialize(objectXml);
+                    return sendDataAction;
+
                 case 4:
                     XmlSerializer connectToCmdSerializer = new XmlSerializer(typeof(ConnectToCmd));
                     ConnectToCmd connectToCmd = (ConnectToCmd)connectToCmdSerializer.Deserialize(objectXml);

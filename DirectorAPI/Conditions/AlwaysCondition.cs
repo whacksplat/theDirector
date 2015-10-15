@@ -59,9 +59,12 @@ namespace DirectorAPI.Conditions
 
         [ReadOnly(true)]
         public Guid ConditionId { get; set; }
-        
+
         [ReadOnly(true)]
-        public Enumerations.ConditionTypes ConditionType { get; set; }
+        public Enumerations.ConditionTypes ConditionType
+        {
+            get { return Enumerations.ConditionTypes.AlwaysCondition; }
+        }
 
         public List<IAction> GetActions()
         {
@@ -81,18 +84,18 @@ namespace DirectorAPI.Conditions
                     retval.Execute();
                     break;
 
-                case Enumerations.ActionType.EnterData:
-                    break;
+                case Enumerations.ActionType.SendData:
+                    throw new NotImplementedException("unable to addaction");
 
                 case Enumerations.ActionType.MessageBox:
                     retval = new MessageBox();
                     break;
 
                 case Enumerations.ActionType.NextRecord:
-                    break;
+                    throw new NotImplementedException("unable to addaction");
 
                 case Enumerations.ActionType.OpenDatasource:
-                    break;
+                    throw new NotImplementedException("unable to addaction");
 
                 default:
                     throw new NotImplementedException("unable to addaction");

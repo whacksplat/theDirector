@@ -33,7 +33,8 @@ namespace DirectorAPI.Interfaces
         void Connect();
         void Send(string input);
         string Scrape(int Row, int Column, int Length);
-        ScreenCondition GetCurrentScreenCondition();
+        ICondition GetCurrentScreenCondition();
+
         event ConsoleConnectionRedirection.BufferRefreshed BufferRefresh;
     }
 }

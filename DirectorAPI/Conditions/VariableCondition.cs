@@ -40,7 +40,7 @@ namespace DirectorAPI.Conditions
         public Guid ConditionId { get; set; }
 
         [ReadOnly(true)]
-        public Enumerations.ConditionTypes ConditionType { get; set; }
+        public Enumerations.ConditionTypes ConditionType { get { return Enumerations.ConditionTypes.VariableCondition; } }
 
         public List<IAction> GetActions()
         {

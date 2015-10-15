@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DirectorAPI;
+using DirectorAPI.Actions.Connection;
 using DirectorAPI.Conditions;
 using DirectorAPI.Connections;
 using DirectorAPI.Interfaces;
@@ -386,33 +387,33 @@ namespace theDirector
 
         private void ConnectionOnBufferRefresh(object sender)
         {
-            rtf.Clear();
-            ICharacterConnection conn = (ICharacterConnection)sender;
-            for (int line = 0; line < conn.ScreenData.Count; line++)
-            {
-                if (line == conn.ScreenData.Count-1)
-                {
-                    rtf.Text += conn.ScreenData[line];
-                }
-                else
-                {
-                    rtf.Text += conn.ScreenData[line] + Environment.NewLine;    
-                }
-            }
-            ScreenCondition cond = conn.GetCurrentScreenCondition();
+            //rtf.Clear();
+            //ICharacterConnection conn = (ICharacterConnection)sender;
+            //for (int line = 0; line < conn.ScreenData.Count; line++)
+            //{
+            //    if (line == conn.ScreenData.Count-1)
+            //    {
+            //        rtf.Text += conn.ScreenData[line];
+            //    }
+            //    else
+            //    {
+            //        rtf.Text += conn.ScreenData[line] + Environment.NewLine;    
+            //    }
+            //}
+            //ScreenCondition cond = conn.GetCurrentScreenCondition();
 
 
-            //highlight with the default
-            string screenLine = rtf.Lines[cond.Row];
-            int totalChar = 0;
-            //add up all the characters previous to the cond.row
-            for (int charCount = 0; charCount < cond.Row;charCount++)
-            {
-                totalChar += rtf.Lines[charCount].Length;
-            }
-            rtf.SelectionStart = totalChar;
-            rtf.SelectionLength = cond.Text.Length + Regex.Matches(cond.Text,@"\\").Count;
-            rtf.SelectionColor = Color.Yellow;
+            ////highlight with the default
+            //string screenLine = rtf.Lines[cond.Row];
+            //int totalChar = 0;
+            ////add up all the characters previous to the cond.row
+            //for (int charCount = 0; charCount < cond.Row;charCount++)
+            //{
+            //    totalChar += rtf.Lines[charCount].Length;
+            //}
+            //rtf.SelectionStart = totalChar;
+            //rtf.SelectionLength = cond.Text.Length + Regex.Matches(cond.Text,@"\\").Count;
+            //rtf.SelectionColor = Color.Yellow;
 
         }
 
@@ -691,11 +692,21 @@ namespace theDirector
 
             //todo MUST make sure there will be no conflicting screen conditions on release
 
-            ICondition condition = scene.AddCondition(new ConnectionCondition());
+            ICondition condition = scene.AddCondition(_automation.Connection.GetCurrentScreenCondition());
+            //add condition to treeview
+            TreeNode node = tvwConditions.Nodes.Add(condition.DisplayText());
+            node.Tag = condition;
 
-            condition.AddAction(Enumerations.ActionType.ConnectToCmd);
+            SendData send = (SendData) condition.AddAction(Enumerations.ActionType.SendData);
+            send.DataToSend = sendData.Text;
+            send.BuildCode();
+            send.Execute();
 
-            RefreshScreen();
+            TreeNode actionnode = node.Nodes.Add(send.DisplayText);
+            actionnode.Tag = send;
+            tvwConditions.SelectedNode = actionnode;
+
+            //RefreshScreen();
 
         }
 

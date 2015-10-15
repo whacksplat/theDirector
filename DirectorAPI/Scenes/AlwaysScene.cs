@@ -43,7 +43,7 @@ namespace DirectorAPI.Scenes
             
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
-            condition.ConditionType = condition.ConditionType;
+            //condition.ConditionType = condition.ConditionType;
             DBHelper.SaveCondition(this,condition);
             conditions.Add(condition);
             return condition;

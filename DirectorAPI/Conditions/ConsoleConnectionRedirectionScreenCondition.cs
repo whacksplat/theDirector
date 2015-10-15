@@ -1,14 +1,20 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DirectorAPI.Actions.Connection;
 using DirectorAPI.Interfaces;
 
 namespace DirectorAPI.Conditions
 {
     public class ConsoleConnectionRedirectionScreenCondition :ICondition
     {
+        CompilerResults results;
+        private List<IAction> _actions = new List<IAction>();
+
         public void BuildCode()
         {
             throw new NotImplementedException();
@@ -31,10 +37,13 @@ namespace DirectorAPI.Conditions
 
         public string DisplayText()
         {
-            return ("ConsoleConnectionRedirectScreenCondition");
+            return ("Screen Condition (Row:" + Row.ToString() + " Col:" + Column.ToString() + "Text:" + Text);
         }
 
+        [ReadOnly(true)] 
         public Guid SceneId { get; set; }
+
+        [ReadOnly(true)]
         public Guid ConditionId { get; set; }
 
         public Enumerations.ConditionTypes ConditionType
@@ -44,12 +53,31 @@ namespace DirectorAPI.Conditions
 
         public List<IAction> GetActions()
         {
-            throw new NotImplementedException();
+            _actions = DBHelper.GetActions(ConditionId);
+            return _actions;
+
         }
 
         public IAction AddAction(Enumerations.ActionType type)
         {
-            throw new NotImplementedException();
+            IAction retval;
+
+            switch (type)
+            {
+                case Enumerations.ActionType.SendData:
+                    retval = new SendData();
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            retval.ConditionID = ConditionId;
+            retval.ActionId = Guid.NewGuid();
+            retval.ActionType = type;
+
+            DBHelper.SaveAction(retval);
+            return retval;
+
         }
 
 
