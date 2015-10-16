@@ -68,7 +68,10 @@ namespace DirectorAPI.Conditions
 
         public List<IAction> GetActions()
         {
-            _actions=DBHelper.GetActions(ConditionId);
+            if (_actions.Count == 0)
+            {
+                _actions = DBHelper.GetActions(ConditionId);
+            }
             return _actions;
         }
 

@@ -116,11 +116,6 @@ namespace theDirector
 
         }
 
-        private void newToolStripButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void propGrid_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             if (e.ChangedItem.Label != null && e.ChangedItem.Label.Equals("Name"))
@@ -130,7 +125,8 @@ namespace theDirector
             
             if (propGrid.SelectedObject is IAction)
             {
-                DBHelper.UpdateAction(propGrid.SelectedObject as IAction);
+                //DBHelper.UpdateAction(propGrid.SelectedObject as IAction);
+                DBHelper.SaveAction(propGrid.SelectedObject as IAction);
             }
             if (propGrid.SelectedObject is IScene)
             {
@@ -184,26 +180,6 @@ namespace theDirector
             }
         }
 
-        private void alwaysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (!IsReady()) return;
-            
-            //IScene scene = (IScene)tvw.SelectedNode.Tag;
-            //if (scene.Type == SceneEnums.SceneType.EndAutomation)
-            //{
-            //    MessageBox.Show("You cannot add condtions to an End Scene.");
-            //    return;
-            //}
-            //Condition condition = scene.AddCondition("return true;", "Always");
-            ////step.AddCondition(new AlwaysCon)
-
-            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            //node.Tag = condition;
-            //tvwConditions.SelectedNode = node;
-            //throw new NotImplementedException();
-            
-        }
-
         /// <summary>
         /// This routine checks to see if we are ready to add scenes/conditions/actions
         /// </summary>
@@ -234,193 +210,10 @@ namespace theDirector
                 propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
                 return;
             }
-            if (tvwConditions.SelectedNode.Tag is ICondition)
-            {
-                propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
-                return;
-            }
             
             throw new Exception("tvwConditions_AfterSelect not condition or action");
         }
-
-
-        private void messageboxToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (tvwConditions.SelectedNode == null)
-            {
-                System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
-                return;
-            }
-
-            ICondition condition;
-
-            if (!(tvwConditions.SelectedNode.Tag is ICondition))
-            {
-                MessageBox.Show("You must select a condition to add the action to.");
-                return;
-            }
-            
-            condition = (ICondition)tvwConditions.SelectedNode.Tag;
-
-            IAction messagebox = condition.AddAction(Enumerations.ActionType.MessageBox);
-            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add(messagebox.DisplayText);
-            actionnode.Tag = messagebox;
-            tvwConditions.SelectedNode = actionnode;
-        }
-
-        private void openDatasourceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //make sure we have something selected
-            if (tvwConditions.SelectedNode == null)
-            {
-                System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
-                return;
-            }
-
-            ICondition condition;
-
-            if (tvwConditions.SelectedNode.Tag is DirectorAPI.Interfaces.IAction)
-            {
-                condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
-            }
-            else
-            {
-                condition = (ICondition)tvwConditions.SelectedNode.Tag;
-            }
-
-            TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("OpenDatasource");
-            //actionnode.Tag = condition.AddAction(DirectorAPI.Enumerations.ActionType.OpenDatasource);
-            tvwConditions.SelectedNode = actionnode;
-        }
-
-        private void dataSourceIsEOFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (!IsReady()) return;
-
-            //if (!(tvw.SelectedNode.Tag is iScene)) return;
-
-            //iScene step = (iScene)tvw.SelectedNode.Tag;
-            //Condition condition = step.AddCondition("return automation.datasource.EOF();", "Is EOF");
-            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            //node.Tag = condition;
-            throw new NotImplementedException();
-        }
-
-        private void nextRecordToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //make sure we have something selected
-            //if (tvwConditions.SelectedNode == null)
-            //{
-            //    System.Windows.Forms.MessageBox.Show("You must select a condition to add the action to.");
-            //    return;
-            //}
-
-            //ICondition condition;
-
-            //if (tvwConditions.SelectedNode.Tag is DirectorAPI.Interfaces.ICondition)
-            //{
-            //    condition = (ICondition)tvwConditions.SelectedNode.Parent.Tag;
-            //}
-            //else
-            //{
-            //    condition = (ICondition)tvwConditions.SelectedNode.Tag;
-            //}
-
-            //TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("NextRecord");
-            ////actionnode.Tag = condition.AddAction(DirectorAPI.Enumerations.ActionType.NextRecord);
-            //tvwConditions.SelectedNode = actionnode;
-            throw new NotImplementedException();
-        }
-
-        private void dataSourceIsNOTEOFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!IsReady()) return;
-
-            //if (!(tvw.SelectedNode.Tag is Scene)) return;
-
-            //Scene step = (Scene)tvw.SelectedNode.Tag;
-            //Condition condition = step.AddCondition("return !automation.datasource.EOF();", "Is NOT EOF");
-            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            //node.Tag = condition;
-            throw new NotImplementedException();
-        }
-
-        private void screenConditionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //if (!IsReady()) return;
-
-            //frmEnterData frm = new frmEnterData();
-            //DialogResult result = frm.ShowDialog();
-            
-            //if (result != DialogResult.OK) return;
-
-            //Scene step = (Scene)tvw.SelectedNode.Tag;
-
-            //Condition condition = step.AddCondition("return automation.connection.EvalCondition(" + "\"" + rtf.Lines[rtf.Lines.Length - 2].Trim() + "\"" + ");", "Screen Condition");
-            //TreeNode node = tvwConditions.Nodes.Add(condition.DisplayCode);
-            //node.Tag = condition;
-            //tvwConditions.SelectedNode = node;
-
-            ////add the action
-            //TreeNode actionnode = tvwConditions.SelectedNode.Nodes.Add("EnterData");
-            //EnterData ed = (EnterData)condition.AddAction(DirectorAPI.Enumerations.ActionType.EnterData);
-            //ed.Data = frm.Data;
-            //actionnode.Tag = ed;
-            //tvwConditions.SelectedNode = actionnode;
-            throw new NotImplementedException();
- }
-
-        private void tvw_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (e.KeyCode != Keys.Delete) return;
-            //if (!(tvw.SelectedNode.Tag is Scene)) return;
-            ////_script.DeleteScene((Scene)tvw.SelectedNode.Tag);
-            
-            //tvw.Nodes.Remove(tvw.SelectedNode);
-            throw new NotImplementedException();
-        }
-
-        private void openConnectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ConnectionOnBufferRefresh(object sender)
-        {
-            //rtf.Clear();
-            //ICharacterConnection conn = (ICharacterConnection)sender;
-            //for (int line = 0; line < conn.ScreenData.Count; line++)
-            //{
-            //    if (line == conn.ScreenData.Count-1)
-            //    {
-            //        rtf.Text += conn.ScreenData[line];
-            //    }
-            //    else
-            //    {
-            //        rtf.Text += conn.ScreenData[line] + Environment.NewLine;    
-            //    }
-            //}
-            //ScreenCondition cond = conn.GetCurrentScreenCondition();
-
-
-            ////highlight with the default
-            //string screenLine = rtf.Lines[cond.Row];
-            //int totalChar = 0;
-            ////add up all the characters previous to the cond.row
-            //for (int charCount = 0; charCount < cond.Row;charCount++)
-            //{
-            //    totalChar += rtf.Lines[charCount].Length;
-            //}
-            //rtf.SelectionStart = totalChar;
-            //rtf.SelectionLength = cond.Text.Length + Regex.Matches(cond.Text,@"\\").Count;
-            //rtf.SelectionColor = Color.Yellow;
-
-        }
-
-        private void connectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void tvw_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -457,21 +250,6 @@ namespace theDirector
                     }
                 }
             }
-
-        }
-
-        private void enterDataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void propGrid_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tvw_AfterSelect(object sender, TreeViewEventArgs e)
-        {
 
         }
 
@@ -518,21 +296,6 @@ namespace theDirector
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
             NewAutomation();
-        }
-
-        private void rtf_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void AddAlwaysScene_Click(object sender, EventArgs e)
@@ -595,21 +358,6 @@ namespace theDirector
             if (_automation == null) return;
             _automation.AddScene(new EndAutomationScene());
             RefreshScreen();
-
-        }
-
-        private void newToolStripButton2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripButton4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void windowsUIAutomationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
 
         }
 

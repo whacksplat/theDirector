@@ -341,7 +341,6 @@
             this.windowsUIAutomationToolStripMenuItem.Name = "windowsUIAutomationToolStripMenuItem";
             this.windowsUIAutomationToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.windowsUIAutomationToolStripMenuItem.Text = "Windows";
-            this.windowsUIAutomationToolStripMenuItem.Click += new System.EventHandler(this.windowsUIAutomationToolStripMenuItem_Click);
             // 
             // uIAutomationToolStripMenuItem
             // 
@@ -763,7 +762,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(1601, 27);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // newToolStripButton
             // 
@@ -909,7 +907,6 @@
             this.rtf.TabIndex = 1;
             this.rtf.Text = "";
             this.rtf.WordWrap = false;
-            this.rtf.TextChanged += new System.EventHandler(this.rtf_TextChanged);
             // 
             // splitContainer3
             // 
@@ -948,12 +945,10 @@
             this.tvw.Size = new System.Drawing.Size(719, 230);
             this.tvw.TabIndex = 1;
             this.tvw.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvw_ItemDrag);
-            this.tvw.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvw_AfterSelect);
             this.tvw.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvw_NodeMouseClick);
             this.tvw.DragDrop += new System.Windows.Forms.DragEventHandler(this.tvw_DragDrop);
             this.tvw.DragEnter += new System.Windows.Forms.DragEventHandler(this.tvw_DragEnter);
             this.tvw.DragOver += new System.Windows.Forms.DragEventHandler(this.tvw_DragOver);
-            this.tvw.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tvw_KeyDown);
             // 
             // imageList1
             // 
@@ -990,7 +985,6 @@
             this.newToolStripButton1.Size = new System.Drawing.Size(33, 24);
             this.newToolStripButton1.Text = "&Create New Scene";
             this.newToolStripButton1.ToolTipText = "Create New Scene";
-            this.newToolStripButton1.Click += new System.EventHandler(this.newToolStripButton1_Click);
             // 
             // AddAlwaysScene
             // 
@@ -1036,7 +1030,6 @@
             this.propGrid.Size = new System.Drawing.Size(719, 244);
             this.propGrid.TabIndex = 0;
             this.propGrid.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propGrid_PropertyValueChanged);
-            this.propGrid.Click += new System.EventHandler(this.propGrid_Click);
             // 
             // tabControl1
             // 
@@ -1101,7 +1094,6 @@
             this.newToolStripButton2.Name = "newToolStripButton2";
             this.newToolStripButton2.Size = new System.Drawing.Size(33, 24);
             this.newToolStripButton2.Text = "&New";
-            this.newToolStripButton2.Click += new System.EventHandler(this.newToolStripButton2_Click);
             // 
             // addAlwaysCondition
             // 
@@ -1115,7 +1107,6 @@
             this.addScreenCondition.Name = "addScreenCondition";
             this.addScreenCondition.Size = new System.Drawing.Size(204, 22);
             this.addScreenCondition.Text = "Screen Condition";
-            this.addScreenCondition.Click += new System.EventHandler(this.screenConditionToolStripMenuItem_Click);
             // 
             // addDataCondition
             // 
@@ -1131,14 +1122,12 @@
             this.addDataSourceEOFCondition.Name = "addDataSourceEOFCondition";
             this.addDataSourceEOFCondition.Size = new System.Drawing.Size(200, 22);
             this.addDataSourceEOFCondition.Text = "Data Source is EOF";
-            this.addDataSourceEOFCondition.Click += new System.EventHandler(this.dataSourceIsEOFToolStripMenuItem_Click);
             // 
             // addDataSourceNotEOFCondition
             // 
             this.addDataSourceNotEOFCondition.Name = "addDataSourceNotEOFCondition";
             this.addDataSourceNotEOFCondition.Size = new System.Drawing.Size(200, 22);
             this.addDataSourceNotEOFCondition.Text = "Data Source is NOT EOF";
-            this.addDataSourceNotEOFCondition.Click += new System.EventHandler(this.dataSourceIsNOTEOFToolStripMenuItem_Click);
             // 
             // addVariableValueCondition
             // 

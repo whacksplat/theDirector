@@ -462,54 +462,76 @@ namespace DirectorAPI
             else
             {
                 //update
+        //            Update Actions set
+        //ConditionID = @conditionid,
+        //ObjectXML = @objectxml
+        //where ActionID= @actionid
+                comm.CommandText = "UpdateAction";
+                comm.Parameters.Add(new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = action.ConditionID
+                });
+
+                comm.Parameters.Add(new SqlParameter("@objectxml", SqlDbType.Xml)
+                {
+                    Value = GetActionObjectXml(action)
+                });
+
+                comm.Parameters.Add(new SqlParameter("@actionid", SqlDbType.UniqueIdentifier)
+                {
+                    Value = action.ActionId
+                });
+
+                comm.ExecuteNonQuery();
+
             }
         }
-        public static void UpdateAction(IAction action)
-        {
-            var _action = action as IAction;
-            var writer = new StringWriter(CultureInfo.InvariantCulture);
+        //public static void UpdateAction(IAction action)
+        //{
+        //    var _action = action as IAction;
+        //    var writer = new StringWriter(CultureInfo.InvariantCulture);
 
-            //create the xml
-            switch (action.ActionType)
-            {
-                case Enumerations.ActionType.MessageBox:
-                    var serializer = new XmlSerializer(typeof(MessageBox));
-                    var messagebox = (MessageBox)action;
-                    serializer.Serialize(writer, messagebox);
-                    break;
+        //    //create the xml
+        //    switch (action.ActionType)
+        //    {
+        //        case Enumerations.ActionType.MessageBox:
+        //            var serializer = new XmlSerializer(typeof(MessageBox));
+        //            var messagebox = (MessageBox)action;
+        //            serializer.Serialize(writer, messagebox);
+        //            break;
 
-                case Enumerations.ActionType.ConnectToCmd:
-                    var ctcSerializer = new XmlSerializer(typeof(ConnectToCmd));
-                    var ctc = (ConnectToCmd)action;
-                    ctcSerializer.Serialize(writer, ctc);
-                    break;
+        //        case Enumerations.ActionType.ConnectToCmd:
+        //            var ctcSerializer = new XmlSerializer(typeof(ConnectToCmd));
+        //            var ctc = (ConnectToCmd)action;
+        //            ctcSerializer.Serialize(writer, ctc);
+        //            break;
 
-                default:
-                    break;
-            }
+        //        default:
+        //            break;
+        //    }
 
-            var comm = new SqlCommand("UpdateAction");
-            comm.Connection = Connection();
-            comm.CommandType = CommandType.StoredProcedure;
+        //    var comm = new SqlCommand("UpdateAction");
+        //    comm.Connection = Connection();
+        //    comm.CommandType = CommandType.StoredProcedure;
 
-            var conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
-            conditionID.Direction = ParameterDirection.Input;
-            conditionID.Value = _action.ConditionID;
+        //    var conditionID = new SqlParameter("@conditionid", SqlDbType.UniqueIdentifier);
+        //    conditionID.Direction = ParameterDirection.Input;
+        //    conditionID.Value = _action.ConditionID;
 
-            var actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
-            actionID.Direction = ParameterDirection.Input;
-            actionID.Value = _action.ActionId;
+        //    var actionID = new SqlParameter("@actionid", SqlDbType.UniqueIdentifier);
+        //    actionID.Direction = ParameterDirection.Input;
+        //    actionID.Value = _action.ActionId;
 
-            var objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
-            objectxml.Direction = ParameterDirection.Input;
-            objectxml.Value = writer.ToString();
+        //    var objectxml = new SqlParameter("@objectxml", SqlDbType.Xml);
+        //    objectxml.Direction = ParameterDirection.Input;
+        //    objectxml.Value = writer.ToString();
 
-            comm.Parameters.Add(conditionID);
-            comm.Parameters.Add(actionID);
-            comm.Parameters.Add(objectxml);
+        //    comm.Parameters.Add(conditionID);
+        //    comm.Parameters.Add(actionID);
+        //    comm.Parameters.Add(objectxml);
 
-            var reader = comm.ExecuteReader();
-        }
+        //    var reader = comm.ExecuteReader();
+        //}
         private static bool ActionExists(Guid actionId)
         {
             var comm = new SqlCommand("select count(ActionId) from Actions where ActionId = '" + actionId + "'");

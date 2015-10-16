@@ -8,7 +8,7 @@ namespace DirectorAPI.Scenes
 {
     public class AlwaysScene : IScene
     {
-        private List<ICondition> conditions;
+        private List<ICondition> conditions = new List<ICondition>();
 
         public string Name{ get; set; }
         
@@ -43,7 +43,6 @@ namespace DirectorAPI.Scenes
             
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
-            //condition.ConditionType = condition.ConditionType;
             DBHelper.SaveCondition(this,condition);
             conditions.Add(condition);
             return condition;
@@ -51,10 +50,8 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            if (conditions == null)
+            if (conditions.Count == 0)
             {
-                //fresh load from db
-                conditions = new List<ICondition>();
                 conditions = DBHelper.GetConditions(this.SceneId);
             }
             return conditions;

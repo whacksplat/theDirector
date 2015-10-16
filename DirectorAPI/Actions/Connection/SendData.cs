@@ -27,6 +27,7 @@ namespace DirectorAPI.Actions.Connection
     public class SendData : IAction
     {
         CompilerResults _compilerResults;
+        private string dataToSend;
 
         [TypeConverter(typeof(TypeConverters.SceneNameConverter))]
         public string NextScene { get; set; }
@@ -65,6 +66,14 @@ namespace DirectorAPI.Actions.Connection
             return NextScene;
         }
 
-        public string DataToSend { get; set; }
+        public string DataToSend
+        {
+            get{return dataToSend;}
+            set
+            {
+                dataToSend = value;
+                DBHelper.SaveAction(this);
+            }
+        }
     }
 }

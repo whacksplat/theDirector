@@ -32,26 +32,15 @@ namespace DirectorAPI.Scenes
 
         [ReadOnly(true)]
         public Enumerations.SceneTypes Type { get; set; }
-        
+
         public ICondition AddCondition(ICondition condition)
         {
-            if (!(condition is VariableCondition))
-            {
-                throw new Exception("Cannot add anything but an DatasourceCondition to an DatasourceScene.");
-            }
-
-            condition.ConditionId = Guid.NewGuid();
-            condition.SceneId = SceneId;
-            //condition.ConditionType = condition.ConditionType;
-            DBHelper.SaveCondition(this, condition);
-            conditions.Add(condition);
-            return condition;
+            throw new Exception("You cannot add a condition to an EndAutomation Scene.");
         }
 
         public List<ICondition> GetConditions()
         {
-            conditions = DBHelper.GetConditions(this.SceneId);
-            return conditions;
+            throw new Exception("An EndAutomation Scene doesn't have conditions.");
         }
     }
 }

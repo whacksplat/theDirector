@@ -31,18 +31,6 @@ namespace DirectorAPI.Actions.Connection
 
         public ConnectToCmd()
         {
-            //todo check to see if it's already created
-            //if (AutomationHelper.automation.CurrentMode != Automation.Mode.Loading)
-            //{
-            //    ResetConnection();
-            //}
-        }
-
-        public void ResetConnection()
-        {
-            AutomationHelper.automation.Connection = new ConsoleConnectionRedirection();
-            AutomationHelper.automation.ResetEventSyncs();
-            AutomationHelper.automation.Connection.Connect();
         }
 
         [TypeConverter(typeof(TypeConverters.SceneNameConverter))]

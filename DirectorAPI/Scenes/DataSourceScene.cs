@@ -43,7 +43,6 @@ namespace DirectorAPI.Scenes
 
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
-            //condition.ConditionType = condition.ConditionType;
             DBHelper.SaveCondition(this, condition);
             conditions.Add(condition);
             return condition;
@@ -51,7 +50,10 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            conditions = DBHelper.GetConditions(this.SceneId);
+            if (conditions.Count == 0)
+            {
+                conditions = DBHelper.GetConditions(this.SceneId);
+            }
             return conditions;
         }
     }

@@ -35,18 +35,9 @@ namespace DirectorAPI.Scenes
         
         public ICondition AddCondition(ICondition condition)
         {
-            //only use Connection based conditions!
-
-
             //todo this needs to check if it's a connection type condition
-            //if (!(condition is ConnectionCondition))
-            //{
-            //    throw new Exception("Cannot add anything but an ConnectionCondition to an ConnectionScene.");
-            //}
-            
             condition.ConditionId = Guid.NewGuid();
             condition.SceneId = SceneId;
-            //condition.ConditionType = condition.ConditionType;
             DBHelper.SaveCondition(this, condition);
             conditions.Add(condition);
             return condition;
@@ -54,7 +45,10 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            conditions = DBHelper.GetConditions(this.SceneId);
+            if (conditions.Count == 0)
+            {
+                conditions = DBHelper.GetConditions(this.SceneId);
+            }
             return conditions;
         }
     }
