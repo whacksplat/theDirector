@@ -17,8 +17,12 @@ namespace DirectorAPI.Conditions
 
         public void BuildCode()
         {
-            throw new NotImplementedException();
+            string y = "new ScreenCondition(" + Row + "," + Column + "," + "\"" + Text + "\"" + ", new CaretLocation(" + CaretLocation.Row + "," + CaretLocation.Column + ")));";
+            results = CodeHelper.CreateConditionCode(null, "return AutomationHelper.automation.Connection.EvalCondition(" + y );
+            ScreenCondition x = new ScreenCondition(Row,Column,Text, new CaretLocation(CaretLocation.Row,CaretLocation.Column));
+
         }
+
 
         public void LoadActions()
         {
@@ -32,7 +36,13 @@ namespace DirectorAPI.Conditions
 
         public bool EvaluateCondition()
         {
-            throw new NotImplementedException();
+            var myclass = results.CompiledAssembly.CreateInstance("ConditionCode.Program");
+            var t = myclass.GetType();
+            var mi = t.GetMethod("TestValue");
+            object[] obj = { AutomationHelper.automation };
+            var res = mi.Invoke(myclass, obj);
+            return (bool)res;
+
         }
 
         public string DisplayText()

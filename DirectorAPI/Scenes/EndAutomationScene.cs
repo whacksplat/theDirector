@@ -40,7 +40,7 @@ namespace DirectorAPI.Scenes
 
         public List<ICondition> GetConditions()
         {
-            throw new Exception("An EndAutomation Scene doesn't have conditions.");
+            return conditions;
         }
     }
 }

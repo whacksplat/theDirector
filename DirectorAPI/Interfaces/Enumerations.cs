@@ -31,6 +31,11 @@ namespace DirectorAPI.Interfaces
             EndAutomation
         }
 
-
+        public enum Mode
+        {
+            Record = 0,
+            Loading,
+            Run
+        }
     }
 }

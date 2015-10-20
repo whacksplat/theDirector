@@ -31,12 +31,6 @@ namespace DirectorAPI
 {
     public class Automation
     {
-        public enum Mode
-        {
-            Record = 0,
-            Loading,
-            Run
-        }
 
         private ICharacterConnection _connection;// = new Connection();  //there will be only one of these at any point in time.
         private readonly DataSource _datasource;// = new DataSource();  //same thing with datasource, only 1 per automation
@@ -63,7 +57,7 @@ namespace DirectorAPI
             get { return _id; }
         }
 
-        public Mode CurrentMode { get; set; }
+        public Enumerations.Mode CurrentMode { get; set; }
 
         public DataSource Datasource
         {
@@ -213,7 +207,7 @@ namespace DirectorAPI
         /// <param name="id"></param>
         public Automation(Guid id)
         {
-            CurrentMode = Mode.Loading;
+            CurrentMode = Enumerations.Mode.Loading;
             var comm = new SqlCommand("GetAutomationByGUID") {CommandType = CommandType.StoredProcedure};
 
             var paramid = new SqlParameter("@automationid", SqlDbType.UniqueIdentifier)
@@ -235,6 +229,7 @@ namespace DirectorAPI
             reader.Close();
             AutomationHelper.automation = this;
             GetScenes();
+            CurrentMode = Enumerations.Mode.Record;
         }
 
  

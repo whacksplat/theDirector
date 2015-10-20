@@ -23,6 +23,16 @@ namespace DirectorAPI
 {
     public class CaretLocation
     {
+        public CaretLocation ()
+        {
+        }
+
+        public CaretLocation(int row, int col)
+        {
+            Row = row;
+            Column = col;
+        }
+
         public Int32 Row { get; set; }
         public Int32 Column { get; set; }
     }

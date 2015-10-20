@@ -70,7 +70,9 @@ namespace theDirector
             {
                 if (frm.id != Guid.Empty)
                 {
+                    
                     _automation = new Automation(frm.id);
+                    _automation.CurrentMode = Enumerations.Mode.Record;
                     RefreshScreen();
                 }
             }
@@ -88,16 +90,16 @@ namespace theDirector
             //pop treeview
             tvw.Nodes.Clear();
             tvwConditions.Nodes.Clear();
-    
+
             //root node will be the automation name
             TreeNode root = new TreeNode("Automation '" + _automation.Name + "'", 1, 1);
 
             //need a cool icon
 
             //references
-            var nodeScenes = new TreeNode("Scenes",3,3);
-            var references = new TreeNode("References",2,2);
-                
+            var nodeScenes = new TreeNode("Scenes", 3, 3);
+            var references = new TreeNode("References", 2, 2);
+
             //steps
             foreach (IScene scene in _automation.Scenes)
             {
@@ -122,7 +124,7 @@ namespace theDirector
             {
                 tvw.SelectedNode.Text = e.ChangedItem.Value.ToString();
             }
-            
+
             if (propGrid.SelectedObject is IAction)
             {
                 //DBHelper.UpdateAction(propGrid.SelectedObject as IAction);
@@ -142,12 +144,13 @@ namespace theDirector
 
             if (_automation != null)
             {
+                _automation.CurrentMode = Enumerations.Mode.Run;
+                
                 if (!_automation.PreCompile())
                 {
                     return;
                 }
 
-                _automation.CurrentMode = Automation.Mode.Run;
                 _scene = null;
                 _automation.BuildAssemblies();
                 string retval;
@@ -176,7 +179,7 @@ namespace theDirector
                         }
                     }
                 }
-                _automation.CurrentMode = Automation.Mode.Record;
+                _automation.CurrentMode = Enumerations.Mode.Record;
             }
         }
 
@@ -210,10 +213,10 @@ namespace theDirector
                 propGrid.SelectedObject = tvwConditions.SelectedNode.Tag;
                 return;
             }
-            
+
             throw new Exception("tvwConditions_AfterSelect not condition or action");
         }
-        
+
 
         private void tvw_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -222,7 +225,7 @@ namespace theDirector
 
             if (e.Node.Tag is IScene)
             {
-                IScene scene = (IScene) e.Node.Tag;
+                IScene scene = (IScene)e.Node.Tag;
                 foreach (ICondition condition in scene.GetConditions())
                 {
                     TreeNode condnode = tvwConditions.Nodes.Add(condition.DisplayText());
@@ -242,6 +245,11 @@ namespace theDirector
                                 connNode.Tag = action;
                                 //tvwConditions.SelectedNode = connNode;
                                 break;
+                            
+                            case Enumerations.ActionType.SendData:
+                                TreeNode sendDataNode = condnode.Nodes.Add(action.DisplayText);
+                                sendDataNode.Tag = action;
+                                break;
 
                             default:
                                 throw new NotImplementedException();
@@ -256,13 +264,13 @@ namespace theDirector
         private void tvw_DragDrop(object sender, DragEventArgs e)
         {
             Point point = tvw.PointToClient(new Point(e.X, e.Y));
-            TreeViewHitTestInfo info = tvw.HitTest(point.X,point.Y);
-            IScene destinationScene = (IScene) info.Node.Tag;
-            
-            if (destinationScene!=null)
+            TreeViewHitTestInfo info = tvw.HitTest(point.X, point.Y);
+            IScene destinationScene = (IScene)info.Node.Tag;
+
+            if (destinationScene != null)
             {
                 TreeNode sourceNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
-                IScene sourceScene = (IScene) sourceNode.Tag;
+                IScene sourceScene = (IScene)sourceNode.Tag;
                 //move it
                 _automation.MoveScene(sourceScene, destinationScene);
                 RefreshScreen();
@@ -372,11 +380,11 @@ namespace theDirector
                 return;
             }
 
-            ICondition condition =  scene.AddCondition(new AlwaysCondition());
+            ICondition condition = scene.AddCondition(new AlwaysCondition());
             _automation.ConnectionBufferRefresh += _automation_ConnectionBufferRefresh;
 
             condition.AddAction(Enumerations.ActionType.ConnectToCmd);
-            
+
             RefreshScreen();
         }
 
@@ -445,7 +453,7 @@ namespace theDirector
             TreeNode node = tvwConditions.Nodes.Add(condition.DisplayText());
             node.Tag = condition;
 
-            SendData send = (SendData) condition.AddAction(Enumerations.ActionType.SendData);
+            SendData send = (SendData)condition.AddAction(Enumerations.ActionType.SendData);
             send.DataToSend = sendData.Text;
             send.BuildCode();
             send.Execute();

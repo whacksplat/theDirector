@@ -72,7 +72,10 @@ namespace DirectorAPI.Actions.Connection
             set
             {
                 dataToSend = value;
-                DBHelper.SaveAction(this);
+                if (AutomationHelper.automation.CurrentMode == Enumerations.Mode.Record)
+                {
+                    DBHelper.SaveAction(this);
+                }
             }
         }
     }

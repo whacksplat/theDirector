@@ -34,6 +34,9 @@ namespace DirectorAPI.Interfaces
         void Send(string input);
         string Scrape(int Row, int Column, int Length);
         ICondition GetCurrentScreenCondition();
+        bool EvalCondition(ScreenCondition screenCondition);
+
+
 
         event ConsoleConnectionRedirection.BufferRefreshed BufferRefresh;
     }

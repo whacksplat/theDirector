@@ -24,6 +24,7 @@ using System.IO;
 using System.Net.Mime;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using DirectorAPI.Conditions;
 using DirectorAPI.Interfaces;
 
@@ -174,6 +175,29 @@ namespace DirectorAPI.Connections
             }
             _isActive = true;
         }
+        public bool EvalCondition(ScreenCondition screenCondition)
+        {
+            //check the caret location
+            //todo need to implement ranges for the caret location
+            
+            ConsoleConnectionRedirectionScreenCondition current = (ConsoleConnectionRedirectionScreenCondition)GetCurrentScreenCondition();
+            
+            if (screenCondition.CaretLocation.Row == current.CaretLocation.Row &&
+                screenCondition.CaretLocation.Column == current.CaretLocation.Column)
+            {
+                //now check the text
+                string scrape = ScreenData[screenCondition.Row];
+                scrape = scrape.Substring(screenCondition.Column, screenCondition.Text.Length);
+                
+                if (scrape.Equals(screenCondition.Text))
+                {
+                    return true;
+                }
+            }
+            return false;
+            
+        }
+
 
         void errorWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -371,7 +395,7 @@ namespace DirectorAPI.Connections
             var caretRow = _screendata.Count - 1;
             var caretCol = _screendata[caretRow].Length - 1;
 
-            var caret = new CaretLocation { Row = caretRow, Column = caretCol };
+            var caret = new CaretLocation(caretRow,caretCol );
             return new ConsoleConnectionRedirectionScreenCondition()
             {
                 CaretLocation = caret,
@@ -380,6 +404,8 @@ namespace DirectorAPI.Connections
                 Text = _screendata[_screendata.Count - 1]
             };
         }
+
+
     }
 
 }

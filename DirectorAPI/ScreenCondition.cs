@@ -23,6 +23,14 @@ namespace DirectorAPI
 {
     public class ScreenCondition
     {
+        public ScreenCondition(int row, int col, string text, CaretLocation caretLocation)
+        {
+            Row = row;
+            Column = col;
+            Text = text;
+            CaretLocation = caretLocation;
+        }
+
         public Int32 Row { get; set; }
         public Int32 Column { get; set; }
         public string Text { get; set; }
