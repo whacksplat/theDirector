@@ -150,6 +150,7 @@
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.sQLiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -559,7 +560,8 @@
             this.xMLToolStripMenuItem1,
             this.xMLHeirarchicalToolStripMenuItem1,
             this.jSONToolStripMenuItem1,
-            this.jSONHeirarchicalToolStripMenuItem});
+            this.jSONHeirarchicalToolStripMenuItem,
+            this.sQLiteToolStripMenuItem});
             this.markupLanguagesToolStripMenuItem.Name = "markupLanguagesToolStripMenuItem";
             this.markupLanguagesToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.markupLanguagesToolStripMenuItem.Text = "Markup Languages";
@@ -736,13 +738,13 @@
             // assemblyToolStripMenuItem
             // 
             this.assemblyToolStripMenuItem.Name = "assemblyToolStripMenuItem";
-            this.assemblyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assemblyToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.assemblyToolStripMenuItem.Text = "Assembly";
             // 
             // exectutableToolStripMenuItem
             // 
             this.exectutableToolStripMenuItem.Name = "exectutableToolStripMenuItem";
-            this.exectutableToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exectutableToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.exectutableToolStripMenuItem.Text = "Exectutable";
             // 
             // toolStrip1
@@ -834,7 +836,7 @@
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 51);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -856,7 +858,7 @@
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -876,7 +878,7 @@
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(873, 508);
@@ -886,9 +888,9 @@
             // 
             this.tabPage3.Controls.Add(this.rtf);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage3.Size = new System.Drawing.Size(865, 479);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Console";
@@ -901,7 +903,7 @@
             this.rtf.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtf.ForeColor = System.Drawing.Color.White;
             this.rtf.Location = new System.Drawing.Point(4, 4);
-            this.rtf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtf.Margin = new System.Windows.Forms.Padding(4);
             this.rtf.Name = "rtf";
             this.rtf.Size = new System.Drawing.Size(857, 471);
             this.rtf.TabIndex = 1;
@@ -913,7 +915,7 @@
             this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -939,7 +941,7 @@
             this.tvw.ImageIndex = 0;
             this.tvw.ImageList = this.imageList1;
             this.tvw.Location = new System.Drawing.Point(0, 27);
-            this.tvw.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tvw.Margin = new System.Windows.Forms.Padding(4);
             this.tvw.Name = "tvw";
             this.tvw.SelectedImageIndex = 0;
             this.tvw.Size = new System.Drawing.Size(719, 230);
@@ -1025,7 +1027,7 @@
             // 
             this.propGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propGrid.Location = new System.Drawing.Point(0, 0);
-            this.propGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.propGrid.Margin = new System.Windows.Forms.Padding(4);
             this.propGrid.Name = "propGrid";
             this.propGrid.Size = new System.Drawing.Size(719, 244);
             this.propGrid.TabIndex = 0;
@@ -1037,7 +1039,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1599, 284);
@@ -1048,9 +1050,9 @@
             this.tabPage1.Controls.Add(this.tvwConditions);
             this.tabPage1.Controls.Add(this.toolStrip3);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.tabPage1.Size = new System.Drawing.Size(1591, 255);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conditions";
@@ -1060,7 +1062,7 @@
             // 
             this.tvwConditions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvwConditions.Location = new System.Drawing.Point(4, 31);
-            this.tvwConditions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tvwConditions.Margin = new System.Windows.Forms.Padding(4);
             this.tvwConditions.Name = "tvwConditions";
             this.tvwConditions.Size = new System.Drawing.Size(1583, 220);
             this.tvwConditions.TabIndex = 1;
@@ -1164,9 +1166,9 @@
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1591, 244);
+            this.tabPage2.Size = new System.Drawing.Size(1591, 255);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1181,6 +1183,12 @@
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // sQLiteToolStripMenuItem
+            // 
+            this.sQLiteToolStripMenuItem.Name = "sQLiteToolStripMenuItem";
+            this.sQLiteToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.sQLiteToolStripMenuItem.Text = "SQLite";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1189,7 +1197,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "theDirector";
@@ -1347,6 +1355,7 @@
         private System.Windows.Forms.ToolStripMenuItem mcKessonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hBOWemHBOCToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem navigatorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sQLiteToolStripMenuItem;
 
     }
 }

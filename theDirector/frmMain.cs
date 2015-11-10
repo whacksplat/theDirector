@@ -38,6 +38,7 @@ namespace theDirector
     {
         private Automation _automation;
         private IScene _scene;
+        private Object thisLock = new Object();
 
         public frmMain()
         {
@@ -144,42 +145,58 @@ namespace theDirector
 
             if (_automation != null)
             {
-                _automation.CurrentMode = Enumerations.Mode.Run;
+                //_automation.CurrentMode = Enumerations.Mode.Run;
                 
-                if (!_automation.PreCompile())
-                {
-                    return;
-                }
+                //if (!_automation.PreCompile())
+                //{
+                //    return;
+                //}
 
-                _scene = null;
-                _automation.BuildAssemblies();
-                string retval;
+                //_scene = null;
+                //_automation.BuildAssemblies();
+                //string retval;
 
-                //reset the data source and connection objects in the automation
-                IScene scene = _automation.Scenes[0];
-                rtf.Clear();
+                ////reset the data source and connection objects in the automation
+                //IScene scene = _automation.Scenes[0];
+                //rtf.Clear();
+                //_automation.ConnectionBufferRefresh += _automation_ConnectionBufferRefresh;
+
+                //while (scene != null)
+                //{
+                //    if (scene is EndAutomationScene)
+                //    {
+                //        //we're done
+                //        break;
+                //    }
+
+                //    if (scene is ConnectionScene)
+                //    {
+                //            //AutomationHelper.automation.Connection
+                //    }
+
+                //    foreach (ICondition condition in scene.GetConditions())
+                //    {
+
+                //        if (condition.EvaluateCondition())
+                //        {
+                //            lock (thisLock)
+                //            {
+                //                retval = condition.ExecuteActions();    
+                //            }
+                            
+                //            if (!string.IsNullOrEmpty(retval))
+                //            {
+                //                scene = _automation.Scenes.Find(x => x.Name == retval);
+                //            }
+                //        }
+                //    }
+                //}
+
+                ////we're done, go back to record
+                //_automation.CurrentMode = Enumerations.Mode.Record;
                 _automation.ConnectionBufferRefresh += _automation_ConnectionBufferRefresh;
-
-                while (scene != null)
-                {
-                    if (scene is EndAutomationScene)
-                    {
-                        //we're done
-                        break;
-                    }
-                    foreach (ICondition condition in scene.GetConditions())
-                    {
-                        if (condition.EvaluateCondition())
-                        {
-                            retval = condition.ExecuteActions();
-                            if (!string.IsNullOrEmpty(retval))
-                            {
-                                scene = _automation.Scenes.Find(x => x.Name == retval);
-                            }
-                        }
-                    }
-                }
-                _automation.CurrentMode = Enumerations.Mode.Record;
+                _automation.RunAutomation();
+                
             }
         }
 

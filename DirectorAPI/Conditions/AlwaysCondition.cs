@@ -29,7 +29,14 @@ namespace DirectorAPI.Conditions
             string retval="";
             foreach (IAction action in _actions)
             {
+                AutomationHelper.automation.IsEventComplete = false;
+
                 retval = action.Execute();
+                while (AutomationHelper.automation.IsEventComplete == false)
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+
                 if (!string.IsNullOrEmpty(retval))
                 {
                     return retval;

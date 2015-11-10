@@ -24,6 +24,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using DirectorAPI.Connections;
 using DirectorAPI.Interfaces;
 using DirectorAPI.Scenes;
 
@@ -32,17 +33,20 @@ namespace DirectorAPI
     public class Automation
     {
 
-        private ICharacterConnection _connection;// = new Connection();  //there will be only one of these at any point in time.
+        private ConsoleConnectionRedirection _connection;// = new Connection();  //there will be only one of these at any point in time.
         private readonly DataSource _datasource;// = new DataSource();  //same thing with datasource, only 1 per automation
         private readonly Guid _id;
         private readonly List<IScene> _scenes = new List<IScene>();
-        
+        private IScene _currentScene;
+
         public delegate void BufferRefreshed(object sender);
         public event BufferRefreshed ConnectionBufferRefresh;
 
 
         public string Name { get; set; }
         public string Description { get; private set; }
+
+        public bool IsEventComplete { get; set; }
 
         public void ResetEventSyncs()
         {
@@ -64,7 +68,7 @@ namespace DirectorAPI
             get { return _datasource; }
         }
 
-        public ICharacterConnection Connection
+        public ConsoleConnectionRedirection Connection
         {
             get { return _connection; }
             set { _connection = value; }
@@ -86,7 +90,15 @@ namespace DirectorAPI
 
         private void Connection_BufferRefresh(object sender)
         {
-            if (ConnectionBufferRefresh != null) ConnectionBufferRefresh(sender);
+            if (ConnectionBufferRefresh != null)
+            {
+                ConnectionBufferRefresh(sender);
+                if (_currentScene is ConnectionScene)
+                {
+                    RunScreenConditions();
+                    return;
+                }
+            }
         }
 
 
@@ -358,5 +370,84 @@ namespace DirectorAPI
                 }
             }
         }
+
+        public void RunAutomation()
+        {
+            CurrentMode = Enumerations.Mode.Run;
+
+            if (!PreCompile())
+            {
+                return;
+            }
+
+            _currentScene = null;
+            BuildAssemblies();
+
+            //reset the data source and connection objects in the automation
+            _currentScene = Scenes[0];
+            
+
+            //todo reset CurrentMode when scene is end scene
+            RunScenes();
+        }
+
+        private void RunScenes()
+        {
+            string retval;
+
+            while (_currentScene != null)
+            {
+                if (_currentScene is EndAutomationScene)
+                {
+                    //we're done
+                    CurrentMode = Enumerations.Mode.Record;
+                    break;
+                }
+
+                if (_currentScene is ConnectionScene)
+                {
+                    //release control and let the buffer take care of it
+                    return;
+                }
+
+                foreach (ICondition condition in _currentScene.GetConditions())
+                {
+
+                    if (condition.EvaluateCondition())
+                    {
+                        retval = condition.ExecuteActions();
+                        //ResetEventSyncs();
+                        if (!string.IsNullOrEmpty(retval))
+                        {
+                            _currentScene = Scenes.Find(x => x.Name == retval);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void RunScreenConditions()
+        {
+            foreach (ICondition condition in _currentScene.GetConditions())
+            {
+                if (condition.EvaluateCondition())
+                {
+                    string retval="";
+
+                    foreach (IAction action in condition.GetActions())  //todo check to see if this is doing another database call
+                    {
+                        if (!string.IsNullOrEmpty(action.NextScene))
+                        {
+                            _currentScene = Scenes.Find(x => x.Name == action.NextScene);
+                        }
+                    }
+                    condition.ExecuteActions();     //release immediatley
+                    return;
+                }
+            }
+        }
+
+
+
     }
 }

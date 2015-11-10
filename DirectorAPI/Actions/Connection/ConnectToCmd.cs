@@ -28,6 +28,7 @@ namespace DirectorAPI.Actions.Connection
     public class ConnectToCmd : IAction
     {
         CompilerResults _compilerResults;
+        
 
         public ConnectToCmd()
         {
@@ -70,8 +71,13 @@ namespace DirectorAPI.Actions.Connection
             }
 
             Type t = myclass.GetType();
+
             MethodInfo mi = t.GetMethod("Execute");
+
+            AutomationHelper.automation.IsEventComplete = false;
             mi.Invoke(myclass, obj);
+            AutomationHelper.automation.IsEventComplete = true;
+
             return NextScene;
         }
     }

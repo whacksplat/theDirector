@@ -359,7 +359,7 @@ namespace DirectorAPI
 
             if (reader.HasRows)
             {
-                if (reader.Read())
+                while (reader.Read())
                 {
                     ICondition condition = CreateConditionFromDb(sceneId,
                         reader.GetGuid(0),

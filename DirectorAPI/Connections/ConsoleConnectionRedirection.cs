@@ -48,6 +48,7 @@ namespace DirectorAPI.Connections
         private int _rows, _cols;
         private string _lastInput;
         private bool _isActive;
+        private bool _isConnected;
 
         private readonly List<string> _screendata = new List<string>();
 
@@ -63,7 +64,10 @@ namespace DirectorAPI.Connections
         
         protected void OnBufferRefreshed(object sender)
         {
-            if (BufferRefresh != null) BufferRefresh(sender);
+            if (BufferRefresh != null)
+            {
+                BufferRefresh(sender);
+            }
         }
         public string BufferTerminationCharacters
         {
@@ -107,6 +111,8 @@ namespace DirectorAPI.Connections
                 if (!process.HasExited)     //restart it if it's already started.
                 {
                     process.Kill();
+                    inputWriter.Close();
+                    inputWriter = null;
                 }                
             }
             
@@ -250,9 +256,13 @@ namespace DirectorAPI.Connections
 
             if (!string.IsNullOrEmpty(_lastInput))
             {
-                if (output.Substring(0, _lastInput.Length).Equals(_lastInput))
+                if(output.Length == _lastInput.Length)
                 {
-                    return;
+                    if (output.Substring(0, _lastInput.Length).Equals(_lastInput))
+                    {
+                        return;
+                    }
+
                 }
             }
 
@@ -263,40 +273,44 @@ namespace DirectorAPI.Connections
                 string[] data = _buffer.Split(new[] { "\r\n" }, StringSplitOptions.None);
                 foreach (string looper in data)
                 {
-                    if (looper.Length > _cols)
+                    if(!looper.Equals(_lastInput))
                     {
-                        start = 0;
-                        while (start < looper.Length)
+                        if (looper.Length > _cols)
                         {
-                            if ((start + _cols) > looper.Length)
+                            start = 0;
+                            while (start < looper.Length)
                             {
-                                temp = looper.Substring(start); //todo really should be regex
-                                if (temp.Length < _cols)
+                                if ((start + _cols) > looper.Length)
                                 {
-                                    //pad it
-                                    temp = temp.PadRight(_cols);
+                                    temp = looper.Substring(start); //todo really should be regex
+                                    if (temp.Length < _cols)
+                                    {
+                                        //pad it
+                                        temp = temp.PadRight(_cols);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                temp = looper.Substring(start, _cols);
-                            }
+                                else
+                                {
+                                    temp = looper.Substring(start, _cols);
+                                }
 
-                            _screendata.Add(temp);
-                            start += _cols;
-                        }
-                    }
-                    else
-                    {
-                        if (looper.Length < _cols)
-                        {
-                            _screendata.Add(looper.PadRight(_cols));    
+                                _screendata.Add(temp);
+                                start += _cols;
+                            }
                         }
                         else
                         {
-                            _screendata.Add(looper);        
+                            if (looper.Length < _cols)
+                            {
+                                _screendata.Add(looper.PadRight(_cols));
+                            }
+                            else
+                            {
+                                _screendata.Add(looper);
+                            }
+
                         }
-                        
+
                     }
                     
                 }
@@ -309,6 +323,7 @@ namespace DirectorAPI.Connections
                     _screendata.RemoveAt(0);
                 }
                 OnBufferRefreshed(this);
+                _isConnected = true;
             }
         }
 
@@ -368,7 +383,20 @@ namespace DirectorAPI.Connections
                 //add input to the buffer
                 string newRowData = _screendata[_screendata.Count - 1].Trim() + looper;
                 _screendata[_screendata.Count - 1] = newRowData.PadRight(_cols);
+                //_isConnected = false;
+                //process.StandardInput.WriteLine(looper);
                 inputWriter.WriteLine(looper);
+                //OnBufferRefreshed(this);
+                //Thread.Sleep(1000);
+                inputWriter.Flush();
+                //Thread.Sleep(1000);
+                //inputWriter.Close();
+
+                //while (_isConnected == false)
+                //{
+                //    Thread.Sleep(1000);
+                //}
+                //_screendata
             }
         }
 

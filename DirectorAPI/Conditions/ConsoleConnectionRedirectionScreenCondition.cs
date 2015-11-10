@@ -19,7 +19,7 @@ namespace DirectorAPI.Conditions
         {
             string y = "new ScreenCondition(" + Row + "," + Column + "," + "\"" + Text + "\"" + ", new CaretLocation(" + CaretLocation.Row + "," + CaretLocation.Column + ")));";
             results = CodeHelper.CreateConditionCode(null, "return AutomationHelper.automation.Connection.EvalCondition(" + y );
-            ScreenCondition x = new ScreenCondition(Row,Column,Text, new CaretLocation(CaretLocation.Row,CaretLocation.Column));
+            //ScreenCondition x = new ScreenCondition(Row,Column,Text, new CaretLocation(CaretLocation.Row,CaretLocation.Column));
 
         }
 
@@ -31,7 +31,18 @@ namespace DirectorAPI.Conditions
 
         public string ExecuteActions()
         {
-            throw new NotImplementedException();
+            string retval = "";
+            foreach (IAction action in _actions)
+            {
+                AutomationHelper.automation.IsEventComplete = false;
+                retval = action.Execute();
+                AutomationHelper.automation.IsEventComplete = true;
+                if (!string.IsNullOrEmpty(retval))
+                {
+                    return retval;
+                }
+            }
+            return retval; //will return blank
         }
 
         public bool EvaluateCondition()
