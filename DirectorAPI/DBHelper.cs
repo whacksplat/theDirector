@@ -188,7 +188,6 @@ namespace DirectorAPI
 
                 default:
                     throw new NotImplementedException("Unknown scene type.");
-                    break;
 
             }
 
@@ -213,7 +212,6 @@ namespace DirectorAPI
 
                 default:
                     throw new Exception("Unknown condition type.");
-                    break;
             }
 
             serializer.Serialize(writer, condition);
@@ -593,7 +591,6 @@ namespace DirectorAPI
 
                 default:
                     throw new Exception("Unknown condition type.");
-                    break;
             }
 
             serializer.Serialize(writer, action);

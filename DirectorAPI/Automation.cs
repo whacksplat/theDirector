@@ -34,7 +34,7 @@ namespace DirectorAPI
     {
 
         private ConsoleConnectionRedirection _connection;// = new Connection();  //there will be only one of these at any point in time.
-        private readonly DataSource _datasource;// = new DataSource();  //same thing with datasource, only 1 per automation
+        //private readonly DataSource _datasource;// = new DataSource();  //same thing with datasource, only 1 per automation
         private readonly Guid _id;
         private readonly List<IScene> _scenes = new List<IScene>();
         private IScene _currentScene;
@@ -63,10 +63,10 @@ namespace DirectorAPI
 
         public Enumerations.Mode CurrentMode { get; set; }
 
-        public DataSource Datasource
-        {
-            get { return _datasource; }
-        }
+        //public DataSource Datasource
+        //{
+        //    get { return _datasource; }
+        //}
 
         public ConsoleConnectionRedirection Connection
         {
@@ -432,7 +432,7 @@ namespace DirectorAPI
             {
                 if (condition.EvaluateCondition())
                 {
-                    string retval="";
+                    //string retval="";
 
                     foreach (IAction action in condition.GetActions())  //todo check to see if this is doing another database call
                     {

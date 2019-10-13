@@ -37,7 +37,7 @@ namespace theDirector
     public partial class frmMain : Form
     {
         private Automation _automation;
-        private IScene _scene;
+ //       private IScene _scene;
         private Object thisLock = new Object();
 
         public frmMain()

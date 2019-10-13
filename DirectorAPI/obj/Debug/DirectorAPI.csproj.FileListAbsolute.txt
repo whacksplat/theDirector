@@ -55,3 +55,8 @@ C:\theDirector\DirectorAPI\bin\Debug\DirectorAPI.pdb
 C:\theDirector\DirectorAPI\obj\Debug\DirectorAPI.dll
 C:\theDirector\DirectorAPI\obj\Debug\DirectorAPI.pdb
 C:\theDirector\DirectorAPI\obj\Debug\DirectorAPI.csprojResolveAssemblyReference.cache
+C:\Source\theDirector\DirectorAPI\bin\Debug\DirectorAPI.dll
+C:\Source\theDirector\DirectorAPI\bin\Debug\DirectorAPI.pdb
+C:\Source\theDirector\DirectorAPI\obj\Debug\DirectorAPI.csproj.CoreCompileInputs.cache
+C:\Source\theDirector\DirectorAPI\obj\Debug\DirectorAPI.dll
+C:\Source\theDirector\DirectorAPI\obj\Debug\DirectorAPI.pdb

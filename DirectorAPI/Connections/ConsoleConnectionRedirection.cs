@@ -48,7 +48,7 @@ namespace DirectorAPI.Connections
         private int _rows, _cols;
         private string _lastInput;
         private bool _isActive;
-        private bool _isConnected;
+        //private bool _isConnected;
 
         private readonly List<string> _screendata = new List<string>();
 
@@ -323,7 +323,7 @@ namespace DirectorAPI.Connections
                     _screendata.RemoveAt(0);
                 }
                 OnBufferRefreshed(this);
-                _isConnected = true;
+                //_isConnected = true;
             }
         }
 
