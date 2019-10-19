@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "theDirector", "theDirector\theDirector.csproj", "{8121E04F-56BE-455E-9EAA-782A63477DD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "theDirectorDeprecated", "theDirector\theDirectorDeprecated.csproj", "{8121E04F-56BE-455E-9EAA-782A63477DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorAPI", "DirectorAPI\DirectorAPI.csproj", "{BF72F0F0-D729-4757-ADFA-C66C2F26454D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorAPIDeprecated", "DirectorAPI\DirectorAPIDeprecated.csproj", "{BF72F0F0-D729-4757-ADFA-C66C2F26454D}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -28,5 +24,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0AF5AC6-11E8-4B9F-A38D-3EBEA8702E0E}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
