@@ -1,144 +1,28 @@
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\theDirector.exe.config
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\ConsoleControl.dll
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\DirectorAPI.dll
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\ProcessInterface.dll
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\ConsoleControl.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\DirectorAPI.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\bin\Debug\ProcessInterface.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.frmMain.resources
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\theDirector.exe.config
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\theDirector.exe
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\ConsoleControl.dll
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\DirectorAPI.dll
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\ProcessInterface.dll
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\ConsoleControl.pdb
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\DirectorAPI.pdb
-D:\Dropbox\Source\theDirector\theDirector\bin\Debug\ProcessInterface.pdb
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.frmMain.resources
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.exe
-D:\Dropbox\Source\theDirector\theDirector\obj\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.exe.config
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.exe
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ConsoleConnect.dll
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\DirectorAPI.dll
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ProcessInterface.dll
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ConsoleConnect.pdb
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\DirectorAPI.pdb
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ProcessInterface.pdb
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmEnterData.resources
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmMain.resources
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.exe
-D:\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.exe.CodeAnalysisLog.xml
-D:\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.exe.lastcodeanalysissucceeded
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.exe.config
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ConsoleConnect.dll
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\DirectorAPI.dll
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ProcessInterface.dll
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ConsoleConnect.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\DirectorAPI.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\bin\Debug\ProcessInterface.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmEnterData.resources
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmMain.resources
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector New Class\theDirector\obj\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\theDirector.exe.config
-D:\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\theDirector.exe
-D:\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\theDirector.pdb
-D:\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\DirectorAPI.dll
-D:\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\DirectorAPI.pdb
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmEnterData.resources
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmMain.resources
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.exe
-D:\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\theDirector.exe.config
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\DirectorAPI.dll
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\bin\Debug\DirectorAPI.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmEnterData.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmMain.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite\theDirector\obj\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\bin\Debug\theDirector.exe.config
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\bin\Debug\theDirector.exe
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\bin\Debug\theDirector.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\bin\Debug\DirectorAPI.dll
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\bin\Debug\DirectorAPI.pdb
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.frmEnterData.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.frmMain.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-C:\Users\rmageau\Dropbox\Source\theDirector Rewrite - Copy\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-C:\theDirector\theDirector\bin\Debug\theDirector.exe.config
-C:\theDirector\theDirector\bin\Debug\theDirector.exe
-C:\theDirector\theDirector\bin\Debug\theDirector.pdb
-C:\theDirector\theDirector\bin\Debug\DirectorAPI.dll
-C:\theDirector\theDirector\bin\Debug\DirectorAPI.pdb
-C:\theDirector\theDirector\obj\Debug\theDirector.csprojResolveAssemblyReference.cache
-C:\theDirector\theDirector\obj\Debug\theDirector.frmEnterData.resources
-C:\theDirector\theDirector\obj\Debug\theDirector.frmMain.resources
-C:\theDirector\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-C:\theDirector\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-C:\theDirector\theDirector\obj\Debug\theDirector.Properties.Resources.resources
-C:\theDirector\theDirector\obj\Debug\theDirector.csproj.GenerateResource.Cache
-C:\theDirector\theDirector\obj\Debug\theDirector.exe
-C:\theDirector\theDirector\obj\Debug\theDirector.pdb
-C:\Source\theDirector\theDirector\bin\Debug\theDirector.exe.config
-C:\Source\theDirector\theDirector\bin\Debug\theDirector.exe
-C:\Source\theDirector\theDirector\bin\Debug\theDirector.pdb
-C:\Source\theDirector\theDirector\bin\Debug\DirectorAPI.dll
-C:\Source\theDirector\theDirector\bin\Debug\DirectorAPI.pdb
+C:\Source\TestingHosting\TestingHosting\bin\Debug\TestingHosting.exe.config
+C:\Source\TestingHosting\TestingHosting\bin\Debug\TestingHosting.exe
+C:\Source\TestingHosting\TestingHosting\bin\Debug\TestingHosting.pdb
+C:\Source\TestingHosting\TestingHosting\bin\Debug\TestMessageboxActivity.dll
+C:\Source\TestingHosting\TestingHosting\bin\Debug\TestMessageboxActivity.pdb
+C:\Source\TestingHosting\TestingHosting\obj\Debug\theDirector.csprojAssemblyReference.cache
+C:\Source\TestingHosting\TestingHosting\obj\Debug\TestingHosting.mainForm.resources
+C:\Source\TestingHosting\TestingHosting\obj\Debug\TestingHosting.newWorkflow.resources
+C:\Source\TestingHosting\TestingHosting\obj\Debug\TestingHosting.Properties.Resources.resources
+C:\Source\TestingHosting\TestingHosting\obj\Debug\theDirector.csproj.GenerateResource.cache
+C:\Source\TestingHosting\TestingHosting\obj\Debug\theDirector.csproj.CoreCompileInputs.cache
+C:\Source\TestingHosting\TestingHosting\obj\Debug\theDirector.csproj.CopyComplete
+C:\Source\TestingHosting\TestingHosting\obj\Debug\TestingHosting.exe
+C:\Source\TestingHosting\TestingHosting\obj\Debug\TestingHosting.pdb
+C:\Source\theDirector\theDirector\bin\Debug\TestingHosting.exe.config
+C:\Source\theDirector\theDirector\bin\Debug\TestingHosting.exe
+C:\Source\theDirector\theDirector\bin\Debug\TestingHosting.pdb
+C:\Source\theDirector\theDirector\bin\Debug\TestMessageboxActivity.dll
+C:\Source\theDirector\theDirector\bin\Debug\TestMessageboxActivity.pdb
 C:\Source\theDirector\theDirector\obj\Debug\theDirector.csprojAssemblyReference.cache
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.frmEnterData.resources
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.frmMain.resources
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.frmNewAutomation.resources
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.frmOpenAutomation.resources
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.Properties.Resources.resources
+C:\Source\theDirector\theDirector\obj\Debug\TestingHosting.mainForm.resources
+C:\Source\theDirector\theDirector\obj\Debug\TestingHosting.newWorkflow.resources
+C:\Source\theDirector\theDirector\obj\Debug\TestingHosting.Properties.Resources.resources
 C:\Source\theDirector\theDirector\obj\Debug\theDirector.csproj.GenerateResource.cache
 C:\Source\theDirector\theDirector\obj\Debug\theDirector.csproj.CoreCompileInputs.cache
 C:\Source\theDirector\theDirector\obj\Debug\theDirector.csproj.CopyComplete
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.exe
-C:\Source\theDirector\theDirector\obj\Debug\theDirector.pdb
+C:\Source\theDirector\theDirector\obj\Debug\TestingHosting.exe
+C:\Source\theDirector\theDirector\obj\Debug\TestingHosting.pdb
