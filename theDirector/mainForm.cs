@@ -158,6 +158,7 @@ namespace TestingHosting
             controlFlow.Add(new ToolboxItemWrapper(typeof(Pick), "Pick"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(PickBranch), "PickBranch"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(WriteLine),"Write Line"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(Delay), "Delay"));
             return controlFlow;
         }
         private ToolboxCategory LoadErrorHandling()
