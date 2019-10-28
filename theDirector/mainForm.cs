@@ -145,7 +145,6 @@ namespace TestingHosting
             ToolboxCategory variableTools = new ToolboxCategory("Variable Tools");
             variableTools.Add(new ToolboxItemWrapper(typeof(AddToCollection<>),"Add To Collection"));
             variableTools.Add(new ToolboxItemWrapper(typeof(Assign),"Assign"));
-            //variableTools.Add(new ToolboxItemWrapper(typeof(Assign<>),"Assign<>"));   //TODO do I need this?
             variableTools.Add(new ToolboxItemWrapper(typeof(ClearCollection<>),"Clear Collection"));
             variableTools.Add(new ToolboxItemWrapper(typeof(ExistsInCollection<>),"Exists In Collection"));
             variableTools.Add(new ToolboxItemWrapper(typeof(RemoveFromCollection<>),"Remove From Collection"));
@@ -166,8 +165,6 @@ namespace TestingHosting
             ToolboxCategory errorHandling = new ToolboxCategory("Error Hanlding");
 
             errorHandling.Add(new ToolboxItemWrapper(typeof(TryCatch), "TryCatch"));
-            //errorHandling.Add(new ToolboxItemWrapper(typeof(Catch),"Catch"));
-            //errorHandling.Add(new ToolboxItemWrapper(typeof(Catch<>), "Catch<TException>"));
             errorHandling.Add(new ToolboxItemWrapper(typeof(Rethrow), "Rethrow"));
             errorHandling.Add(new ToolboxItemWrapper(typeof(Throw), "Throw"));
 
@@ -238,6 +235,7 @@ namespace TestingHosting
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = openDialog.ShowDialog();
+            
             if (!string.IsNullOrWhiteSpace(openDialog.FileName))
             {
                 fileName = openDialog.FileName;
