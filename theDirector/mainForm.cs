@@ -114,81 +114,114 @@ namespace TestingHosting
             ToolboxCategory controlFlow = new ToolboxCategory("Control Flow");
 
             wfToolbox.Categories.Add(LoadControlFlow());
-            wfToolbox.Categories.Add(LoadVariableTools());
+            wfToolbox.Categories.Add(LoadFlowchart());
+            wfToolbox.Categories.Add(LoadStateMachine());
+            wfToolbox.Categories.Add(LoadRabbitMQ());
+            wfToolbox.Categories.Add(LoadRuntime());
+            wfToolbox.Categories.Add(LoadPrimitives());
+            wfToolbox.Categories.Add(LoadTransaction());
+            wfToolbox.Categories.Add(LoadCollection());
             wfToolbox.Categories.Add(LoadErrorHandling());
-            wfToolbox.Categories.Add(LoadLooping());
-            wfToolbox.Categories.Add(LoadDecisions());
-            wfToolbox.Categories.Add(LoadWorkflow());
 
             ElementHost host = new ElementHost() { Dock = DockStyle.Fill };
             host.Child = wfToolbox;
             leftSplitContainer.Panel1.Controls.Add(host);
         }
-
-
-        private ToolboxCategory LoadWorkflow()
-        {
-            ToolboxCategory workflowActivities = new ToolboxCategory("Workflow");
-
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(Flowchart), "Flowchart"));
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(FlowDecision), "Flow Decision"));
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(FlowSwitch<>), "Flow Switch"));
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(Sequence), "Sequence"));
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(StateMachine), "State Machine"));
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(State), "State"));
-            workflowActivities.Add(new ToolboxItemWrapper(typeof(FinalState), "Final State"));
-
-            return workflowActivities;
-        }
-        private ToolboxCategory LoadVariableTools()
-        {
-            ToolboxCategory variableTools = new ToolboxCategory("Variable Tools");
-            variableTools.Add(new ToolboxItemWrapper(typeof(AddToCollection<>),"Add To Collection"));
-            variableTools.Add(new ToolboxItemWrapper(typeof(Assign),"Assign"));
-            variableTools.Add(new ToolboxItemWrapper(typeof(ClearCollection<>),"Clear Collection"));
-            variableTools.Add(new ToolboxItemWrapper(typeof(ExistsInCollection<>),"Exists In Collection"));
-            variableTools.Add(new ToolboxItemWrapper(typeof(RemoveFromCollection<>),"Remove From Collection"));
-            variableTools.Add(new ToolboxItemWrapper(typeof(TestMessageboxActivity.Messagebox), "Test Messagebox"));
-
-            return variableTools;
-        }
         private ToolboxCategory LoadControlFlow()
         {
             ToolboxCategory controlFlow = new ToolboxCategory("Control Flow");
+
+            controlFlow.Add(new ToolboxItemWrapper(typeof(DoWhile), "Do While"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(ForEach<>), "ForEach<T>"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(If), "If"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(Parallel), "Parallel"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(ParallelForEach<>), "ParallelForEach<T>"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(Pick), "Pick"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(PickBranch), "PickBranch"));
-            controlFlow.Add(new ToolboxItemWrapper(typeof(WriteLine),"Write Line"));
-            controlFlow.Add(new ToolboxItemWrapper(typeof(Delay), "Delay"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(Sequence), "Sequence"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(Switch<>), "Switch<>"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(While), "While"));
             return controlFlow;
         }
+        private ToolboxCategory LoadFlowchart()
+        {
+            ToolboxCategory flowChart = new ToolboxCategory("Flowchart");
+
+            flowChart.Add(new ToolboxItemWrapper(typeof(Flowchart), "Flowchart"));
+            flowChart.Add(new ToolboxItemWrapper(typeof(FlowDecision), "Flow Decision"));
+            flowChart.Add(new ToolboxItemWrapper(typeof(FlowSwitch<>), "Flow Switch"));
+
+            return flowChart;
+        }
+        private ToolboxCategory LoadStateMachine()
+        {
+            ToolboxCategory flowChart = new ToolboxCategory("State Machine");
+
+            flowChart.Add(new ToolboxItemWrapper(typeof(StateMachine), "State Machine"));
+            flowChart.Add(new ToolboxItemWrapper(typeof(State), "State"));
+            flowChart.Add(new ToolboxItemWrapper(typeof(FinalState), "Final State"));
+
+            return flowChart;
+        }
+        private ToolboxCategory LoadRabbitMQ()
+        {
+            ToolboxCategory rabbitMQ = new ToolboxCategory("RabbitMQ");
+
+            return rabbitMQ;
+        }
+        private ToolboxCategory LoadRuntime()
+        {
+            ToolboxCategory runtime = new ToolboxCategory("Runtime");
+
+            runtime.Add(new ToolboxItemWrapper(typeof(Persist), "Persist"));
+            runtime.Add(new ToolboxItemWrapper(typeof(TerminateWorkflow), "Terminate Workflow"));
+            runtime.Add(new ToolboxItemWrapper(typeof(NoPersistScope), "NoPersistScope"));
+
+            return runtime;
+        }
+        private ToolboxCategory LoadPrimitives()
+        {
+            ToolboxCategory primitives = new ToolboxCategory("Primitives");
+
+            primitives.Add(new ToolboxItemWrapper(typeof(Assign), "Assign"));
+            primitives.Add(new ToolboxItemWrapper(typeof(Delay), "Delay"));
+            primitives.Add(new ToolboxItemWrapper(typeof(InvokeDelegate), "InvokeDelegate"));
+            primitives.Add(new ToolboxItemWrapper(typeof(InvokeMethod), "InvokeMethod"));
+            primitives.Add(new ToolboxItemWrapper(typeof(WriteLine),"Write Line"));
+            return primitives;
+        }
+        private ToolboxCategory LoadTransaction()
+        {
+            ToolboxCategory transactions = new ToolboxCategory("Transaction");
+
+            transactions.Add(new ToolboxItemWrapper(typeof(CancellationScope), "CancellationScope"));
+            transactions.Add(new ToolboxItemWrapper(typeof(CompensableActivity), "CompensableActivity"));
+            transactions.Add(new ToolboxItemWrapper(typeof(Compensate), "Compensate"));
+            transactions.Add(new ToolboxItemWrapper(typeof(Confirm), "Confirm"));
+            transactions.Add(new ToolboxItemWrapper(typeof(TransactionScope), "TransactionScope"));
+            return transactions;
+        }
+        private ToolboxCategory LoadCollection()
+        {
+            ToolboxCategory col = new ToolboxCategory("Collection");
+
+            col.Add(new ToolboxItemWrapper(typeof(AddToCollection<>), "AddToCollection"));
+            col.Add(new ToolboxItemWrapper(typeof(ClearCollection<>), "ClearCollection"));
+            col.Add(new ToolboxItemWrapper(typeof(ExistsInCollection<>), "ExistsInCollection"));
+            col.Add(new ToolboxItemWrapper(typeof(RemoveFromCollection<>), "RemoveFromCollection"));
+
+            return col;
+        }
+
         private ToolboxCategory LoadErrorHandling()
         {
-            ToolboxCategory errorHandling = new ToolboxCategory("Error Hanlding");
+            ToolboxCategory col = new ToolboxCategory("Error Handling");
 
-            errorHandling.Add(new ToolboxItemWrapper(typeof(TryCatch), "TryCatch"));
-            errorHandling.Add(new ToolboxItemWrapper(typeof(Rethrow), "Rethrow"));
-            errorHandling.Add(new ToolboxItemWrapper(typeof(Throw), "Throw"));
+            col.Add(new ToolboxItemWrapper(typeof(Rethrow), "Rethrow"));
+            col.Add(new ToolboxItemWrapper(typeof(Throw), "Throw"));
+            col.Add(new ToolboxItemWrapper(typeof(TryCatch), "TryCatch"));
 
-            return errorHandling;
-        }
-        private ToolboxCategory LoadLooping()
-        {
-            ToolboxCategory looping = new ToolboxCategory("Looping");
-
-            looping.Add(new ToolboxItemWrapper(typeof(DoWhile),"Do While"));
-            looping.Add(new ToolboxItemWrapper(typeof(ForEach<>), "ForEach<T>"));
-            looping.Add(new ToolboxItemWrapper(typeof(While), "While"));
-
-            return looping;
-        }
-        private ToolboxCategory LoadDecisions()
-        {
-            ToolboxCategory decisions = new ToolboxCategory("Decisions");
-
-            decisions.Add(new ToolboxItemWrapper(typeof(If),"If"));
-            decisions.Add(new ToolboxItemWrapper(typeof(Switch<>), "Switch<>"));
-
-            return decisions;
+            return col;
         }
 
         private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
