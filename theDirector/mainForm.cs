@@ -122,6 +122,7 @@ namespace TestingHosting
             wfToolbox.Categories.Add(LoadTransaction());
             wfToolbox.Categories.Add(LoadCollection());
             wfToolbox.Categories.Add(LoadErrorHandling());
+            wfToolbox.Categories.Add(LoadIOStuff());
 
             ElementHost host = new ElementHost() { Dock = DockStyle.Fill };
             host.Child = wfToolbox;
@@ -224,6 +225,13 @@ namespace TestingHosting
             return col;
         }
 
+        private ToolboxCategory LoadIOStuff()
+        {
+            ToolboxCategory iostuff = new ToolboxCategory("IO Stuff");
+            iostuff.Add(new ToolboxItemWrapper(typeof(TestMessageboxActivity.Messagebox),"Test Messagebox"));
+
+            return iostuff;
+        }
         private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 

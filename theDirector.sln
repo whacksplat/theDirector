@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "theDirector", "theDirector\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMessageboxActivity", "TestMessageboxActivity\TestMessageboxActivity.csproj", "{0499A837-EE71-4704-9B2B-8383F47DEB77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorAPI.IO", "DirectorAPI.IO\DirectorAPI.IO.csproj", "{3F1A06FE-0D29-444A-9268-3F43286AE944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0499A837-EE71-4704-9B2B-8383F47DEB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0499A837-EE71-4704-9B2B-8383F47DEB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0499A837-EE71-4704-9B2B-8383F47DEB77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F1A06FE-0D29-444A-9268-3F43286AE944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F1A06FE-0D29-444A-9268-3F43286AE944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F1A06FE-0D29-444A-9268-3F43286AE944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F1A06FE-0D29-444A-9268-3F43286AE944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
