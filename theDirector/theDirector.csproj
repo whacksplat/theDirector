@@ -104,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DirectorAPI.IO\DirectorAPI.IO.csproj">
+      <Project>{3f1a06fe-0d29-444a-9268-3f43286ae944}</Project>
+      <Name>DirectorAPI.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestMessageboxActivity\TestMessageboxActivity.csproj">
       <Project>{0499a837-ee71-4704-9b2b-8383f47deb77}</Project>
       <Name>TestMessageboxActivity</Name>

@@ -22,7 +22,11 @@ using System.Windows;
 using System.Windows.Forms.Design;
 using Parallel = System.Activities.Statements.Parallel;
 using TestMessageboxActivity;
+using DirectorAPI.IO;
 using MessageBox = System.Windows.Forms.MessageBox;
+using System.Runtime.Remoting.Contexts;
+using System.Activities.Presentation.Hosting;
+using System.Reflection;
 
 namespace TestingHosting
 {
@@ -81,7 +85,18 @@ namespace TestingHosting
                 .PanModeEnabled = true;
             wfDesigner.Context.Services.GetService<DesignerConfigurationService>()
                 .RubberBandSelectionEnabled = true;
-            
+
+            //var refs = wfDesigner.Context.Items.GetValue<AssemblyContextControlItem>() ?? new AssemblyContextControlItem();
+            ////refs.ReferencedAssemblyNames.Add(new System.Reflection.AssemblyName("System.Forms.Windows"));
+
+            ////Console.Write(refs.AllAssemblyNamesInContext.Count.ToString());
+            //Assembly asm = Assembly.Load(typeof(System.Windows.Forms.MessageBox).Assembly.FullName);
+
+            ////refs = new List<AssemblyName>();
+            //refs.ReferencedAssemblyNames = new List<AssemblyName>();
+            //refs.ReferencedAssemblyNames.Add(asm.GetName());
+            //wfDesigner.Context.Items.SetValue(refs);
+
             if (string.IsNullOrWhiteSpace(fileName))
             {
                 //wfDesigner.Load(new Sequence());
@@ -229,6 +244,7 @@ namespace TestingHosting
         {
             ToolboxCategory iostuff = new ToolboxCategory("IO Stuff");
             iostuff.Add(new ToolboxItemWrapper(typeof(TestMessageboxActivity.Messagebox),"Test Messagebox"));
+            iostuff.Add(new ToolboxItemWrapper(typeof(DirectorAPI.IO.Messagebox), "Messagebox"));
 
             return iostuff;
         }
