@@ -108,6 +108,10 @@
       <Project>{3f1a06fe-0d29-444a-9268-3f43286ae944}</Project>
       <Name>DirectorAPI.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RabbitMQActivities\RabbitMQActivities.csproj">
+      <Project>{14900a86-9e5b-43c7-829a-61acbc405537}</Project>
+      <Name>RabbitMQActivities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestMessageboxActivity\TestMessageboxActivity.csproj">
       <Project>{0499a837-ee71-4704-9b2b-8383f47deb77}</Project>
       <Name>TestMessageboxActivity</Name>

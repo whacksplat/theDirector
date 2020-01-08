@@ -30,9 +30,15 @@ C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\TestingHosting.e
 C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\TestingHosting.exe
 C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\TestingHosting.pdb
 C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\DirectorAPI.IO.dll
+C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\RabbitMQActivities.dll
 C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\TestMessageboxActivity.dll
+C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\RabbitMQ.Client.dll
+C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.dll
 C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\DirectorAPI.IO.pdb
+C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\RabbitMQActivities.pdb
 C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\TestMessageboxActivity.pdb
+C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\RabbitMQ.Client.xml
+C:\Users\US31844\source\repos\theDirector\theDirector\bin\Debug\Microsoft.Diagnostics.Tracing.EventSource.xml
 C:\Users\US31844\source\repos\theDirector\theDirector\obj\Debug\theDirector.csprojAssemblyReference.cache
 C:\Users\US31844\source\repos\theDirector\theDirector\obj\Debug\TestingHosting.mainForm.resources
 C:\Users\US31844\source\repos\theDirector\theDirector\obj\Debug\TestingHosting.newWorkflow.resources

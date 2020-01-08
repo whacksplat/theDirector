@@ -27,6 +27,7 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using System.Runtime.Remoting.Contexts;
 using System.Activities.Presentation.Hosting;
 using System.Reflection;
+using RabbitMQActivities;
 
 namespace TestingHosting
 {
@@ -182,6 +183,14 @@ namespace TestingHosting
         private ToolboxCategory LoadRabbitMQ()
         {
             ToolboxCategory rabbitMQ = new ToolboxCategory("RabbitMQ");
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.CreateConnectionFactory), "Create Connection Factory"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.CreateQueue), "Create Queue"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.ClearQueue), "Clear Queue"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.DeleteQueue), "Delete Queue"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.AddItemsToQueue), "Add Queue Item"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.BasicGet), "Basic Get"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.Ack), "Ack"));
+            rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.Nack), "Nack"));
 
             return rabbitMQ;
         }
