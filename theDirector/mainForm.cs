@@ -21,7 +21,6 @@ using System.Activities.XamlIntegration;
 using System.Windows;
 using System.Windows.Forms.Design;
 using Parallel = System.Activities.Statements.Parallel;
-using TestMessageboxActivity;
 using DirectorAPI.IO;
 using MessageBox = System.Windows.Forms.MessageBox;
 using System.Runtime.Remoting.Contexts;
@@ -252,7 +251,6 @@ namespace TestingHosting
         private ToolboxCategory LoadIOStuff()
         {
             ToolboxCategory iostuff = new ToolboxCategory("IO Stuff");
-            iostuff.Add(new ToolboxItemWrapper(typeof(TestMessageboxActivity.Messagebox),"Test Messagebox"));
             iostuff.Add(new ToolboxItemWrapper(typeof(DirectorAPI.IO.Messagebox), "Messagebox"));
 
             return iostuff;
