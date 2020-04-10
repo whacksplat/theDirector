@@ -13,7 +13,10 @@ namespace DirectorAPI.IO
     public sealed class Messagebox : CodeActivity
     {
         public InArgument<string> Text { get; set; }
-        public InArgument<string> Caption { get; set; }
+
+        //[RequiredArgument] 
+        public InArgument<string> Caption { get; set; }= new InArgument<string>("Caption");
+        
         public MessageBoxButtons Buttons { get; set; }
         public MessageBoxIcon Icon { get; set; }
         public MessageBoxDefaultButton DefaultButton { get; set; }
