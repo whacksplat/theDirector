@@ -27,6 +27,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Activities.Presentation.Hosting;
 using System.Reflection;
 using RabbitMQActivities;
+using DataActivities;
 
 namespace TestingHosting
 {
@@ -122,6 +123,7 @@ namespace TestingHosting
             centerSplitContainer.Panel1.Controls.Add(host);
             
         }
+
         private void LoadActivityToolbox()
         {
             var wfToolbox = new ToolboxControl();
@@ -132,6 +134,7 @@ namespace TestingHosting
             wfToolbox.Categories.Add(LoadFlowchart());
             wfToolbox.Categories.Add(LoadStateMachine());
             wfToolbox.Categories.Add(LoadRabbitMQ());
+            wfToolbox.Categories.Add(LoadData());
             wfToolbox.Categories.Add(LoadRuntime());
             wfToolbox.Categories.Add(LoadPrimitives());
             wfToolbox.Categories.Add(LoadTransaction());
@@ -143,6 +146,15 @@ namespace TestingHosting
             host.Child = wfToolbox;
             leftSplitContainer.Panel1.Controls.Add(host);
         }
+
+        private ToolboxCategory LoadData()
+        {
+            ToolboxCategory controlFlow = new ToolboxCategory("Data");
+
+            controlFlow.Add(new ToolboxItemWrapper(typeof(CSV), "CSV"));
+            return controlFlow;
+        }
+
         private ToolboxCategory LoadControlFlow()
         {
             ToolboxCategory controlFlow = new ToolboxCategory("Control Flow");

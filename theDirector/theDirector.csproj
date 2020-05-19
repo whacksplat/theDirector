@@ -104,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataActivities\DataActivities.csproj">
+      <Project>{00528a9b-d63e-43c3-b165-1b5875c183c4}</Project>
+      <Name>DataActivities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DirectorAPI.IO\DirectorAPI.IO.csproj">
       <Project>{3f1a06fe-0d29-444a-9268-3f43286ae944}</Project>
       <Name>DirectorAPI.IO</Name>
