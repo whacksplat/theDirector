@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Activities;
 using System.Data;
-
-
 using System.Globalization;
 using System.IO;
 using CsvHelper;
@@ -15,7 +10,6 @@ namespace DataActivities
 {
     public class CSV:CodeActivity
     {
-
         public InArgument<string> Delimiter { get; set; } = ",";
         public InArgument<string>Escape { get; set; }="\"";
         public bool HasHeaderRecord { get; set; } = true;

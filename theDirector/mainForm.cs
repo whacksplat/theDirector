@@ -63,7 +63,7 @@ namespace TestingHosting
             wfDesigner = new WorkflowDesigner();
             wfDesigner.Context.Services.GetService<DesignerConfigurationService>()
                 .TargetFrameworkName = new System.Runtime.Versioning.FrameworkName(
-                ".NETFramework", new Version(4, 5));
+                ".NETFramework", new Version(4, 8));
             wfDesigner.Context.Services.GetService<DesignerConfigurationService>()
                 .AnnotationEnabled = true;
             wfDesigner.Context.Services.GetService<DesignerConfigurationService>()
@@ -94,6 +94,25 @@ namespace TestingHosting
             //Assembly asm = Assembly.Load(typeof(System.Windows.Forms.MessageBox).Assembly.FullName);
 
             ////refs = new List<AssemblyName>();
+            //refs.ReferencedAssemblyNames = new List<AssemblyName>();
+            //refs.ReferencedAssemblyNames.Add(asm.GetName());
+            //wfDesigner.Context.Items.SetValue(refs);
+
+            //var refs = wfDesigner.Context.Items.GetValue<AssemblyContextControlItem>() ?? new AssemblyContextControlItem();
+            //var environ = refs.AllAssemblyNamesInContext;
+
+            //foreach (var refname in environ)
+            //{
+            //    MessageBox.Show(refname);
+            //}
+
+            //refs.ReferencedAssemblyNames
+            //refs.ReferencedAssemblyNames.Add(new System.Reflection.AssemblyName("System.Xml"));
+            
+            //Console.Write(refs.AllAssemblyNamesInContext.Count.ToString());
+            //Assembly asm = Assembly.Load(typeof(System.Linq).Assembly.FullName);
+
+            //refs = new List<AssemblyName>();
             //refs.ReferencedAssemblyNames = new List<AssemblyName>();
             //refs.ReferencedAssemblyNames.Add(asm.GetName());
             //wfDesigner.Context.Items.SetValue(refs);
@@ -160,7 +179,7 @@ namespace TestingHosting
             ToolboxCategory controlFlow = new ToolboxCategory("Control Flow");
 
             controlFlow.Add(new ToolboxItemWrapper(typeof(DoWhile), "Do While"));
-            controlFlow.Add(new ToolboxItemWrapper(typeof(ForEach<>), "ForEach<T>"));
+            controlFlow.Add(new ToolboxItemWrapper(typeof(ForEachWithBodyFactory<>), "ForEach<T>"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(If), "If"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(Parallel), "Parallel"));
             controlFlow.Add(new ToolboxItemWrapper(typeof(ParallelForEach<>), "ParallelForEach<T>"));

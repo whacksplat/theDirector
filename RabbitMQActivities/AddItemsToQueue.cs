@@ -33,7 +33,7 @@ namespace RabbitMQActivities
                 exc = string.Empty;
             }
 
-            channel.BasicPublish(exc, "testing", null, Encoding.UTF8.GetBytes(exc));
+            channel.BasicPublish(exc, context.GetValue(QueueName) , null, Encoding.UTF8.GetBytes(context.GetValue(Body)));
 
         }
     }
