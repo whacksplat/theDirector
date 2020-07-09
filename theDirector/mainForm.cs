@@ -28,6 +28,7 @@ using System.Activities.Presentation.Hosting;
 using System.Reflection;
 using RabbitMQActivities;
 using DataActivities;
+using SyslogActivities;
 
 namespace TestingHosting
 {
@@ -153,6 +154,7 @@ namespace TestingHosting
             wfToolbox.Categories.Add(LoadFlowchart());
             wfToolbox.Categories.Add(LoadStateMachine());
             wfToolbox.Categories.Add(LoadRabbitMQ());
+            wfToolbox.Categories.Add(LoadSysLog());
             wfToolbox.Categories.Add(LoadData());
             wfToolbox.Categories.Add(LoadRuntime());
             wfToolbox.Categories.Add(LoadPrimitives());
@@ -223,6 +225,20 @@ namespace TestingHosting
             rabbitMQ.Add(new ToolboxItemWrapper(typeof(RabbitMQActivities.Nack), "Nack"));
 
             return rabbitMQ;
+        }
+
+        private ToolboxCategory LoadSysLog()
+        {
+            ToolboxCategory syslog = new ToolboxCategory("Syslog");
+            syslog.Add(new ToolboxItemWrapper(typeof(SyslogActivities.Info), "Info"));
+            syslog.Add(new ToolboxItemWrapper(typeof(SyslogActivities.Debug), "Debug"));
+            syslog.Add(new ToolboxItemWrapper(typeof(SyslogActivities.Error), "Error"));
+            syslog.Add(new ToolboxItemWrapper(typeof(SyslogActivities.Fatal), "Fatal"));
+            syslog.Add(new ToolboxItemWrapper(typeof(SyslogActivities.Trace), "Trace"));
+            syslog.Add(new ToolboxItemWrapper(typeof(SyslogActivities.Warn), "Warn"));
+
+            return syslog;
+
         }
         private ToolboxCategory LoadRuntime()
         {

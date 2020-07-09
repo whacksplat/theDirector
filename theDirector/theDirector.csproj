@@ -116,6 +116,10 @@
       <Project>{14900a86-9e5b-43c7-829a-61acbc405537}</Project>
       <Name>RabbitMQActivities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SyslogActivities\SyslogActivities.csproj">
+      <Project>{6b80e255-6362-40ea-9b0f-c378667af65d}</Project>
+      <Name>SyslogActivities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
